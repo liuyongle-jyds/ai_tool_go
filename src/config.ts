@@ -1,6 +1,6 @@
 const Config = {
   defaultImg: '',
-  oss: ''
+  oss: '',
 }
 
 export default Config

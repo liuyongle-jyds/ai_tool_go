@@ -1,6 +1,6 @@
 import Config from '@/config'
 import { Locale } from '@/types/Locale'
-import { AlternateLinkDescriptor, Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
+import { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
 
 const filterImage = (url: string) => {
   if (!url) return ''
@@ -12,8 +12,8 @@ const filterImage = (url: string) => {
 
 const getAltLanguages: (path: string) => Languages<string> = (path: string) => {
   const map: { [k in Locale]: string } = {
-    'en': 'en',
-    'zh': 'zh'
+    en: 'en',
+    zh: 'zh',
   }
   Object.keys(map).forEach((k) => {
     const key = k as keyof typeof map
@@ -22,7 +22,4 @@ const getAltLanguages: (path: string) => Languages<string> = (path: string) => {
   return map
 }
 
-export {
-  filterImage,
-  getAltLanguages
-}
+export { filterImage, getAltLanguages }

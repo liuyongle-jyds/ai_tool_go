@@ -11,18 +11,25 @@ const getLocale: (request: NextRequest) => Locale = (request: NextRequest) => {
     return locale as Locale
   }
 
-  const acceptLanguage = request.headers.get('accept-language') || 'en-US,en;q=0.5'
-  const languages = new Negotiator({ headers: { 'accept-language': acceptLanguage } }).languages()
+  const acceptLanguage =
+    request.headers.get('accept-language') || 'en-US,en;q=0.5'
+  const languages = new Negotiator({
+    headers: { 'accept-language': acceptLanguage },
+  }).languages()
   const browserLocale = match(languages, i18n.locales, i18n.defaultLocale)
 
   return browserLocale as Locale
 }
 
-const getRedirectUrlByLang: (request: NextRequest) => string = (request: NextRequest) => {
+const getRedirectUrlByLang: (request: NextRequest) => string = (
+  request: NextRequest,
+) => {
   const { pathname } = request.nextUrl
   if (whiteList.includes(pathname)) return ''
 
-  const pathnameHasLocale = i18n.locales.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`)
+  const pathnameHasLocale = i18n.locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  )
 
   if (pathnameHasLocale) return ''
 

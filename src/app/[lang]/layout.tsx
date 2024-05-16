@@ -9,7 +9,11 @@ import Config from '@/config'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export async function generateMetadata({params}: {params: { lang: Locale }}): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: Locale }
+}): Promise<Metadata> {
   const dict = await getDictionary(params.lang)
   const title = dict.meta.title
   const description = dict.meta.description
@@ -20,19 +24,19 @@ export async function generateMetadata({params}: {params: { lang: Locale }}): Pr
     description,
     robots: {
       index: true,
-      follow: true
+      follow: true,
     },
     openGraph: {
       title,
       description,
-      images: [{ url: imgUrl }]
+      images: [{ url: imgUrl }],
     },
     twitter: {
       title,
       description,
       card: 'summary',
-      images: [imgUrl]
-    }
+      images: [imgUrl],
+    },
   }
 }
 
@@ -42,10 +46,10 @@ export async function generateStaticParams() {
 
 export default function RootLayout({
   children,
-  params
+  params,
 }: Readonly<{
-  children: React.ReactNode;
-  params: { lang: Locale };
+  children: React.ReactNode
+  params: { lang: Locale }
 }>) {
   return (
     <html lang={params.lang}>
