@@ -1,13 +1,13 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
-import i18n from "@/i18n-config"
-import { Locale } from "@/types/Locale"
-import { getDictionary } from "./dictionaries"
-import { filterImage } from "@/utils"
-import Config from "@/config"
+import i18n from '@/i18n-config'
+import { Locale } from '@/types/Locale'
+import { getDictionary } from './dictionaries'
+import { filterImage } from '@/utils'
+import Config from '@/config'
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] })
 
 export async function generateMetadata({params}: {params: { lang: Locale }}): Promise<Metadata> {
   const dict = await getDictionary(params.lang)
@@ -37,7 +37,7 @@ export async function generateMetadata({params}: {params: { lang: Locale }}): Pr
 }
 
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
+  return i18n.locales.map((locale) => ({ lang: locale }))
 }
 
 export default function RootLayout({
@@ -51,5 +51,5 @@ export default function RootLayout({
     <html lang={params.lang}>
       <body className={inter.className}>{children}</body>
     </html>
-  );
+  )
 }

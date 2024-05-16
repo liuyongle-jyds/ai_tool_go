@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server"
-import getRedirectUrlByLang from "./middlewares/lang"
+import { NextRequest, NextResponse } from 'next/server'
+import getRedirectUrlByLang from './middlewares/lang'
 
 export default async function middleware(request: NextRequest) {
   // 多语言跳转

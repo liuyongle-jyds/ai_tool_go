@@ -1,6 +1,6 @@
-import { Locale } from "@/types/Locale"
-import { getAltLanguages } from "@/utils"
-import { Metadata } from "next"
+import { Locale } from '@/types/Locale'
+import { getAltLanguages } from '@/utils'
+import { Metadata } from 'next'
 
 interface Props {
   children: React.ReactNode,

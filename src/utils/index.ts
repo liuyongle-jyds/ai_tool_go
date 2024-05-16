@@ -1,6 +1,6 @@
-import Config from "@/config"
-import { Locale } from "@/types/Locale"
-import { AlternateLinkDescriptor, Languages } from "next/dist/lib/metadata/types/alternative-urls-types"
+import Config from '@/config'
+import { Locale } from '@/types/Locale'
+import { AlternateLinkDescriptor, Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
 
 const filterImage = (url: string) => {
   if (!url) return ''
