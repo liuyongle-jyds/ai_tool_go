@@ -6,6 +6,7 @@ import { Locale } from '@/types/Locale'
 import { getDictionary } from './dictionaries'
 import { filterImage } from '@/utils'
 import Config from '@/config'
+import { AppContextProvider } from '@/contexts/appContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -52,8 +53,10 @@ export default function RootLayout({
   params: { lang: Locale }
 }>) {
   return (
-    <html lang={params.lang}>
-      <body className={inter.className}>{children}</body>
-    </html>
+    <AppContextProvider>
+      <html lang={params.lang}>
+        <body className={inter.className}>{children}</body>
+      </html>
+    </AppContextProvider>
   )
 }
