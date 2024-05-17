@@ -7,6 +7,7 @@ import { getDictionary } from './dictionaries'
 import { filterImage } from '@/utils'
 import Config from '@/config'
 import { AppContextProvider } from '@/contexts/appContext'
+import CusHeader from '@/components/cus/cus-header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,17 +46,25 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }))
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode
   params: { lang: Locale }
 }>) {
+  const { lang } = params
+  const dict = await getDictionary(lang)
+
   return (
     <AppContextProvider>
       <html lang={params.lang}>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <div className='container'>
+            <CusHeader dict={dict} lang={lang} />
+            {children}
+          </div>
+        </body>
       </html>
     </AppContextProvider>
   )

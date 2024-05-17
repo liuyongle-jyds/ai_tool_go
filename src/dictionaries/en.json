@@ -1,6 +1,10 @@
 {
   "meta": {
-    "title": "English",
+    "title": "AIToolGo",
     "description": "description"
+  },
+  "header": {
+    "Tools": "Tools",
+    "Experience": "Experience"
   }
 }

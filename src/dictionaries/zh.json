@@ -1,6 +1,10 @@
 {
   "meta": {
-    "title": "中文",
+    "title": "AIToolGo",
     "description": "描述"
+  },
+  "header": {
+    "Tools": "工具",
+    "Experience": "经验"
   }
 }
