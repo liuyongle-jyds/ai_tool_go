@@ -8,6 +8,7 @@ import { filterImage } from '@/utils'
 import Config from '@/config'
 import { AppContextProvider } from '@/contexts/appContext'
 import CusHeader from '@/components/cus/cus-header'
+import CusLayout from '@/components/cus/cus-layout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -60,10 +61,9 @@ export default async function RootLayout({
     <AppContextProvider>
       <html lang={params.lang}>
         <body className={inter.className}>
-          <div className='container'>
-            <CusHeader dict={dict} lang={lang} />
+          <CusLayout dict={dict} lang={lang}>
             {children}
-          </div>
+          </CusLayout>
         </body>
       </html>
     </AppContextProvider>
