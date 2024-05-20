@@ -5,6 +5,9 @@
   },
   "header": {
     "Tools": "工具",
-    "Experience": "经验"
+    "Experience": "经验",
+    "Sign up": "登录",
+    "Sign Out": "登出",
+    "Profile": "账号"
   }
 }

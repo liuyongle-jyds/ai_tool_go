@@ -17,6 +17,12 @@ const config = {
         '2xl': '1400px',
       },
     },
+    backgroundImage: {
+      'gradient-primary':
+        'linear-gradient(159deg, hsla(266, 100%, 75%, 1) 0%, hsla(240, 81%, 69%, 1) 58%, hsla(240, 69%, 42%, 1) 100%)',
+      'gradient-primary-weak':
+        'linear-gradient(159deg, hsla(266, 100%, 75%, 0.8) 0%, hsla(240, 81%, 69%, 0.8) 58%, hsla(240, 69%, 42%, 0.8) 100%)',
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -28,7 +34,6 @@ const config = {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
-        'text-primary': 'hsl(var(--text-primary))',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
@@ -47,7 +52,7 @@ const config = {
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          foreground: 'hsl(var(--primary))',
         },
         card: {
           DEFAULT: 'hsl(var(--card))',

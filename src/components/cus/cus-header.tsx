@@ -12,6 +12,8 @@ import {
   NavigationMenuTrigger,
 } from '../ui/navigation-menu'
 import CusUl from './cus-ul'
+import CusLanguage from './cus-language'
+import CusLogin from './cus-login'
 
 interface Props {
   dict: Dictionary
@@ -46,31 +48,46 @@ export default function CusHeader({ dict, lang }: Props) {
         <Image
           src='/images/logo@2x.png'
           alt='AIToolGo logo'
-          width={192}
-          height={36}
+          width={96}
+          height={18}
           className='w-24'
           priority
         />
       </Link>
       <div className='h-1 w-5'></div>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>{dict.header.Tools}</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <CusUl list={toolsList} />
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              {dict.header.Experience}
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <CusUl list={experienceList} />
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+      <div className='flex flex-1 items-center justify-between'>
+        <div className='flex items-center'>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  {dict.header.Tools}
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <CusUl list={toolsList} />
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>
+                  {dict.header.Experience}
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <CusUl list={experienceList} />
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+        <div className='flex items-center'>
+          <CusLanguage lang={lang} />
+          <div className='h-1 w-5'></div>
+          <CusLogin dict={dict} />
+        </div>
+      </div>
     </header>
   )
 }

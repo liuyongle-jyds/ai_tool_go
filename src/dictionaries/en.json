@@ -5,6 +5,9 @@
   },
   "header": {
     "Tools": "Tools",
-    "Experience": "Experience"
+    "Experience": "Experience",
+    "Sign up": "Sign up",
+    "Sign Out": "Sign Out",
+    "Profile": "Profile"
   }
 }

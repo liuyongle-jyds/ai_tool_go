@@ -1,6 +1,7 @@
 import Config from '@/config'
 import { Locale } from '@/types/Locale'
 import { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
+import { cookies } from 'next/headers'
 
 const filterImage = (url: string) => {
   if (!url) return ''
