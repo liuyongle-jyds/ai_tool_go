@@ -5,6 +5,8 @@ import CusHeader from './cus-header'
 import { Locale } from '@/types/Locale'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import CusFooter from './cus-footer'
+import { ScrollArea } from '../ui/scroll-area'
 
 interface Props {
   children: React.ReactNode
@@ -24,11 +26,17 @@ export default function CusLayout({ children, dict, lang }: Props) {
 
   return (
     <div
-      className='container bg-contain bg-no-repeat'
-      style={{ backgroundImage: topUrl ? `url(${topUrl})` : undefined }}
+      className='container flex h-screen flex-col items-center overflow-hidden bg-top bg-no-repeat'
+      style={{
+        backgroundImage: topUrl ? `url(${topUrl})` : undefined,
+        backgroundSize: '100%, auto',
+      }}
     >
       <CusHeader dict={dict} lang={lang} />
-      {children}
+      <ScrollArea className='w-full flex-1'>
+        {children}
+        <CusFooter dict={dict} lang={lang} />
+      </ScrollArea>
     </div>
   )
 }

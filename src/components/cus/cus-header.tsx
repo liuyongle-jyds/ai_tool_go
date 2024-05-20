@@ -14,6 +14,7 @@ import {
 import CusUl from './cus-ul'
 import CusLanguage from './cus-language'
 import CusLogin from './cus-login'
+import { useApp } from '@/contexts/appContext'
 
 interface Props {
   dict: Dictionary
@@ -21,29 +22,10 @@ interface Props {
 }
 
 export default function CusHeader({ dict, lang }: Props) {
-  const toolsList = [
-    {
-      text: 'sss',
-      link: '',
-    },
-    {
-      text: 'sss1234567890sss1234567890',
-      link: '',
-    },
-  ]
-  const experienceList = [
-    {
-      text: 'sss',
-      link: '',
-    },
-    {
-      text: 'sss1234567890sss1234567890',
-      link: '',
-    },
-  ]
+  const { toolsList, experienceList } = useApp()
 
   return (
-    <header className='flex h-20 items-center'>
+    <header className='flex h-20 w-full items-center'>
       <Link href='/' title={dict.meta.title} className='shrink-0'>
         <Image
           src='/images/logo@2x.png'

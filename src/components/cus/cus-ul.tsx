@@ -25,7 +25,7 @@ export default function CusUl({ list, callbackFn }: Props) {
             title={e.text}
             className={cn(
               navigationMenuTriggerStyle(),
-              '!block w-full truncate',
+              '!block w-full truncate font-normal',
             )}
           >
             {e.text}

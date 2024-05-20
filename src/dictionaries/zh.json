@@ -9,5 +9,13 @@
     "Sign up": "登录",
     "Sign Out": "登出",
     "Profile": "账号"
+  },
+  "footer": {
+    "Term of service": "服务条款",
+    "Privacy Agreement": "隐私协议",
+    "Contact Us": "联系我们",
+    "Learn More: ": "了解更多: ",
+    "Suggestions: ": "建议: ",
+    "Cooperation: ": "合作: "
   }
 }

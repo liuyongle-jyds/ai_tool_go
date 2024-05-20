@@ -10,6 +10,7 @@ import CusUl from './cus-ul'
 import { usePathname } from 'next/navigation'
 import { setCookie } from '@/utils/actions'
 import CusIcon from './cus-icon'
+import { cn } from '@/lib/utils'
 
 type Lang = {
   text: string
@@ -27,7 +28,13 @@ const languages: Lang[] = [
   },
 ]
 
-export default function CusLanguage({ lang }: { lang: Locale }) {
+export default function CusLanguage({
+  lang,
+  isGrey,
+}: {
+  lang: Locale
+  isGrey?: boolean
+}) {
   const pathName = usePathname()
 
   const list = languages.map((language) => {
@@ -56,7 +63,10 @@ export default function CusLanguage({ lang }: { lang: Locale }) {
           <NavigationMenuTrigger>
             <CusIcon name='globe' className='h-6 w-6' />
             <div className='h-1 w-2'></div>
-            {languages.find((language) => language.value === lang)?.text ?? ''}
+            <span className={cn({ 'text-tip': isGrey })}>
+              {languages.find((language) => language.value === lang)?.text ??
+                ''}
+            </span>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <CusUl list={list} callbackFn={onChangeLang} />

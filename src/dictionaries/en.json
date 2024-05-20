@@ -9,5 +9,13 @@
     "Sign up": "Sign up",
     "Sign Out": "Sign Out",
     "Profile": "Profile"
+  },
+  "footer": {
+    "Term of service": "Term of service",
+    "Privacy Agreement": "Privacy Agreement",
+    "Contact Us": "Contact Us",
+    "Learn More: ": "Learn More: ",
+    "Suggestions: ": "Suggestions: ",
+    "Cooperation: ": "Cooperation: "
   }
 }
