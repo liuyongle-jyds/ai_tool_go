@@ -6,7 +6,7 @@ import { Locale } from '@/types/Locale'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CusFooter from './cus-footer'
-import { ScrollArea } from '../ui/scroll-area'
+import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 
 interface Props {
   children: React.ReactNode
@@ -36,6 +36,7 @@ export default function CusLayout({ children, dict, lang }: Props) {
       <ScrollArea className='w-full flex-1'>
         {children}
         <CusFooter dict={dict} lang={lang} />
+        <ScrollBar orientation='vertical' className='h-0 w-0' />
       </ScrollArea>
     </div>
   )

@@ -93,6 +93,8 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
   const [loading, setLoading] = useState(false)
   const [categories1, setCategories1] = useState([] as Category[])
   const [categories2, setCategories2] = useState([] as Category[])
+  const [active1, setActive1] = useState('1')
+  const [active2, setActive2] = useState('')
 
   const onSearch = debounce(
     () => {
@@ -110,6 +112,14 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
     if (e.key !== 'Enter' || e.shiftKey || e.nativeEvent.isComposing) return
     e.preventDefault()
     onSearch()
+  }
+
+  const onChangeActive1 = (id: string) => {
+    setActive1(id)
+  }
+
+  const onChangeActive2 = (id: string) => {
+    setActive2(id)
   }
 
   const init = () => {
@@ -164,19 +174,48 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
           />
         </Button>
       </div>
-      <ScrollArea className='mt-10 min-h-14 w-full whitespace-nowrap'>
+      <ScrollArea className='mb-5 mt-10 min-h-14 w-full whitespace-nowrap'>
         <ul className='flex h-14 items-center space-x-8 border-b'>
           {categories1.map((category) => (
             <li
               key={category.id}
-              className='flex h-full shrink-0 items-center px-5'
+              onClick={() => onChangeActive1(category.id)}
+              className={cn(
+                'relative flex h-full shrink-0 cursor-pointer items-center px-5 font-medium',
+                {
+                  'text-primary': active1 === category.id,
+                },
+              )}
+            >
+              {category.text}
+              {active1 === category.id && (
+                <div className='absolute bottom-0 left-0 z-50 h-[2px] w-full bg-gradient-primary'></div>
+              )}
+            </li>
+          ))}
+        </ul>
+        <ScrollBar orientation='horizontal' className='h-1 md:h-2' />
+      </ScrollArea>
+      <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
+        <ul className='flex h-10 items-center'>
+          {categories2.map((category) => (
+            <li
+              key={category.id}
+              onClick={() => onChangeActive2(category.id)}
+              className={cn(
+                'relative mr-3 flex h-full shrink-0 cursor-pointer items-center rounded-lg bg-foreground px-3',
+                {
+                  'text-primary': active2 === category.id,
+                },
+              )}
             >
               {category.text}
             </li>
           ))}
         </ul>
-        <ScrollBar orientation='horizontal' />
+        <ScrollBar orientation='horizontal' className='h-1 md:h-2' />
       </ScrollArea>
+      <div className='h-10'></div>
     </>
   )
 }
