@@ -28,7 +28,7 @@
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 210 40% 98%;
 
-      --border: 214.3 31.8% 91.4%;
+      --border: 206 8% 84%;
       --input: 214.3 31.8% 91.4%;
       --ring: 222.2 84% 4.9%;
       --link: 208 6% 59%;
@@ -74,5 +74,25 @@
     }
     body {
       @apply bg-background text-primary;
+    }
+    /* 针对 Chrome/Opera/Safari */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px white inset !important;
+        -webkit-text-fill-color: inherit !important;
+    }
+
+    /* 针对 Firefox */
+    input:-moz-autofill {
+        box-shadow: 0 0 0 1000px white inset !important;
+        color: inherit !important;
+    }
+
+    /* 针对 Edge */
+    input:-ms-autofill {
+        box-shadow: 0 0 0 1000px white inset !important;
+        color: inherit !important;
     }
   }

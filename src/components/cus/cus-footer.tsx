@@ -47,19 +47,9 @@ export default function CusFooter({ dict, lang }: Props) {
             priority
           />
           <div className='h-10'></div>
-          <div>
-            Welcome to AiToolGo, your one-stop platform for discovering,
-            mastering, and applying AI tools to unleash your potential!
-            <br />
-            <br />
-            We believe AI should be accessible and empowering for everyone,
-            regardless of background or expertise.
-            <br />
-            <br />
-            That&apos;s why we curate a comprehensive collection of AI tools,
-            resources, and insights across industries.
-          </div>
+          <div className='whitespace-pre-wrap'>{dict.footer.introduce}</div>
         </div>
+        <div className='h-1 w-2'></div>
         <div>
           <h2 className='text-base font-medium text-primary'>
             {dict.header.Tools}
@@ -79,6 +69,7 @@ export default function CusFooter({ dict, lang }: Props) {
             ))}
           </ul>
         </div>
+        <div className='h-1 w-2'></div>
         <div>
           <h2 className='text-base font-medium text-primary'>
             {dict.header.Experience}
@@ -98,6 +89,7 @@ export default function CusFooter({ dict, lang }: Props) {
             ))}
           </ul>
         </div>
+        <div className='h-1 w-2'></div>
         <div>
           <h2 className='text-base font-medium text-primary'>
             {dict.footer['Contact Us']}

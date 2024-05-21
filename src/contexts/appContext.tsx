@@ -34,6 +34,11 @@ export const AppContextProvider = ({
   const [experienceList, setExperienceList] = useState([] as LinkA[])
 
   const init = () => {
+    getToolsList()
+    getExperienceList()
+  }
+
+  const getToolsList = () => {
     setToolsList([
       {
         text: 'Popular Tools',
@@ -60,6 +65,9 @@ export const AppContextProvider = ({
         link: '',
       },
     ])
+  }
+
+  const getExperienceList = () => {
     setExperienceList([
       {
         text: 'Popular Experience',

@@ -16,6 +16,12 @@
     "Contact Us": "Contact Us",
     "Learn More: ": "Learn More: ",
     "Suggestions: ": "Suggestions: ",
-    "Cooperation: ": "Cooperation: "
+    "Cooperation: ": "Cooperation: ",
+    "introduce": "Welcome to AiToolGo, your one-stop platform for discovering,mastering, and applying AI tools to unleash your potential!\n\nWe believe AI should be accessible and empowering for everyone, regardless of background or expertise.\n\nThat's why we curate a comprehensive collection of AI tools, resources, and insights across industries."
+  },
+  "index": {
+    "title": "Discover, Master,\nEmpower with AI Tool, Go!",
+    "subtitle": "Making AI Accessible and Beneficial for Everyone, Regardless of Background or Expertise!",
+    "placeholder": "Enter the content you want to inquire about."
   }
 }

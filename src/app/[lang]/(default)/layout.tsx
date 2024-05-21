@@ -19,5 +19,5 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function Layout({ children }: Props) {
-  return <div>{children}</div>
+  return <>{children}</>
 }
