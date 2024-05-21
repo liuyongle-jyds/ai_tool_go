@@ -9,9 +9,10 @@ interface Props {
     value?: string
   }>
   callbackFn?: CallableFunction
+  replace?: boolean
 }
 
-export default function CusUl({ list, callbackFn }: Props) {
+export default function CusUl({ list, callbackFn, replace }: Props) {
   return (
     <ul className='min-w-28 max-w-48'>
       {list.map((e, index) => (
@@ -23,6 +24,7 @@ export default function CusUl({ list, callbackFn }: Props) {
           <Link
             href={e.link}
             title={e.text}
+            replace={replace}
             className={cn(
               navigationMenuTriggerStyle(),
               '!block w-full truncate font-normal',

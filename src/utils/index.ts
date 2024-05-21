@@ -23,4 +23,39 @@ const getAltLanguages: (path: string) => Languages<string> = (path: string) => {
   return map
 }
 
-export { filterImage, getAltLanguages }
+/**
+
+* @desc 函数防抖
+* @param func 功能函数
+* @param delay 延迟执行
+* @param immediate true 表立即执行
+
+*/
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  delay: number,
+  immediate: boolean = false,
+): (...args: Parameters<T>) => void {
+  let timer: ReturnType<typeof setTimeout> | null = null
+
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+    const context = this
+
+    if (timer) clearTimeout(timer)
+
+    if (immediate) {
+      const callNow = !timer
+      timer = setTimeout(() => {
+        timer = null
+      }, delay)
+
+      if (callNow) func.apply(context, args)
+    } else {
+      timer = setTimeout(() => {
+        func.apply(context, args)
+      }, delay)
+    }
+  }
+}
+
+export { filterImage, getAltLanguages, debounce }

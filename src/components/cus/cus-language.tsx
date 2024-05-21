@@ -7,10 +7,11 @@ import {
   NavigationMenuTrigger,
 } from '../ui/navigation-menu'
 import CusUl from './cus-ul'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { setCookie } from '@/utils/actions'
 import CusIcon from './cus-icon'
 import { cn } from '@/lib/utils'
+import { debounce } from '@/utils'
 
 type Lang = {
   text: string
@@ -36,6 +37,7 @@ export default function CusLanguage({
   isGrey?: boolean
 }) {
   const pathName = usePathname()
+  const router = useRouter()
 
   const list = languages.map((language) => {
     let link = '/'
@@ -51,10 +53,11 @@ export default function CusLanguage({
     }
   })
 
-  const onChangeLang = async (e: string) => {
+  const onChangeLang = debounce(async (e: string) => {
     if (!e) return
     await setCookie('locale', e)
-  }
+    router.refresh()
+  }, 200)
 
   return (
     <NavigationMenu>
@@ -69,7 +72,7 @@ export default function CusLanguage({
             </span>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <CusUl list={list} callbackFn={onChangeLang} />
+            <CusUl list={list} callbackFn={onChangeLang} replace />
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
