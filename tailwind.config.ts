@@ -31,8 +31,9 @@ const config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        tip: 'hsl(var(--tip))',
-        link: 'hsl(var(--link))',
+        t1: 'hsl(var(--t1))',
+        t2: 'hsl(var(--t2))',
+        t3: 'hsl(var(--t3))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
@@ -57,7 +58,7 @@ const config = {
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
           DEFAULT: 'hsl(var(--card))',

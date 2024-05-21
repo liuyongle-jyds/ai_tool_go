@@ -66,7 +66,7 @@ export default function CusLanguage({
           <NavigationMenuTrigger>
             <CusIcon name='globe' className='h-6 w-6' />
             <div className='h-1 w-2'></div>
-            <span className={cn({ 'text-tip': isGrey })}>
+            <span className={cn({ 'text-t2': isGrey })}>
               {languages.find((language) => language.value === lang)?.text ??
                 ''}
             </span>

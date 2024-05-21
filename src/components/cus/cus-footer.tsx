@@ -36,7 +36,7 @@ export default function CusFooter({ dict, lang }: Props) {
 
   return (
     <footer className='pt-10'>
-      <div className='flex justify-between text-sm text-tip'>
+      <div className='flex justify-between text-sm text-t2'>
         <div className='w-[25rem]'>
           <Image
             src='/images/logo@2x.png'
@@ -51,9 +51,7 @@ export default function CusFooter({ dict, lang }: Props) {
         </div>
         <div className='h-1 w-2'></div>
         <div>
-          <h2 className='text-base font-medium text-primary'>
-            {dict.header.Tools}
-          </h2>
+          <h2 className='text-base font-medium text-t1'>{dict.header.Tools}</h2>
           <div className='h-5'></div>
           <ul>
             {toolsList.map((e, index) => (
@@ -71,7 +69,7 @@ export default function CusFooter({ dict, lang }: Props) {
         </div>
         <div className='h-1 w-2'></div>
         <div>
-          <h2 className='text-base font-medium text-primary'>
+          <h2 className='text-base font-medium text-t1'>
             {dict.header.Experience}
           </h2>
           <div className='h-5'></div>
@@ -91,7 +89,7 @@ export default function CusFooter({ dict, lang }: Props) {
         </div>
         <div className='h-1 w-2'></div>
         <div>
-          <h2 className='text-base font-medium text-primary'>
+          <h2 className='text-base font-medium text-t1'>
             {dict.footer['Contact Us']}
           </h2>
           <ul>
@@ -113,7 +111,7 @@ export default function CusFooter({ dict, lang }: Props) {
       <div className='h-5'></div>
       <div className='flex h-16 items-center justify-between'>
         <CusLanguage lang={lang} isGrey />
-        <div className='flex h-full items-center text-xs text-link'>
+        <div className='flex h-full items-center text-xs text-t3'>
           <Link href=''>{dict.footer['Term of service']}</Link>
           <div className='h-1 w-5'></div>
           <Link href=''>{dict.footer['Privacy Agreement']}</Link>

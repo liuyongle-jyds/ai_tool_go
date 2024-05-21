@@ -33,11 +33,6 @@ export const AppContextProvider = ({
   const [toolsList, setToolsList] = useState([] as LinkA[])
   const [experienceList, setExperienceList] = useState([] as LinkA[])
 
-  const init = () => {
-    getToolsList()
-    getExperienceList()
-  }
-
   const getToolsList = () => {
     setToolsList([
       {
@@ -97,6 +92,10 @@ export const AppContextProvider = ({
   }
 
   useEffect(() => {
+    const init = () => {
+      getToolsList()
+      getExperienceList()
+    }
     init()
   }, [])
 

@@ -28,7 +28,7 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
 
   return (
     <>
-      {!hasToken ? (
+      {hasToken ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className='flex items-center'>
@@ -60,7 +60,7 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button>{dict.header['Sign up']}</Button>
+        <Button className='min-w-20'>{dict.header['Sign up']}</Button>
       )}
     </>
   )

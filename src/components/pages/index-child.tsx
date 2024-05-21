@@ -128,14 +128,14 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
       <h1 className='mb-5 whitespace-pre-wrap text-center text-6xl font-bold leading-tight'>
         {dict.index.title}
       </h1>
-      <h2 className='mb-10 text-center text-tip'>{dict.index.subtitle}</h2>
+      <h2 className='mb-10 text-center text-t2'>{dict.index.subtitle}</h2>
       <div
         className={cn(
           'flex h-14 items-center rounded-full border bg-background px-5',
           { 'border-primary': isFocus },
         )}
       >
-        <CusIcon name='search' className='h-6 w-6 text-link' />
+        <CusIcon name='search' className='h-6 w-6 text-t3' />
         <div className='h-1 w-3'></div>
         <input
           type='text'
@@ -143,7 +143,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
           value={searchVal}
           disabled={loading}
           placeholder={dict.index.placeholder}
-          className='h-full flex-1 bg-transparent placeholder-link outline-none'
+          className='h-full flex-1 bg-transparent placeholder-t3 outline-none'
           enterKeyHint='search'
           onChange={(e) => setSearchVal(e.target.value)}
           onFocus={() => setIsFocus(true)}
