@@ -26,17 +26,20 @@ export default function CusLayout({ children, dict, lang }: Props) {
 
   return (
     <div
-      className='container flex h-screen flex-col items-center overflow-hidden bg-top bg-no-repeat'
+      className='flex h-screen flex-col items-center overflow-hidden bg-top bg-no-repeat'
       style={{
         backgroundImage: topUrl ? `url(${topUrl})` : undefined,
         backgroundSize: '100%, auto',
       }}
     >
-      <CusHeader dict={dict} lang={lang} />
+      <div className='container'>
+        <CusHeader dict={dict} lang={lang} />
+      </div>
       <ScrollArea className='w-full flex-1'>
-        {children}
-        <CusFooter dict={dict} lang={lang} />
-        <ScrollBar orientation='vertical' className='h-0 w-0' />
+        <div className='container'>
+          {children}
+          <CusFooter dict={dict} lang={lang} />
+        </div>
       </ScrollArea>
     </div>
   )

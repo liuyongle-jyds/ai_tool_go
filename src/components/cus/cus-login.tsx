@@ -30,7 +30,7 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
     <>
       {hasToken ? (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild className='cursor-pointer'>
             <div className='flex items-center'>
               <div className='max-w-28 truncate font-medium'>user</div>
               <div className='h-1 w-3'></div>
