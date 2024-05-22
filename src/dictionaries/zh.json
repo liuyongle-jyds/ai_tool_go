@@ -22,6 +22,12 @@
   "index": {
     "title": "发现, 掌握,\n利用 AI 工具赋能, Go!",
     "subtitle": "让人工智能为每个人所用并使其受益，无论其背景或专业知识如何！",
-    "placeholder": "输入您要查询的内容。"
+    "placeholder": "输入您要查询的内容。",
+    "Tool Ranking": "工具排名",
+    "Experience Ranking": "经验排名",
+    "See All": "查看全部",
+    "Collection": "收藏",
+    "Comment": "评论",
+    "Share": "分享"
   }
 }

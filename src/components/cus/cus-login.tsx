@@ -34,12 +34,12 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
             <div className='flex items-center'>
               <div className='max-w-28 truncate font-medium'>user</div>
               <div className='h-1 w-3'></div>
-              <CusIcon name='user-round' className='h-10 w-10' />
+              <div className='h-10 w-10 rounded-full bg-primary/75' />
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-64'>
             <div className='flex flex-col items-center'>
-              <CusIcon name='user-round' className='h-10 w-10' />
+              <div className='h-20 w-20 rounded-full bg-primary/75' />
               <div className='my-3 w-full break-words text-center font-medium'>
                 user
               </div>

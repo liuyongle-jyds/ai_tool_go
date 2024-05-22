@@ -22,6 +22,12 @@
   "index": {
     "title": "Discover, Master,\nEmpower with AI Tool, Go!",
     "subtitle": "Making AI Accessible and Beneficial for Everyone, Regardless of Background or Expertise!",
-    "placeholder": "Enter the content you want to inquire about."
+    "placeholder": "Enter the content you want to inquire about.",
+    "Tool Ranking": "Tool Ranking",
+    "Experience Ranking": "Experience Ranking",
+    "See All": "See All",
+    "Collection": "Collection",
+    "Comment": "Comment",
+    "Share": "Share"
   }
 }
