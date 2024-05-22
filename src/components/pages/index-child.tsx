@@ -13,6 +13,7 @@ import Link from 'next/link'
 import Tool from '@/types/Tool'
 import Experience from '@/types/Experience'
 import { Separator } from '../ui/separator'
+import { Triangle } from 'lucide-react'
 
 const list1 = [
   {
@@ -323,7 +324,43 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
     )
   }
 
-  const voteDom = ({ vote, voted }: { vote: string; voted: boolean }) => {
+  const onTabVote = (id: string, isExp = false) => {
+    if (isExp) {
+      setExpRanking((e) =>
+        e.map((exp) =>
+          exp.id === id
+            ? {
+                ...exp,
+                voted: !exp.voted,
+              }
+            : exp,
+        ),
+      )
+    } else {
+      setToolRanking((e) =>
+        e.map((tool) =>
+          tool.id === id
+            ? {
+                ...tool,
+                voted: !tool.voted,
+              }
+            : tool,
+        ),
+      )
+    }
+  }
+
+  const voteDom = ({
+    vote,
+    voted,
+    id,
+    isExp = false,
+  }: {
+    vote: string
+    voted: boolean
+    id: string
+    isExp?: boolean
+  }) => {
     return (
       <div className='flex items-center'>
         <span className='font-medium'>{vote}</span>
@@ -331,9 +368,9 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
         <Button
           variant={voted ? 'primary' : 'secondary'}
           className='h-8 w-8 px-0'
+          onClick={() => onTabVote(id, isExp)}
         >
-          <CusIcon
-            name='triangle'
+          <Triangle
             fill={voted ? '#fff' : '#90979D'}
             strokeWidth={0}
             className='h-3 w-4'
@@ -417,7 +454,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             </li>
           ))}
         </ul>
-        <ScrollBar orientation='horizontal' className='h-1 md:h-2' />
+        <ScrollBar orientation='horizontal' />
       </ScrollArea>
       <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
         <ul className='flex h-10 items-center space-x-4'>
@@ -436,7 +473,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             </li>
           ))}
         </ul>
-        <ScrollBar orientation='horizontal' className='h-1 md:h-2' />
+        <ScrollBar orientation='horizontal' />
       </ScrollArea>
       <div className='h-10'></div>
       <div className='grid grid-cols-1 md:grid-cols-2 md:gap-10'>
@@ -447,7 +484,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             href: 'tool-ranking',
           })}
           <ul className='space-y-3 pl-4'>
-            {toolRanking.map((tool) => (
+            {toolRanking.map((tool, index) => (
               <li key={tool.id} className='relative rounded-xl border p-5'>
                 <div className='mb-3 flex items-center justify-between'>
                   <div className='flex items-center'>
@@ -459,7 +496,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
                     </div>
                   </div>
                   <div className='h-1 w-1'></div>
-                  {voteDom({ vote: tool.vote, voted: tool.voted })}
+                  {voteDom({ vote: tool.vote, voted: tool.voted, id: tool.id })}
                 </div>
                 <div className='pl-[3.75rem]'>
                   <div className='mb-3 line-clamp-2 whitespace-pre-wrap text-sm text-t2'>
@@ -526,7 +563,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             href: 'experience-ranking',
           })}
           <ul className='space-y-3'>
-            {expRanking.map((exp) => (
+            {expRanking.map((exp, index) => (
               <li key={exp.id} className='rounded-xl border border-dashed p-5'>
                 <div className='mb-5 flex items-center justify-between'>
                   <div className='flex items-center text-sm'>
@@ -536,7 +573,12 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
                     <span className='text-t2'>&nbsp;- {exp.job}</span>
                   </div>
                   <div className='h-1 w-1'></div>
-                  {voteDom({ vote: exp.vote, voted: exp.voted })}
+                  {voteDom({
+                    vote: exp.vote,
+                    voted: exp.voted,
+                    id: exp.id,
+                    isExp: true,
+                  })}
                 </div>
                 <div className='line-clamp-2 whitespace-pre-wrap text-lg font-medium leading-tight'>
                   {exp.name}
