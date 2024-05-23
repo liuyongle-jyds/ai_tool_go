@@ -7,4 +7,9 @@ export default interface Experience {
   voted: boolean
   vote: string
   job: string
+  collected: boolean
+  collection: string
+  comment: string
+  tag: string[]
+  time: string
 }

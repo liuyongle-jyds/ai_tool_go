@@ -12,4 +12,5 @@ export default interface Tool {
   desc: string
   tag: string[]
   tip: string
+  experiences: string
 }

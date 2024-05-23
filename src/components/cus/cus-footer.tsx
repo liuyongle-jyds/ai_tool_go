@@ -62,7 +62,7 @@ export default function CusFooter({ dict, lang }: Props) {
                 <Link
                   href={e.link}
                   title={e.text}
-                  className='flex h-10 items-center'
+                  className='flex h-10 items-center hover:opacity-85'
                 >
                   {e.text}
                 </Link>
@@ -82,7 +82,7 @@ export default function CusFooter({ dict, lang }: Props) {
                 <Link
                   href={e.link}
                   title={e.text}
-                  className='flex h-10 items-center'
+                  className='flex h-10 items-center hover:opacity-85'
                 >
                   {e.text}
                 </Link>
