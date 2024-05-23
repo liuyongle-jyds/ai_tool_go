@@ -14,6 +14,13 @@ import Tool from '@/types/Tool'
 import Experience from '@/types/Experience'
 import { Separator } from '../ui/separator'
 import { Triangle } from 'lucide-react'
+import Faq from '@/types/Faq'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion'
 
 const list1 = [
   {
@@ -231,6 +238,33 @@ const list4: Experience[] = [
   },
 ]
 
+const list5: Faq[] = [
+  {
+    id: '1',
+    title: 'What is email AIToolGo?',
+    content:
+      'AIToolGo is a direct marketing channel that uses email to send commercial messages about your business’s products, services, sales, or updates to your customers.',
+  },
+  {
+    id: '2',
+    title: 'What is email marketing software?',
+    content:
+      'AIToolGo is a direct marketing channel that uses email to send commercial messages about your business’s products, services, sales, or updates to your customers.',
+  },
+  {
+    id: '3',
+    title: 'What is email marketing software?',
+    content:
+      'AIToolGo is a direct marketing channel that uses email to send commercial messages about your business’s products, services, sales, or updates to your customers.',
+  },
+  {
+    id: '4',
+    title: 'Why is email marketing important?',
+    content:
+      'AIToolGo is a direct marketing channel that uses email to send commercial messages about your business’s products, services, sales, or updates to your customers.',
+  },
+]
+
 export default function IndexChild({ dict }: { dict: Dictionary }) {
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
@@ -241,6 +275,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
   const [active2, setActive2] = useState('')
   const [toolRanking, setToolRanking] = useState([] as Tool[])
   const [expRanking, setExpRanking] = useState([] as Experience[])
+  const [faqList, setFaqList] = useState([] as Faq[])
 
   const onSearch = () => {
     if (loading) return
@@ -386,6 +421,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
       setCategories2(list2)
       setToolRanking(list3)
       setExpRanking(list4)
+      setFaqList(list5)
     }, 500)
   }
 
@@ -593,9 +629,19 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
         </div>
       </div>
       <div className='py-10'>
-        <h3 className='text-xl font-semibold'>
+        <h3 className='mb-5 text-xl font-semibold'>
           {dict.index['AIToolGo’s FAQ']}
         </h3>
+        <Accordion type='single' collapsible>
+          <div className='grid grid-cols-1 md:grid-cols-2 md:gap-x-10'>
+            {faqList.map((faq) => (
+              <AccordionItem key={faq.id} value={faq.id}>
+                <AccordionTrigger>{faq.title}</AccordionTrigger>
+                <AccordionContent>{faq.content}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </div>
+        </Accordion>
       </div>
     </>
   )
