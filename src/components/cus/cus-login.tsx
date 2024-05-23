@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import CusIcon from './cus-icon'
+import { CircleUser, LogOut } from 'lucide-react'
 
 export default function CusLogin({ dict }: { dict: Dictionary }) {
   const [hasToken, setHasToken] = useState(false)
@@ -46,13 +46,13 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <CusIcon name='circle-user' className='h-5 w-5' />
+                <CircleUser className='h-5 w-5' />
                 <div className='h-1 w-2'></div>
                 <span>{dict.header.Profile}</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <CusIcon name='log-out' className='h-5 w-5' />
+                <LogOut className='h-5 w-5' />
                 <div className='h-1 w-2'></div>
                 <span>{dict.header['Sign Out']}</span>
               </DropdownMenuItem>

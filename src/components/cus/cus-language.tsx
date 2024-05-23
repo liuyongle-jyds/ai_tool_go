@@ -10,8 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { useState } from 'react'
-import { ChevronUp } from 'lucide-react'
 
 type Lang = {
   text: string
@@ -38,7 +36,6 @@ export default function CusLanguage({
 }) {
   const pathName = usePathname()
   const router = useRouter()
-  const [visible, setVisible] = useState(false)
 
   const list = languages.map((language) => {
     let link = '/'
@@ -61,8 +58,8 @@ export default function CusLanguage({
   }, 200)
 
   return (
-    <DropdownMenu onOpenChange={(open) => setVisible(open)}>
-      <DropdownMenuTrigger asChild className='cursor-pointer'>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild needAngle>
         <div
           className={cn('flex items-center ', {
             'text-t2': isGrey,
@@ -74,12 +71,6 @@ export default function CusLanguage({
             {languages.find((language) => language.value === lang)?.text ?? ''}
           </span>
           <div className='h-1 w-1'></div>
-          <ChevronUp
-            className={cn('relative h-3 w-3 transition duration-200', {
-              'rotate-180': isGrey === visible,
-            })}
-            aria-hidden='true'
-          />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='p-0'>
