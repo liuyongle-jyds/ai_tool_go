@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CusFooter from './cus-footer'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
+import Image from 'next/image'
 
 interface Props {
   children: React.ReactNode
@@ -25,17 +26,21 @@ export default function CusLayout({ children, dict, lang }: Props) {
   }, [pathName, lang])
 
   return (
-    <div
-      className='flex h-screen flex-col items-center overflow-hidden bg-top bg-no-repeat'
-      style={{
-        backgroundImage: topUrl ? `url(${topUrl})` : undefined,
-        backgroundSize: '100%, auto',
-      }}
-    >
-      <div className='container'>
+    <div className='relative flex h-screen flex-col items-center overflow-hidden'>
+      {topUrl && (
+        <Image
+          src={topUrl}
+          alt='background image'
+          width={1512}
+          height={389}
+          className='absolute top-0 mx-auto w-full max-w-[1400px]'
+          priority
+        />
+      )}
+      <div className='container relative z-20'>
         <CusHeader dict={dict} lang={lang} />
       </div>
-      <ScrollArea className='w-full flex-1'>
+      <ScrollArea className='relative z-10 w-full flex-1'>
         <div className='container'>
           {children}
           <CusFooter dict={dict} lang={lang} />

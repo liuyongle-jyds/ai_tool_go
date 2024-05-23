@@ -127,7 +127,7 @@ const list3: Tool[] = [
     collected: false,
     collection: '32.6m',
     comment: '1,253',
-    desc: 'Gemini is an artificial intelligence model released by Google that can run on different platforms, from data centers to mobile devices.',
+    desc: 'This is a comprehensive customer service automation tool that integrates multiple functions such as intelligent customer service, work order management, and customer profiling, which can comprehensively improve the work efficiency of customer service teams',
     tag: ['AI', 'Chat', 'Text Description'],
     tip: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
   },
@@ -168,6 +168,8 @@ const list4: Experience[] = [
     id: '1',
     ranking: 1,
     name: '”The GPT (Generative Pre Training Transformer) model of OpenAI can understand natural language and code after training, and GPT provides text output in response to its input.”',
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -177,6 +179,8 @@ const list4: Experience[] = [
     id: '2',
     ranking: 2,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: true,
     vote: '36.8m',
@@ -186,6 +190,8 @@ const list4: Experience[] = [
     id: '3',
     ranking: 3,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -195,6 +201,8 @@ const list4: Experience[] = [
     id: '4',
     ranking: 4,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -204,6 +212,8 @@ const list4: Experience[] = [
     id: '5',
     ranking: 5,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -213,6 +223,8 @@ const list4: Experience[] = [
     id: '6',
     ranking: 6,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -222,6 +234,8 @@ const list4: Experience[] = [
     id: '7',
     ranking: 7,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -231,6 +245,8 @@ const list4: Experience[] = [
     id: '8',
     ranking: 8,
     name: "”Gemma's two variant models: one for intelligent coding and the other for improving processing efficiency”",
+    content:
+      'Shared his practical experience and insights on significantly improving customer service efficiency after introducing Chatbot',
     creator: 'Jane',
     voted: false,
     vote: '36.8m',
@@ -276,13 +292,28 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
   const [toolRanking, setToolRanking] = useState([] as Tool[])
   const [expRanking, setExpRanking] = useState([] as Experience[])
   const [faqList, setFaqList] = useState([] as Faq[])
+  const [searchTip, setSearchTip] = useState('')
+  const [searchTools, setSearchTools] = useState([] as Tool[])
+  const [searchExp, setSearchExp] = useState([] as Experience[])
 
   const onSearch = () => {
     if (loading) return
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
+      setSearchTip(
+        'You seem to be looking for an AI customer service tool suitable for the e-commerce field and hoping to use it to improve the efficiency of customer service.\nI have found the following excellent tools and related experience sharing for you on the AiToolGo platform',
+      )
+      setSearchTools(list3.slice(0, 2))
+      setSearchExp(list4.slice(0, 2))
     }, 1000)
+  }
+
+  const clearSearch = () => {
+    setSearchVal('')
+    setSearchExp([])
+    setSearchTip('')
+    setSearchTools([])
   }
 
   const handleInputKeydown = debounce(
@@ -437,7 +468,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
       <h2 className='mb-10 text-center text-t2'>{dict.index.subtitle}</h2>
       <div
         className={cn(
-          'flex h-14 items-center rounded-full border bg-background px-5',
+          'mb-10 flex h-14 items-center rounded-full border bg-background px-5',
           { 'border-primary': isFocus },
         )}
       >
@@ -470,8 +501,96 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
           />
         </Button>
       </div>
-      <ScrollArea className='mb-5 mt-10 min-h-14 w-full whitespace-nowrap'>
-        <ul className='flex h-14 items-center space-x-8 border-b'>
+      {searchTip && (
+        <div className='mb-5 rounded-xl border-b pb-10'>
+          <div className='mx-auto mb-5 max-w-5xl rounded-3xl rounded-tl-none bg-foreground p-5'>
+            {searchTip}
+          </div>
+          <div className='mb-10 flex items-center justify-center'>
+            <Button variant='secondary' className='h-10 w-10 px-0'>
+              <CusIcon name='refresh-ccw' className='h-4 w-4' />
+            </Button>
+            <div className='h-1 w-5'></div>
+            <Button
+              variant='secondary'
+              className='h-10 w-10 px-0'
+              onClick={clearSearch}
+            >
+              <CusIcon name='x' className='h-4 w-4 text-t3' />
+            </Button>
+          </div>
+          <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
+            <div>
+              <div className='mb-5 flex items-center'>
+                <Image
+                  src='/icons/recommend@2x.png'
+                  alt='recommend icon'
+                  width={24}
+                  height={24}
+                  className='h-6 w-6'
+                />
+                <div className='h-1 w-2'></div>
+                <h3 className='text-lg font-medium'>
+                  {dict.index['Recommended tools']}
+                </h3>
+              </div>
+              <ul className='space-y-3'>
+                {searchTools.map((tool) => (
+                  <li key={tool.id} className='rounded-xl border p-5'>
+                    <div className='mb-3 flex items-center justify-between'>
+                      <div className='flex flex-1 items-center'>
+                        <div className='h-8 w-8 rounded-full bg-primary/75'></div>
+                        <div className='h-1 w-2'></div>
+                        <h4 className='line-clamp-1 font-medium'>
+                          {tool.name}
+                        </h4>
+                      </div>
+                      <div className='h-1 w-1'></div>
+                      <CusIcon name='arrow-right' className='h-4 w-4 text-t3' />
+                    </div>
+                    <div className='line-clamp-3 text-sm text-t2'>
+                      {tool.desc}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div className='mb-5 flex items-center'>
+                <Image
+                  src='/icons/related@2x.png'
+                  alt='related icon'
+                  width={24}
+                  height={24}
+                  className='h-6 w-6'
+                />
+                <div className='h-1 w-2'></div>
+                <h3 className='text-lg font-medium'>
+                  {dict.index['Related experience']}
+                </h3>
+              </div>
+              <ul className='space-y-3'>
+                {searchExp.map((exp) => (
+                  <li key={exp.id} className='rounded-xl border p-5'>
+                    <h4 className='mb-3 line-clamp-2 font-medium leading-5'>
+                      {exp.name}
+                    </h4>
+                    <p className='mb-1 line-clamp-1 text-sm'>
+                      <span className='font-medium'>@ {exp.creator}</span>
+                      <span>&nbsp;- {exp.job}</span>
+                    </p>
+                    <div className='line-clamp-2 text-sm text-t2'>
+                      {exp.content}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+      <ScrollArea className='mb-5 min-h-14 w-full whitespace-nowrap'>
+        <ul className='flex h-14 select-none items-center space-x-8 border-b'>
           {categories1.map((category) => (
             <li
               key={category.id}
@@ -493,7 +612,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
         <ScrollBar orientation='horizontal' />
       </ScrollArea>
       <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
-        <ul className='flex h-10 items-center space-x-4'>
+        <ul className='flex h-10 select-none items-center space-x-4'>
           {categories2.map((category) => (
             <li
               key={category.id}
