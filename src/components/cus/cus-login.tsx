@@ -13,8 +13,17 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { CircleUser, LogOut } from 'lucide-react'
+import Link from 'next/link'
+import { routerName } from '@/router'
+import { Locale } from '@/types/Locale'
 
-export default function CusLogin({ dict }: { dict: Dictionary }) {
+export default function CusLogin({
+  dict,
+  lang,
+}: {
+  dict: Dictionary
+  lang: Locale
+}) {
   const [hasToken, setHasToken] = useState(false)
 
   const init = async () => {
@@ -46,9 +55,14 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <CircleUser className='h-5 w-5' />
-                <div className='h-1 w-2'></div>
-                <span>{dict.header.Profile}</span>
+                <Link
+                  href={`/${lang + routerName.profile}`}
+                  className='flex h-full w-full items-center'
+                >
+                  <CircleUser className='h-5 w-5' />
+                  <div className='h-1 w-2'></div>
+                  <span>{dict.header.Profile}</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>

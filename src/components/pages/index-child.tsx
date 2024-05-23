@@ -21,6 +21,8 @@ import {
 } from '../ui/accordion'
 import CusTool from '../cus/cus-tool'
 import CusExp from '../cus/cus-exp'
+import { Locale } from '@/types/Locale'
+import { routerName } from '@/router'
 
 const list1 = [
   {
@@ -325,7 +327,12 @@ const list5: Faq[] = [
   },
 ]
 
-export default function IndexChild({ dict }: { dict: Dictionary }) {
+interface Props {
+  dict: Dictionary
+  lang: Locale
+}
+
+export default function IndexChild({ dict, lang }: Props) {
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -630,7 +637,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
           {rankingTitleDom({
             icon: '/icons/rank_tool@2x.png',
             title: dict.index['Tool Ranking'],
-            href: 'tool-ranking',
+            href: `/${lang + routerName.tools}`,
           })}
           <ul className='space-y-3 pl-4'>
             {toolRanking.map((tool) => (
@@ -648,7 +655,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
           {rankingTitleDom({
             icon: '/icons/rank_exp@2x.png',
             title: dict.index['Experience Ranking'],
-            href: 'experience-ranking',
+            href: `/${lang + routerName.experience}`,
           })}
           <ul className='space-y-3'>
             {expRanking.map((exp, index) => (

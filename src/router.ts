@@ -2,6 +2,9 @@ export const routerName = {
   login: '/login',
   privacy: '/privacy-agreement',
   termOfService: '/term-of-service',
+  profile: '/profile',
+  tools: '/tools',
+  experience: '/experience',
 }
 
 export const whiteList = [

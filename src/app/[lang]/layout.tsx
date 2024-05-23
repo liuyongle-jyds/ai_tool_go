@@ -7,7 +7,6 @@ import { getDictionary } from './dictionaries'
 import { filterImage } from '@/utils'
 import Config from '@/config'
 import { AppContextProvider } from '@/contexts/appContext'
-import CusHeader from '@/components/cus/cus-header'
 import CusLayout from '@/components/cus/cus-layout'
 
 const inter = Inter({ subsets: ['latin'] })

@@ -1,10 +1,9 @@
 import { Locale } from '@/types/Locale'
 import { getDictionary } from '../dictionaries'
-import IndexChild from '@/components/pages/index-child'
+import ProfileChild from '@/components/pages/profile-child'
 
 export default async function Home({ params }: { params: { lang: Locale } }) {
-  const { lang } = params
-  const dict = await getDictionary(lang)
+  const dict = await getDictionary(params.lang)
 
-  return <IndexChild dict={dict} lang={lang} />
+  return <ProfileChild dict={dict} />
 }

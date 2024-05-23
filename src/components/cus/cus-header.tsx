@@ -26,7 +26,7 @@ export default function CusHeader({ dict, lang }: Props) {
 
   return (
     <header className='flex h-20 w-full items-center'>
-      <Link href='/' title={dict.meta.title} className='shrink-0'>
+      <Link href={`/${lang}`} title={dict.meta.title} className='shrink-0'>
         <Image
           src='/images/logo@2x.png'
           alt='AIToolGo logo'
@@ -67,7 +67,7 @@ export default function CusHeader({ dict, lang }: Props) {
         <div className='flex items-center'>
           <CusLanguage lang={lang} />
           <div className='h-1 w-5'></div>
-          <CusLogin dict={dict} />
+          <CusLogin dict={dict} lang={lang} />
         </div>
       </div>
     </header>
