@@ -21,15 +21,18 @@ export default function CusFooter({ dict, lang }: Props) {
 
   const mailList = [
     {
-      text: dict.footer['Learn More: '] + mail1,
+      text: dict.footer['Learn More: '],
+      mail: mail1,
       link: 'mailto:' + mail1,
     },
     {
-      text: dict.footer['Suggestions: '] + mail2,
+      text: dict.footer['Suggestions: '],
+      mail: mail2,
       link: 'mailto:' + mail2,
     },
     {
-      text: dict.footer['Cooperation: '] + mail3,
+      text: dict.footer['Cooperation: '],
+      mail: mail3,
       link: 'mailto:' + mail3,
     },
   ]
@@ -97,10 +100,10 @@ export default function CusFooter({ dict, lang }: Props) {
               <li key={index} className='mt-5'>
                 <Link
                   href={e.link}
-                  title={e.text}
-                  className='flex h-10 items-center'
+                  className='flex h-10 items-center hover:opacity-85'
                 >
                   {e.text}
+                  <span className='underline'>{e.mail}</span>
                 </Link>
               </li>
             ))}

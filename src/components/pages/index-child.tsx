@@ -476,7 +476,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
         <ScrollBar orientation='horizontal' />
       </ScrollArea>
       <div className='h-10'></div>
-      <div className='grid grid-cols-1 md:grid-cols-2 md:gap-10'>
+      <div className='mb-10 grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
         <div>
           {rankingTitleDom({
             icon: '/icons/rank_tool@2x.png',
@@ -484,15 +484,17 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             href: 'tool-ranking',
           })}
           <ul className='space-y-3 pl-4'>
-            {toolRanking.map((tool, index) => (
+            {toolRanking.map((tool) => (
               <li key={tool.id} className='relative rounded-xl border p-5'>
-                <div className='mb-3 flex items-center justify-between'>
+                <div className='mb-3 flex flex-1 items-center justify-between'>
                   <div className='flex items-center'>
                     <div className='h-12 w-12 rounded-full bg-primary/75'></div>
                     <div className='h-1 w-3'></div>
-                    <div className='flex flex-col justify-center'>
+                    <div className='flex flex-1 flex-col justify-center'>
                       <div className='text-xs'>{tool.creator}</div>
-                      <h4 className='text-xl font-semibold'>{tool.name}</h4>
+                      <h4 className='line-clamp-1 text-xl font-semibold'>
+                        {tool.name}
+                      </h4>
                     </div>
                   </div>
                   <div className='h-1 w-1'></div>
@@ -502,7 +504,7 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
                   <div className='mb-3 line-clamp-2 whitespace-pre-wrap text-sm text-t2'>
                     {tool.desc}
                   </div>
-                  <ul className='mb-3 flex flex-wrap items-center space-x-1'>
+                  <ul className='mb-5 flex flex-wrap items-center space-x-1'>
                     {tool.tag.map((e, index) => (
                       <li
                         key={index}
@@ -566,11 +568,13 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             {expRanking.map((exp, index) => (
               <li key={exp.id} className='rounded-xl border border-dashed p-5'>
                 <div className='mb-5 flex items-center justify-between'>
-                  <div className='flex items-center text-sm'>
+                  <div className='flex flex-1 items-center text-sm'>
                     {rankingNumDom(exp.ranking, true)}
                     <div className='h-1 w-2'></div>
-                    <span className='font-medium'>@ {exp.creator}</span>
-                    <span className='text-t2'>&nbsp;- {exp.job}</span>
+                    <p className='line-clamp-1'>
+                      <span className='font-medium'>@ {exp.creator}</span>
+                      <span className='text-t2'>&nbsp;- {exp.job}</span>
+                    </p>
                   </div>
                   <div className='h-1 w-1'></div>
                   {voteDom({
@@ -587,6 +591,11 @@ export default function IndexChild({ dict }: { dict: Dictionary }) {
             ))}
           </ul>
         </div>
+      </div>
+      <div className='py-10'>
+        <h3 className='text-xl font-semibold'>
+          {dict.index['AIToolGo’s FAQ']}
+        </h3>
       </div>
     </>
   )
