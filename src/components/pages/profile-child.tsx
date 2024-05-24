@@ -161,7 +161,12 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
           Likes to try various new things, and maintain a passion for life
         </div>
         <div className='my-5'>
-          <CusTabs list={tabs} active={active} onChangeActive={onChangeActive}>
+          <CusTabs
+            list={tabs}
+            active={active}
+            onChangeActive={onChangeActive}
+            isSelf
+          >
             <DropdownMenu>
               <DropdownMenuTrigger
                 asChild

@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
-import Category from '@/types/Categories'
 import { useApp } from '@/contexts/appContext'
 
 interface Props {
