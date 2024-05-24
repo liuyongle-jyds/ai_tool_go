@@ -1,8 +1,7 @@
 'use server'
 
+import Config from '@/config'
 import { getCookie } from '@/utils/actions'
-
-const baseApi = process.env.CONFIG_BASE_API
 
 interface Props {
   method?: string
@@ -15,7 +14,7 @@ const fetchAPI = async (
   path: string,
   { method = 'POST', body = null, headers = {}, cache = 'default' }: Props = {},
 ) => {
-  const url = `${baseApi}${path}`
+  const url = `${Config.baseUrl}${path}`
   let token = ''
   try {
     token = (await getCookie('token')) || ''
@@ -44,4 +43,8 @@ const fetchAPI = async (
   } catch (error) {
     throw error
   }
+}
+
+export const uploadFile = async (formData: FormData) => {
+  return await fetchAPI('/util/file/upload', { body: formData })
 }

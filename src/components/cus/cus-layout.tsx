@@ -19,7 +19,7 @@ const homeTopBg = '/images/home_top_bg.png'
 
 export default function CusLayout({ children, dict, lang }: Props) {
   const pathName = usePathname()
-  const [topUrl, setTopUrl] = useState(homeTopBg)
+  const [topUrl, setTopUrl] = useState('')
 
   useEffect(() => {
     setTopUrl(pathName === `/${lang}` ? homeTopBg : '')

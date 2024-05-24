@@ -1,7 +1,7 @@
 import Config from '@/config'
 import { Locale } from '@/types/Locale'
 import { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
-import { cookies } from 'next/headers'
+import { toast } from 'sonner'
 
 const filterImage = (url: string) => {
   if (!url) return ''
@@ -58,4 +58,33 @@ function debounce<T extends (...args: any[]) => any>(
   }
 }
 
-export { filterImage, getAltLanguages, debounce }
+class ToastManager {
+  private static instance: ToastManager
+
+  private constructor() {}
+
+  public static getInstance(): ToastManager {
+    if (!ToastManager.instance) {
+      ToastManager.instance = new ToastManager()
+    }
+    return ToastManager.instance
+  }
+
+  public showLoading(txt: string): void {
+    this.dismiss()
+    toast.loading(txt, { position: 'top-center' })
+  }
+
+  public showToast(txt: string): void {
+    this.dismiss()
+    toast(txt)
+  }
+
+  public dismiss(): void {
+    toast.dismiss()
+  }
+}
+
+const toastManager = ToastManager.getInstance()
+
+export { filterImage, getAltLanguages, debounce, toastManager }

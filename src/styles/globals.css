@@ -25,7 +25,7 @@
       --accent: 0 8% 97%;
       --accent-foreground: 213 4% 40%;
 
-      --destructive: 0 84.2% 60.2%;
+      --destructive: 0 89% 60%;
       --destructive-foreground: 210 40% 98%;
 
       --border: 206 8% 84%;
@@ -97,5 +97,12 @@
     input:-ms-autofill {
         box-shadow: 0 0 0 1000px white inset !important;
         color: inherit !important;
+    }
+  }
+
+  @layer utilities {
+    .loading {
+      pointer-events: none;
+      opacity: 0.8;
     }
   }

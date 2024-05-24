@@ -368,15 +368,11 @@ export default function IndexChild({ dict, lang }: Props) {
     setSearchTools([])
   }
 
-  const handleInputKeydown = debounce(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key !== 'Enter' || e.shiftKey || e.nativeEvent.isComposing) return
-      e.preventDefault()
-      onSearch()
-    },
-    400,
-    true,
-  )
+  const handleInputKeydown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter' || e.shiftKey || e.nativeEvent.isComposing) return
+    e.preventDefault()
+    onSearch()
+  }
 
   const onChangeActive1 = (id: string) => {
     setActive1(id)
@@ -487,7 +483,7 @@ export default function IndexChild({ dict, lang }: Props) {
           onChange={(e) => setSearchVal(e.target.value)}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
-          onKeyDown={handleInputKeydown}
+          onKeyDown={debounce(handleInputKeydown, 400, true)}
         />
         <div className='h-1 w-3'></div>
         <Button

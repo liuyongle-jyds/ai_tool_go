@@ -3,6 +3,9 @@
     "title": "AIToolGo",
     "description": "description"
   },
+  "common": {
+    "Loading": "Loading"
+  },
   "header": {
     "Tools": "Tools",
     "Experience": "Experience",
@@ -40,6 +43,12 @@
     "My Collection": "My Collection",
     "Likes": "Likes",
     "My Comments": "My Comments",
-    "Browsing History": "Browsing History"
+    "Browsing History": "Browsing History",
+    "Upload new picture": "Upload new picture",
+    "Name": "Name",
+    "E-mail": "E-mail",
+    "Description": "Description",
+    "Brief description": "Brief description for your profile.",
+    "Save Profile": "Save Profile"
   }
 }
