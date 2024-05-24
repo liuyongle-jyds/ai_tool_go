@@ -21,8 +21,8 @@ export default function CusExp({ exp, onTabVote, isNotFull = false }: Props) {
           <div className='h-10 w-10 rounded-full bg-primary/75'></div>
           <div className='h-1 w-3'></div>
           <div className='flex-1'>
-            <p className='line-clamp-1 font-medium'>{exp.creator}</p>
-            <p className='line-clamp-1 text-xs text-t2'>{exp.job}</p>
+            <p className='line-clamp-1 break-all font-medium'>{exp.creator}</p>
+            <p className='line-clamp-1 break-all text-xs text-t2'>{exp.job}</p>
           </div>
         </div>
         <div className='h-1 w-1'></div>

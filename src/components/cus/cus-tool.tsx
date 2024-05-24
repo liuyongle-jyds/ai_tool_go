@@ -27,7 +27,9 @@ export default function CusTool({
           <div className='h-1 w-3'></div>
           <div className='flex flex-1 flex-col justify-center'>
             <div className='text-xs'>{tool.creator}</div>
-            <h4 className='line-clamp-1 text-xl font-semibold'>{tool.name}</h4>
+            <h4 className='line-clamp-1 break-all text-xl font-semibold'>
+              {tool.name}
+            </h4>
           </div>
         </div>
         <div className='h-1 w-1'></div>

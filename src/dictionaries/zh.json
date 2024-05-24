@@ -33,5 +33,13 @@
     "Recommended tools": "推荐工具",
     "Related experience": "相关经验",
     "experiences": "经验"
+  },
+  "profile": {
+    "Edit Profile": "编辑个人资料",
+    "My Votes": "我的投票",
+    "My Collection": "我的收藏",
+    "Likes": "点赞",
+    "My Comments": "我的评论",
+    "Browsing History": "浏览记录"
   }
 }

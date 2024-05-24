@@ -52,7 +52,8 @@ export default function CusLanguage({
   })
 
   const onChangeLang = debounce(async (e: string) => {
-    if (!e) return
+    if (!e || e === lang) return
+
     await setCookie('locale', e)
     router.refresh()
   }, 200)
@@ -70,11 +71,10 @@ export default function CusLanguage({
           <span>
             {languages.find((language) => language.value === lang)?.text ?? ''}
           </span>
-          <div className='h-1 w-1'></div>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='p-0'>
-        <CusUl list={list} callbackFn={onChangeLang} replace />
+        <CusUl list={list} callbackFn={onChangeLang} />
       </DropdownMenuContent>
     </DropdownMenu>
   )

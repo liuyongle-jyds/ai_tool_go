@@ -33,5 +33,13 @@
     "Recommended tools": "Recommended tools",
     "Related experience": "Related experience",
     "experiences": "experiences"
+  },
+  "profile": {
+    "Edit Profile": "Edit Profile",
+    "My Votes": "My Votes",
+    "My Collection": "My Collection",
+    "Likes": "Likes",
+    "My Comments": "My Comments",
+    "Browsing History": "Browsing History"
   }
 }

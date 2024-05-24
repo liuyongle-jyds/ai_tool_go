@@ -4,4 +4,5 @@ export default interface User {
   nickName: string
   email: string
   sex: string | number
+  greeting: string
 }

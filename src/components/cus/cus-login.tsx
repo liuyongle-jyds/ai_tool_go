@@ -15,7 +15,7 @@ import {
 import { CircleUser, LogOut } from 'lucide-react'
 import { routerName } from '@/router'
 import { Locale } from '@/types/Locale'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function CusLogin({
   dict,
@@ -25,15 +25,10 @@ export default function CusLogin({
   lang: Locale
 }) {
   const [hasToken, setHasToken] = useState(false)
-  const router = useRouter()
 
   const init = async () => {
     const token = await getCookie('token')
     setHasToken(!!token)
-  }
-
-  const jumpProfile = () => {
-    router.push(`/${lang + routerName.profile}`)
   }
 
   useEffect(() => {
@@ -59,13 +54,12 @@ export default function CusLogin({
               </div>
             </div>
             <DropdownMenuGroup>
-              <DropdownMenuItem
-                className='cursor-pointer'
-                onClick={jumpProfile}
-              >
-                <CircleUser className='h-5 w-5' />
-                <div className='h-1 w-2'></div>
-                <span>{dict.header.Profile}</span>
+              <DropdownMenuItem asChild>
+                <Link href={`/${lang + routerName.profile}`}>
+                  <CircleUser className='h-5 w-5' />
+                  <div className='h-1 w-2'></div>
+                  <span>{dict.header.Profile}</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>

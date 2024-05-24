@@ -23,6 +23,7 @@ import CusTool from '../cus/cus-tool'
 import CusExp from '../cus/cus-exp'
 import { Locale } from '@/types/Locale'
 import { routerName } from '@/router'
+import CusTabs from '../cus/cus-tabs'
 
 const list1 = [
   {
@@ -542,14 +543,14 @@ export default function IndexChild({ dict, lang }: Props) {
                       <div className='flex flex-1 items-center'>
                         <div className='h-8 w-8 rounded-full bg-primary/75'></div>
                         <div className='h-1 w-2'></div>
-                        <h4 className='line-clamp-1 font-medium'>
+                        <h4 className='line-clamp-1 break-all font-medium'>
                           {tool.name}
                         </h4>
                       </div>
                       <div className='h-1 w-1'></div>
                       <CusIcon name='arrow-right' className='h-4 w-4 text-t3' />
                     </div>
-                    <div className='line-clamp-3 text-sm text-t2'>
+                    <div className='line-clamp-3 whitespace-pre-wrap text-sm text-t2'>
                       {tool.desc}
                     </div>
                   </li>
@@ -576,11 +577,11 @@ export default function IndexChild({ dict, lang }: Props) {
                     <h4 className='mb-3 line-clamp-2 font-medium leading-5'>
                       {exp.name}
                     </h4>
-                    <p className='mb-1 line-clamp-1 text-sm'>
+                    <p className='mb-1 line-clamp-1 break-all text-sm'>
                       <span className='font-medium'>@ {exp.creator}</span>
                       <span>&nbsp;- {exp.job}</span>
                     </p>
-                    <div className='line-clamp-2 text-sm text-t2'>
+                    <div className='line-clamp-2 whitespace-pre-wrap text-sm text-t2'>
                       {exp.content}
                     </div>
                   </li>
@@ -590,28 +591,11 @@ export default function IndexChild({ dict, lang }: Props) {
           </div>
         </div>
       )}
-      <ScrollArea className='mb-5 min-h-14 w-full whitespace-nowrap'>
-        <ul className='flex h-14 select-none items-center space-x-8 border-b'>
-          {categories1.map((category) => (
-            <li
-              key={category.id}
-              onClick={() => onChangeActive1(category.id)}
-              className={cn(
-                'relative flex h-full shrink-0 cursor-pointer items-center px-5 font-medium hover:opacity-85',
-                {
-                  'text-primary': active1 === category.id,
-                },
-              )}
-            >
-              {category.text}
-              {active1 === category.id && (
-                <div className='absolute bottom-0 left-0 z-50 h-[2px] w-full bg-gradient-primary'></div>
-              )}
-            </li>
-          ))}
-        </ul>
-        <ScrollBar orientation='horizontal' />
-      </ScrollArea>
+      <CusTabs
+        list={categories1}
+        active={active1}
+        onChangeActive={onChangeActive1}
+      />
       <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
         <ul className='flex h-10 select-none items-center space-x-4'>
           {categories2.map((category) => (

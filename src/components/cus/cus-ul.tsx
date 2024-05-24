@@ -1,37 +1,61 @@
 import Link from 'next/link'
-import { navigationMenuTriggerStyle } from '../ui/navigation-menu'
+import {
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from '../ui/navigation-menu'
 import { cn } from '@/lib/utils'
+import { DropdownMenuItem } from '../ui/dropdown-menu'
 
 interface Props {
   list: Array<{
     text: string
-    link: string
+    link?: string
     value?: string
   }>
   callbackFn?: CallableFunction
-  replace?: boolean
+  isNav?: boolean
 }
 
-export default function CusUl({ list, callbackFn, replace }: Props) {
+export default function CusUl({ list, callbackFn, isNav = false }: Props) {
+  const style = cn(
+    navigationMenuTriggerStyle(),
+    '!block w-full truncate text-center font-normal',
+  )
+
+  const ItemDom = (children: React.ReactNode) => {
+    if (isNav) {
+      return <NavigationMenuItem asChild>{children}</NavigationMenuItem>
+    }
+    return <DropdownMenuItem asChild>{children}</DropdownMenuItem>
+  }
+
+  const LinkDom = (text: string, href: string) => {
+    if (isNav) {
+      return (
+        <NavigationMenuLink href={href} title={text} className={style}>
+          {text}
+        </NavigationMenuLink>
+      )
+    }
+    return (
+      <Link href={href} title={text} className={style}>
+        {text}
+      </Link>
+    )
+  }
+
   return (
     <ul className='min-w-28 max-w-48'>
       {list.map((e, index) => (
         <li
           key={index}
-          className='truncate'
+          className='truncate break-all'
           onClick={() => callbackFn?.(e.value)}
         >
-          <Link
-            href={e.link}
-            title={e.text}
-            replace={replace}
-            className={cn(
-              navigationMenuTriggerStyle(),
-              '!block w-full truncate font-normal',
-            )}
-          >
-            {e.text}
-          </Link>
+          {e.link == undefined
+            ? ItemDom(<div className={style}>{e.text}</div>)
+            : ItemDom(LinkDom(e.text, e.link))}
         </li>
       ))}
     </ul>
