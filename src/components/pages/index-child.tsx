@@ -6,8 +6,6 @@ import { KeyboardEvent, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { debounce } from '@/utils'
-import Category from '@/types/Categories'
-import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 import Image from 'next/image'
 import Link from 'next/link'
 import Tool from '@/types/Tool'
@@ -24,84 +22,7 @@ import CusExp from '../cus/cus-exp'
 import { Locale } from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTabs from '../cus/cus-tabs'
-
-const list1 = [
-  {
-    text: 'All Industries',
-    id: '1',
-  },
-  {
-    text: 'Electronic Commerce',
-    id: '2',
-  },
-  {
-    text: 'Program Development',
-    id: '3',
-  },
-  {
-    text: 'UI / UX',
-    id: '4',
-  },
-  {
-    text: 'Art',
-    id: '5',
-  },
-  {
-    text: 'Medical Treatment',
-    id: '6',
-  },
-  {
-    text: 'System',
-    id: '7',
-  },
-  {
-    text: 'Speech Recognition',
-    id: '8',
-  },
-]
-
-const list2 = [
-  {
-    text: 'All Functions',
-    id: '1',
-  },
-  {
-    text: 'Chat',
-    id: '2',
-  },
-  {
-    text: 'Photo Restoration',
-    id: '3',
-  },
-  {
-    text: 'Face Detection',
-    id: '4',
-  },
-  {
-    text: 'Speech Recognition',
-    id: '5',
-  },
-  {
-    text: 'E-commerce',
-    id: '6',
-  },
-  {
-    text: 'Article Writing',
-    id: '7',
-  },
-  {
-    text: 'Tourism',
-    id: '8',
-  },
-  {
-    text: 'System Safety',
-    id: '9',
-  },
-  {
-    text: 'Market Economy',
-    id: '10',
-  },
-]
+import CusSubTabs from '../cus/cus-subTabs'
 
 const list3: Tool[] = [
   {
@@ -337,8 +258,6 @@ export default function IndexChild({ dict, lang }: Props) {
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [categories1, setCategories1] = useState([] as Category[])
-  const [categories2, setCategories2] = useState([] as Category[])
   const [active1, setActive1] = useState('1')
   const [active2, setActive2] = useState('')
   const [toolRanking, setToolRanking] = useState([] as Tool[])
@@ -375,11 +294,11 @@ export default function IndexChild({ dict, lang }: Props) {
   }
 
   const onChangeActive1 = (id: string) => {
-    setActive1(id)
+    console.log(id)
   }
 
   const onChangeActive2 = (id: string) => {
-    setActive2(id)
+    console.log(id)
   }
 
   const rankingTitleDom = ({
@@ -446,8 +365,6 @@ export default function IndexChild({ dict, lang }: Props) {
 
   const init = () => {
     setTimeout(() => {
-      setCategories1(list1)
-      setCategories2(list2)
       setToolRanking(list3)
       setExpRanking(list4)
       setFaqList(list5)
@@ -587,30 +504,8 @@ export default function IndexChild({ dict, lang }: Props) {
           </div>
         </div>
       )}
-      <CusTabs
-        list={categories1}
-        active={active1}
-        onChangeActive={onChangeActive1}
-      />
-      <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
-        <ul className='flex h-10 select-none items-center space-x-4'>
-          {categories2.map((category) => (
-            <li
-              key={category.id}
-              onClick={() => onChangeActive2(category.id)}
-              className={cn(
-                'relative flex h-full shrink-0 cursor-pointer items-center rounded-lg bg-foreground px-3 hover:opacity-85',
-                {
-                  'text-primary': active2 === category.id,
-                },
-              )}
-            >
-              {category.text}
-            </li>
-          ))}
-        </ul>
-        <ScrollBar orientation='horizontal' />
-      </ScrollArea>
+      <CusTabs onChangeActive={onChangeActive1} />
+      <CusSubTabs onChangeActive={onChangeActive2} />
       <div className='h-10'></div>
       <div className='mb-10 grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
         <div>

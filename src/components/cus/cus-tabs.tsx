@@ -1,47 +1,47 @@
 import { cn } from '@/lib/utils'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
+import { useApp } from '@/contexts/appContext'
 
 interface Props {
   children?: React.ReactNode
-  list: {
-    text: string
-    id: string
-  }[]
-  active: string
   onChangeActive: CallableFunction
 }
 
-export default function CusTabs({
-  list,
-  active,
-  onChangeActive,
-  children,
-}: Props) {
+export default function CusTabs({ onChangeActive, children }: Props) {
+  const { categories1, active1, setActive1 } = useApp()
+
+  const onTabItem = (id: string, index: number) => {
+    if (active1 === index) return
+    setActive1(index)
+    onChangeActive(id)
+  }
+
   return (
-    <ScrollArea className='mb-5 min-h-14 w-full whitespace-nowrap'>
-      <div className='flex items-center justify-between border-b'>
+    <div className='mb-5 flex min-h-14 w-full items-center justify-between border-b'>
+      <ScrollArea className='flex-1 whitespace-nowrap'>
         <ul className='flex h-14 flex-1 select-none items-center space-x-3'>
-          {list.map((item) => (
+          {categories1.map((item, index) => (
             <li
               key={item.id}
-              onClick={() => onChangeActive(item.id)}
+              onClick={() => onTabItem(item.id, index)}
               className={cn(
                 'relative flex h-full shrink-0 cursor-pointer items-center px-5 font-medium hover:opacity-85',
                 {
-                  'text-primary': active === item.id,
+                  'text-primary': active1 === index,
                 },
               )}
             >
               {item.text}
-              {active === item.id && (
+              {active1 === index && (
                 <div className='absolute bottom-0 left-0 z-50 h-[2px] w-full bg-gradient-primary'></div>
               )}
             </li>
           ))}
         </ul>
-        {children}
-      </div>
-      <ScrollBar orientation='horizontal' />
-    </ScrollArea>
+
+        <ScrollBar orientation='horizontal' />
+      </ScrollArea>
+      {children && <div className='pl-2'>{children}</div>}
+    </div>
   )
 }
