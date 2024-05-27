@@ -1,5 +1,5 @@
 export default interface LinkA {
   text: string
-  link: string
+  link?: string
   value?: string
 }

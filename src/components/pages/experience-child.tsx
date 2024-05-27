@@ -1,7 +1,6 @@
 'use client'
 
 import { Dictionary } from '@/types/Dictionary'
-import Image from 'next/image'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
 import CusGridUl from '../cus/cus-grid-ul'
@@ -9,6 +8,14 @@ import CusPagination from '../cus/cus-pagination'
 import { Locale } from '@/types/Locale'
 import { routerName } from '@/router'
 import CusIcon from '../cus/cus-icon'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu'
+import LinkA from '@/types/LinkA'
+import CusUl from '../cus/cus-ul'
+import { useState } from 'react'
 
 export default function ExperienceChild({
   dict,
@@ -28,6 +35,22 @@ export default function ExperienceChild({
   }
 
   const total = 99
+  const [sort, setSort] = useState('popular')
+
+  const sortList: LinkA[] = [
+    {
+      text: 'Popular',
+      value: 'popular',
+    },
+    {
+      text: 'Time',
+      value: 'time',
+    },
+  ]
+
+  const onChangeSort = (e: string) => {
+    setSort(e)
+  }
 
   return (
     <>
@@ -40,6 +63,24 @@ export default function ExperienceChild({
       </div>
       <CusTabs onChangeActive={onChangeActive1} />
       <CusSubTabs onChangeActive={onChangeActive2} />
+      <div className='mb-5 mt-10 flex items-center justify-between'>
+        <div className='flex items-center'></div>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            asChild
+            needAngle
+            className='h-10 rounded border px-5'
+          >
+            <div className='flex items-center'>
+              <div className='h-1 w-2'></div>
+              <span>{sortList.find((e) => e.value === sort)?.text ?? ''}</span>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='p-0'>
+            <CusUl list={sortList} callbackFn={onChangeSort} />
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <CusGridUl></CusGridUl>
       <div className='h-5'></div>
       <CusPagination

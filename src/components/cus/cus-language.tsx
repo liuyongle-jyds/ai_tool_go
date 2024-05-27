@@ -62,7 +62,7 @@ export default function CusLanguage({
     <DropdownMenu>
       <DropdownMenuTrigger asChild needAngle>
         <div
-          className={cn('flex items-center ', {
+          className={cn('flex items-center', {
             'text-t2': isGrey,
           })}
         >
@@ -74,7 +74,7 @@ export default function CusLanguage({
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='p-0'>
-        <CusUl list={list} callbackFn={debounce(onChangeLang, 200, true)} />
+        <CusUl list={list} callbackFn={onChangeLang} />
       </DropdownMenuContent>
     </DropdownMenu>
   )

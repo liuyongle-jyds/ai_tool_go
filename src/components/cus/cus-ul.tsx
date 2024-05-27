@@ -6,13 +6,11 @@ import {
 } from '../ui/navigation-menu'
 import { cn } from '@/lib/utils'
 import { DropdownMenuItem } from '../ui/dropdown-menu'
+import LinkA from '@/types/LinkA'
+import { debounce } from '@/utils'
 
 interface Props {
-  list: Array<{
-    text: string
-    link?: string
-    value?: string
-  }>
+  list: LinkA[]
   callbackFn?: CallableFunction
   isNav?: boolean
 }
@@ -51,7 +49,7 @@ export default function CusUl({ list, callbackFn, isNav = false }: Props) {
         <li
           key={index}
           className='truncate break-all'
-          onClick={() => callbackFn?.(e.value)}
+          onClick={debounce(() => callbackFn?.(e.value), 200, true)}
         >
           {e.link == undefined
             ? ItemDom(<div className={style}>{e.text}</div>)

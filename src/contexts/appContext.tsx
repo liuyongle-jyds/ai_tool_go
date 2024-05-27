@@ -42,7 +42,7 @@ export const AppContextProvider = ({
   const [categories1, setCategories1] = useState([] as Category[])
   const [categories2, setCategories2] = useState([] as Category[])
   const [active1, setActive1] = useState(0)
-  const [active2, setActive2] = useState(-1)
+  const [active2, setActive2] = useState(0)
 
   const getToolsList = () => {
     setToolsList([
