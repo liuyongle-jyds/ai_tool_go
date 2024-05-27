@@ -17,7 +17,7 @@ export default function CusSubTabs({ onChangeActive }: Props) {
 
   return (
     <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
-      <ul className='flex h-10 select-none items-center space-x-4'>
+      <ul className='flex h-10 items-center space-x-4'>
         {categories2.map((item, index) => (
           <li
             key={item.id}

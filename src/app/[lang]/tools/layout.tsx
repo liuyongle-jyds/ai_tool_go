@@ -1,3 +1,4 @@
+import { routerName } from '@/router'
 import { Locale } from '@/types/Locale'
 import { getAltLanguages } from '@/utils'
 import { Metadata } from 'next'
@@ -10,10 +11,11 @@ interface Props {
 }
 
 export function generateMetadata({ params }: Props): Metadata {
+  const path = routerName.tools
   return {
     alternates: {
-      canonical: `/${params.lang}`,
-      languages: getAltLanguages(''),
+      canonical: `/${params.lang + path}`,
+      languages: getAltLanguages(path),
     },
   }
 }

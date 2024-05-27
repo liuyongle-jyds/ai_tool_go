@@ -50,5 +50,8 @@
     "Description": "描述",
     "Brief description": "您的个人资料的简短描述。",
     "Save Profile": "保存个人信息"
+  },
+  "tools": {
+    "All Tools": "所有工具"
   }
 }

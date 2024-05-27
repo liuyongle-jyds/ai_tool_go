@@ -6,7 +6,7 @@ import { Locale } from '@/types/Locale'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CusFooter from './cus-footer'
-import { ScrollArea, ScrollBar } from '../ui/scroll-area'
+import { ScrollArea } from '../ui/scroll-area'
 import Image from 'next/image'
 
 interface Props {
@@ -26,7 +26,7 @@ export default function CusLayout({ children, dict, lang }: Props) {
   }, [pathName, lang])
 
   return (
-    <div className='relative flex h-screen flex-col items-center overflow-hidden'>
+    <div className='relative flex h-screen select-none flex-col items-center overflow-hidden'>
       {topUrl && (
         <Image
           src={topUrl}

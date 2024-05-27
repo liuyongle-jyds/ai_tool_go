@@ -13,8 +13,8 @@ const filterImage = (url: string) => {
 
 const getAltLanguages: (path: string) => Languages<string> = (path: string) => {
   const map: { [k in Locale]: string } = {
-    en: 'en',
-    zh: 'zh',
+    en: '/en',
+    zh: '/zh',
   }
   Object.keys(map).forEach((k) => {
     const key = k as keyof typeof map
@@ -25,7 +25,7 @@ const getAltLanguages: (path: string) => Languages<string> = (path: string) => {
 
 /**
 
-* @desc 函数防抖
+* @description 函数防抖
 * @param func 功能函数
 * @param delay 延迟执行
 * @param immediate true 表立即执行
@@ -87,4 +87,12 @@ class ToastManager {
 
 const toastManager = ToastManager.getInstance()
 
-export { filterImage, getAltLanguages, debounce, toastManager }
+/**
+ * @description 延时函数
+ * @param ms 毫秒
+ */
+const delay = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+export { filterImage, getAltLanguages, debounce, toastManager, delay }

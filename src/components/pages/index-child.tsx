@@ -258,8 +258,6 @@ export default function IndexChild({ dict, lang }: Props) {
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [active1, setActive1] = useState('1')
-  const [active2, setActive2] = useState('')
   const [toolRanking, setToolRanking] = useState([] as Tool[])
   const [expRanking, setExpRanking] = useState([] as Experience[])
   const [faqList, setFaqList] = useState([] as Faq[])

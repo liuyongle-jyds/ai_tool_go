@@ -18,6 +18,7 @@ import User from '@/types/User'
 import { uploadFile } from '@/services'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
+import CusGridUl from '../cus/cus-grid-ul'
 
 type Filter = 'tools' | 'experience'
 
@@ -182,7 +183,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
               </DropdownMenuContent>
             </DropdownMenu>
           </CusTabs>
-          <ul className='grid min-h-96 grid-cols-1 gap-y-5 md:grid-cols-2 md:gap-x-5'></ul>
+          <CusGridUl></CusGridUl>
         </div>
       </div>
       <div className={cn('hidden flex-col items-center', { flex: editing })}>

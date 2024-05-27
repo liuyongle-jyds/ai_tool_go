@@ -11,10 +11,11 @@ interface Props {
 }
 
 export function generateMetadata({ params }: Props): Metadata {
+  const path = routerName.profile
   return {
     alternates: {
-      canonical: params.lang,
-      languages: getAltLanguages(routerName.profile),
+      canonical: `/${params.lang + path}`,
+      languages: getAltLanguages(path),
     },
   }
 }

@@ -41,7 +41,7 @@ export default function CusTabs({
   return (
     <div className='mb-5 flex min-h-14 w-full items-center justify-between border-b'>
       <ScrollArea className='flex-1 whitespace-nowrap'>
-        <ul className='flex h-14 flex-1 select-none items-center space-x-3'>
+        <ul className='flex h-14 flex-1 items-center space-x-3'>
           {getArr().map((item, index) => (
             <li
               key={item.id}

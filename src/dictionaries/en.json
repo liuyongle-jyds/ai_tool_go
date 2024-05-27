@@ -50,5 +50,8 @@
     "Description": "Description",
     "Brief description": "Brief description for your profile.",
     "Save Profile": "Save Profile"
+  },
+  "tools": {
+    "All Tools": "All Tools"
   }
 }
