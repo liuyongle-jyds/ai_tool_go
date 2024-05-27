@@ -66,7 +66,7 @@ export default function CusLanguage({
             'text-t2': isGrey,
           })}
         >
-          <CusIcon name='globe' className='h-6 w-6' />
+          <CusIcon name='globe' className='w-6' />
           <div className='h-1 w-2'></div>
           <span>
             {languages.find((language) => language.value === lang)?.text ?? ''}

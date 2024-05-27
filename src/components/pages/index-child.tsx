@@ -329,7 +329,7 @@ export default function IndexChild({ dict, lang }: Props) {
         >
           <span className='font-medium'>{dict.index['See All']}</span>
           <div className='h-1 w-1'></div>
-          <CusIcon name='arrow-right' className='h-4 w-4' />
+          <CusIcon name='arrow-right' className='w-4' />
         </Link>
       </div>
     )
@@ -385,7 +385,7 @@ export default function IndexChild({ dict, lang }: Props) {
           { 'border-primary': isFocus },
         )}
       >
-        <CusIcon name='search' className='h-6 w-6 text-t3' />
+        <CusIcon name='search' className='w-6 text-t3' />
         <div className='h-1 w-3'></div>
         <input
           type='text'
@@ -408,7 +408,7 @@ export default function IndexChild({ dict, lang }: Props) {
         >
           <CusIcon
             name={loading ? 'loader-circle' : 'arrow-right'}
-            className={cn('h-4 w-4', {
+            className={cn('w-4', {
               'animate-spin': loading,
             })}
           />
@@ -421,7 +421,7 @@ export default function IndexChild({ dict, lang }: Props) {
           </div>
           <div className='mb-10 flex items-center justify-center'>
             <Button variant='secondary' className='h-10 w-10 px-0'>
-              <CusIcon name='refresh-ccw' className='h-4 w-4' />
+              <CusIcon name='refresh-ccw' className='w-4' />
             </Button>
             <div className='h-1 w-5'></div>
             <Button
@@ -429,7 +429,7 @@ export default function IndexChild({ dict, lang }: Props) {
               className='h-10 w-10 px-0'
               onClick={clearSearch}
             >
-              <CusIcon name='x' className='h-4 w-4 text-t3' />
+              <CusIcon name='x' className='w-4 text-t3' />
             </Button>
           </div>
           <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
@@ -459,7 +459,7 @@ export default function IndexChild({ dict, lang }: Props) {
                         </h4>
                       </div>
                       <div className='h-1 w-1'></div>
-                      <CusIcon name='arrow-right' className='h-4 w-4 text-t3' />
+                      <CusIcon name='arrow-right' className='w-4 text-t3' />
                     </div>
                     <div className='line-clamp-3 whitespace-pre-wrap text-sm text-t2'>
                       {tool.desc}

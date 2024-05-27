@@ -69,14 +69,14 @@ export default function CusExp({ exp, onTabVote, isNotFull = false }: Props) {
                   name='star'
                   fill='#EEB244'
                   strokeWidth={0}
-                  className='h-3 w-3'
+                  className='w-3'
                 />
               ) : (
-                <CusIcon name='star' className='h-3 w-3' />
+                <CusIcon name='star' className='w-3' />
               )}
               <span className='translate-y-[1px]'>&nbsp;{exp.collection}</span>
               <div className='h-1 w-3'></div>
-              <CusIcon name='message-circle' className='h-3 w-3' />
+              <CusIcon name='message-circle' className='w-3' />
               <span className='translate-y-[1px]'>&nbsp;{exp.comment}</span>
             </div>
           </div>

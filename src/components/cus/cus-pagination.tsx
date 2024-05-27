@@ -10,7 +10,7 @@ import {
 
 const getPagesToDisplay = (current: number, maxPage: number) => {
   const pages = []
-  const maxVisiblePages = 3
+  const maxVisiblePages = 4
   const halfVisiblePages = Math.floor(maxVisiblePages / 2)
 
   let startPage = Math.max(1, current - halfVisiblePages)
@@ -63,7 +63,7 @@ export default function CusPagination({
 
   const getNextPath = () => path + '/page/' + (current + 1)
 
-  const getPathByPage = (e: number) => path + '/page/' + e
+  const getPathByPage = (e: number) => (e === 1 ? path : path + '/page/' + e)
 
   const maxPage = Math.ceil(total / pageSize)
 

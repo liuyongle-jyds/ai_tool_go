@@ -69,23 +69,23 @@ export default function CusTool({
               name='star'
               fill='#EEB244'
               strokeWidth={0}
-              className='h-3 w-3 text-t3'
+              className='w-3 text-t3'
             />
           ) : (
-            <CusIcon name='star' className='h-3 w-3 text-t3' />
+            <CusIcon name='star' className='w-3 text-t3' />
           )}
           <span className='mx-1 translate-y-[1px] text-t3'>
             {dict.index.Collection}
           </span>
           <span className='translate-y-[1px]'>{tool.collection}</span>
           <div className='h-1 w-5'></div>
-          <CusIcon name='message-circle' className='h-3 w-3 text-t3' />
+          <CusIcon name='message-circle' className='w-3 text-t3' />
           <span className='mx-1 translate-y-[1px] text-t3'>
             {dict.index.Comment}
           </span>
           <span className='translate-y-[1px]'>{tool.comment}</span>
           <div className='h-1 w-5'></div>
-          <CusIcon name='share-2' className='h-3 w-3 text-t3' />
+          <CusIcon name='share-2' className='w-3 text-t3' />
           <span className='mx-1 translate-y-[1px] text-t3'>
             {dict.index.Share}
           </span>
@@ -93,7 +93,7 @@ export default function CusTool({
       </div>
       <Separator className='my-5' />
       <div className='flex'>
-        <CusIcon name='lightbulb' className='h-6 w-6' />
+        <CusIcon name='lightbulb' className='w-6' />
         <div className='h-1 w-3'></div>
         <div className='flex-1 text-sm font-medium'>{tool.tip}</div>
       </div>
