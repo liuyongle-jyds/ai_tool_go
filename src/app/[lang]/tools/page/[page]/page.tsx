@@ -1,6 +1,6 @@
 import { Locale } from '@/types/Locale'
 import ToolsChild from '@/components/pages/tools-child'
-import { getDictionary } from '../../../dictionaries'
+import { getDictionary } from '@/app/[lang]/dictionaries'
 
 const convertToNumber = (str?: string) => {
   const page = Number(str)
@@ -8,7 +8,7 @@ const convertToNumber = (str?: string) => {
   return page
 }
 
-export default async function ToolsPage({
+export default async function Page({
   params,
 }: {
   params: { lang: Locale; page: string }
