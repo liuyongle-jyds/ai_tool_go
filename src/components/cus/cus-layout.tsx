@@ -8,6 +8,7 @@ import CusFooter from './cus-footer'
 import { ScrollArea } from '../ui/scroll-area'
 import Image from 'next/image'
 import { Locale } from '@/types/Locale'
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'
 
 interface Props {
   children: React.ReactNode
@@ -48,6 +49,12 @@ export default function CusLayout({ children, dict }: Props) {
           <CusFooter dict={dict} />
         </div>
       </ScrollArea>
+      <ProgressBar
+        height='2px'
+        color='#983BD4'
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
     </div>
   )
 }
