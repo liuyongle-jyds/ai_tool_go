@@ -52,6 +52,9 @@
     "Save Profile": "Save Profile"
   },
   "tools": {
-    "All Tools": "All Tools"
+    "All Tools": "All Tools",
+    "Tool Information": "Tool Information",
+    "Application Cases": "Application Cases",
+    "Related Tools": "Related Tools"
   }
 }

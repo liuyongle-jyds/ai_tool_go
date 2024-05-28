@@ -5,40 +5,52 @@ import { Separator } from '../ui/separator'
 import { Button } from '../ui/button'
 import { Triangle } from 'lucide-react'
 import CusRanking from './cus-ranking'
+import Link from 'next/link'
+import { Locale } from '@/types/Locale'
+import { routerName } from '@/router'
+import CusTag from './cus-tag'
 
 interface Props {
   tool: Tool
   dict: Dictionary
   onTabVote: CallableFunction
   isNotFull?: boolean
+  lang: Locale
 }
 
 export default function CusTool({
   tool,
   dict,
   onTabVote,
+  lang,
   isNotFull = false,
 }: Props) {
   return (
     <li className='relative rounded-xl border p-5'>
       <div className='mb-3 flex flex-1 items-center justify-between'>
-        <div className='flex items-center'>
-          <div className='h-12 w-12 rounded-full bg-primary/75'></div>
-          <div className='h-1 w-3'></div>
-          <div className='flex flex-1 flex-col justify-center'>
-            <div className='text-xs'>{tool.creator}</div>
-            <h4 className='line-clamp-1 break-all text-xl font-semibold'>
-              {tool.name}
-            </h4>
+        <Link
+          href={`/${lang + routerName.tools}/domains/tasks/${tool.id}`}
+          title={tool.name}
+          className='flex-1'
+        >
+          <div className='flex items-center'>
+            <div className='h-12 w-12 rounded-full bg-primary/75'></div>
+            <div className='h-1 w-3'></div>
+            <div className='flex flex-1 flex-col justify-center'>
+              <div className='text-xs'>{tool.creator}</div>
+              <h4 className='line-clamp-1 break-all text-xl font-semibold'>
+                {tool.name}
+              </h4>
+            </div>
           </div>
-        </div>
+        </Link>
         <div className='h-1 w-1'></div>
         <div className='flex items-center'>
           <span className='font-medium'>{tool.vote}</span>
           <div className='h-1 w-2'></div>
           <Button
             variant={tool.voted ? 'primary' : 'secondary'}
-            className='h-8 w-8 px-0'
+            className='h-8 w-8 rounded-full p-0'
             onClick={() => onTabVote(tool.id)}
           >
             <Triangle
@@ -50,19 +62,10 @@ export default function CusTool({
         </div>
       </div>
       <div className='pl-[3.75rem]'>
-        <div className='mb-3 line-clamp-2 whitespace-pre-wrap text-sm text-t2'>
+        <div className='mb-3 line-clamp-2 whitespace-pre-wrap text-sm leading-4 text-t2'>
           {tool.desc}
         </div>
-        <ul className='flex flex-wrap items-center space-x-1'>
-          {tool.tag.map((e, index) => (
-            <li
-              key={index}
-              className='mb-1 h-6 rounded-full border bg-foreground px-3 text-xs leading-6 text-t2'
-            >
-              {e}
-            </li>
-          ))}
-        </ul>
+        <CusTag list={tool.tag} />
         <div className='flex items-center pt-2 text-xs font-medium leading-none'>
           {tool.collected ? (
             <CusIcon
@@ -95,7 +98,7 @@ export default function CusTool({
       <div className='flex'>
         <CusIcon name='lightbulb' className='w-6' />
         <div className='h-1 w-3'></div>
-        <div className='flex-1 text-sm font-medium'>{tool.tip}</div>
+        <div className='flex-1 text-sm font-medium leading-4'>{tool.tip}</div>
       </div>
       {!isNotFull && (
         <div className='mt-2 rounded bg-foreground py-1 text-center text-xs leading-4 text-t2'>

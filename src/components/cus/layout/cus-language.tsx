@@ -1,15 +1,14 @@
 import { Locale } from '@/types/Locale'
-import CusUl from './cus-ul'
+import CusUl from '../cus-ul'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { setCookie } from '@/utils/actions'
-import CusIcon from './cus-icon'
+import CusIcon from '../cus-icon'
 import { cn } from '@/lib/utils'
-import { debounce } from '@/utils'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
+} from '../../ui/dropdown-menu'
 
 type Lang = {
   text: string

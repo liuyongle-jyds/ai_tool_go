@@ -10,8 +10,8 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '../ui/navigation-menu'
-import CusUl from './cus-ul'
+} from '../../ui/navigation-menu'
+import CusUl from '../cus-ul'
 import CusLanguage from './cus-language'
 import CusLogin from './cus-login'
 import { useApp } from '@/contexts/appContext'

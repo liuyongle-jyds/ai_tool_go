@@ -3,7 +3,7 @@
 import { Dictionary } from '@/types/Dictionary'
 import { getCookie } from '@/utils/actions'
 import { useEffect, useState } from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
+} from '../../ui/dropdown-menu'
 import { CircleUser, LogOut } from 'lucide-react'
 import { routerName } from '@/router'
 import { Locale } from '@/types/Locale'
@@ -53,7 +53,7 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link href={`/${lang + routerName.profile}`}>
+                <Link href={`/${lang + routerName.profile}`} rel='nofollow'>
                   <CircleUser className='h-5 w-5' />
                   <div className='h-1 w-2'></div>
                   <span>{dict.header.Profile}</span>

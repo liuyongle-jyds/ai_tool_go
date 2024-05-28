@@ -54,7 +54,7 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
     <>
       <div className='mb-10 mt-5 flex items-center'>
         <div className='flex h-16 w-16 items-center justify-center rounded-full bg-gradient-primary'>
-          <CusIcon name='lightbulb' className='w-14 text-white' />
+          <CusIcon name='lightbulb' className='w-14 text-primary-foreground' />
         </div>
         <div className='h-1 w-3'></div>
         <h1 className='text-[1.75rem] font-bold'>{dict.header.Experience}</h1>

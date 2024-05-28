@@ -427,16 +427,12 @@ export default function IndexChild({ dict }: Props) {
             {searchTip}
           </div>
           <div className='mb-10 flex items-center justify-center'>
-            <Button variant='secondary' className='h-10 w-10 px-0'>
+            <Button variant='secondary' size='icon'>
               <CusIcon name='refresh-ccw' className='w-4' />
             </Button>
             <div className='h-1 w-5'></div>
-            <Button
-              variant='secondary'
-              className='h-10 w-10 px-0'
-              onClick={clearSearch}
-            >
-              <CusIcon name='x' className='w-4 text-t3' />
+            <Button variant='secondary' onClick={clearSearch} size='icon'>
+              <CusIcon name='x' className='w-4' />
             </Button>
           </div>
           <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
@@ -525,6 +521,7 @@ export default function IndexChild({ dict }: Props) {
                 key={tool.id}
                 tool={tool}
                 dict={dict}
+                lang={lang}
                 onTabVote={onVoteTool}
                 isNotFull
               />
@@ -539,7 +536,13 @@ export default function IndexChild({ dict }: Props) {
           })}
           <ul className='space-y-3'>
             {expRanking.map((exp) => (
-              <CusExp key={exp.id} exp={exp} onTabVote={onVoteExp} isNotFull />
+              <CusExp
+                key={exp.id}
+                lang={lang}
+                exp={exp}
+                onTabVote={onVoteExp}
+                isNotFull
+              />
             ))}
           </ul>
         </div>

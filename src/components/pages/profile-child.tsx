@@ -141,12 +141,12 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             <div className='h-20 w-20 rounded-full bg-primary/75'></div>
             <div className='h-1 w-5'></div>
             <div className='flex-1'>
-              <p className='mb-2 line-clamp-1 break-all text-2xl font-semibold leading-7'>
+              <h1 className='mb-2 line-clamp-1 break-all text-2xl font-semibold leading-7'>
                 Kathryn Murphy
-              </p>
-              <p className='line-clamp-1 break-all leading-5 text-t2'>
+              </h1>
+              <h2 className='line-clamp-1 break-all leading-5 text-t2'>
                 kathrynmurphy@gmail.com
-              </p>
+              </h2>
             </div>
           </div>
           <div className='h-1 w-1'></div>
@@ -246,11 +246,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             />
           </div>
         </div>
-        <Button
-          variant='primary'
-          className='my-10 rounded-lg'
-          onClick={onTabSave}
-        >
+        <Button variant='primary' className='my-10' onClick={onTabSave}>
           {dict.profile['Save Profile']}
         </Button>
       </div>
