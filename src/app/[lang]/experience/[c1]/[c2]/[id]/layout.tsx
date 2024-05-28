@@ -18,7 +18,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const path = `${routerName.tools}/${c1}/${c2}/${id}`
   return {
     alternates: {
-      canonical: `/${params.lang + path}`,
+      canonical: `/${lang + path}`,
       languages: getAltLanguages(path),
     },
   }

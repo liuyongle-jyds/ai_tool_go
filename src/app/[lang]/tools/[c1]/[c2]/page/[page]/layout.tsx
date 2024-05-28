@@ -8,12 +8,14 @@ interface Props {
   params: {
     lang: Locale
     page: string
+    c1: string
+    c2: string
   }
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const { lang, page } = params
-  const path = `${routerName.experience}/page/${page}`
+  const { lang, page, c1, c2 } = params
+  const path = `${routerName.tools}/${c1}/${c2}/page/${page}`
   return {
     alternates: {
       canonical: `/${lang + path}`,

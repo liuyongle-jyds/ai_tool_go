@@ -95,4 +95,17 @@ const delay = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export { filterImage, getAltLanguages, debounce, toastManager, delay }
+const convertPageToNumber = (str?: string) => {
+  const page = Number(str)
+  if (isNaN(page) || page < 1) return 1
+  return page
+}
+
+export {
+  filterImage,
+  getAltLanguages,
+  debounce,
+  toastManager,
+  delay,
+  convertPageToNumber,
+}

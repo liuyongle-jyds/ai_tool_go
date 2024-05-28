@@ -17,15 +17,21 @@ import LinkA from '@/types/LinkA'
 import CusUl from '../cus/cus-ul'
 import { useState } from 'react'
 
+interface Props {
+  dict: Dictionary
+  page?: number
+  lang: Locale
+  c1?: string
+  c2?: string
+}
+
 export default function ExperienceChild({
   dict,
   page = 1,
   lang,
-}: {
-  dict: Dictionary
-  page?: number
-  lang: Locale
-}) {
+  c1,
+  c2,
+}: Props) {
   const onChangeActive1 = (id: string) => {
     console.log(id)
   }
@@ -51,6 +57,9 @@ export default function ExperienceChild({
   const onChangeSort = (e: string) => {
     setSort(e)
   }
+
+  const getBasePath = () =>
+    `/${lang + routerName.experience}` + (c1 && c2 ? `/${c1}/${c2}` : '')
 
   return (
     <>
@@ -87,7 +96,7 @@ export default function ExperienceChild({
         current={page}
         total={total}
         pageSize={6}
-        path={`/${lang + routerName.experience}`}
+        path={getBasePath()}
       />
     </>
   )

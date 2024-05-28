@@ -56,8 +56,6 @@ export default function CusPagination({
   pageSize,
   path,
 }: Props) {
-  if (!total) return <div></div>
-
   const getPreviousPath = () =>
     current === 2 ? path : path + '/page/' + (current - 1)
 
@@ -69,6 +67,7 @@ export default function CusPagination({
 
   const pages = getPagesToDisplay(current, maxPage)
 
+  if (!total) return <div></div>
   return (
     <Pagination>
       <PaginationContent>

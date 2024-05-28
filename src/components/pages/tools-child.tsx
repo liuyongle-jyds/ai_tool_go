@@ -9,15 +9,15 @@ import CusPagination from '../cus/cus-pagination'
 import { Locale } from '@/types/Locale'
 import { routerName } from '@/router'
 
-export default function ToolsChild({
-  dict,
-  page = 1,
-  lang,
-}: {
+interface Props {
   dict: Dictionary
   page?: number
   lang: Locale
-}) {
+  c1?: string
+  c2?: string
+}
+
+export default function ToolsChild({ dict, page = 1, lang, c1, c2 }: Props) {
   const onChangeActive1 = (id: string) => {
     console.log(id)
   }
@@ -27,6 +27,9 @@ export default function ToolsChild({
   }
 
   const total = 99
+
+  const getBasePath = () =>
+    `/${lang + routerName.tools}` + (c1 && c2 ? `/${c1}/${c2}` : '')
 
   return (
     <>
@@ -49,7 +52,7 @@ export default function ToolsChild({
         current={page}
         total={total}
         pageSize={6}
-        path={`/${lang + routerName.tools}`}
+        path={getBasePath()}
       />
     </>
   )

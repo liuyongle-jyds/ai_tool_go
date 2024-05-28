@@ -7,13 +7,14 @@ interface Props {
   children: React.ReactNode
   params: {
     lang: Locale
-    page: string
+    c1: string
+    c2: string
   }
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const { lang, page } = params
-  const path = `${routerName.experience}/page/${page}`
+  const { c1, c2, lang } = params
+  const path = `${routerName.experience}/${c1}/${c2}`
   return {
     alternates: {
       canonical: `/${lang + path}`,
