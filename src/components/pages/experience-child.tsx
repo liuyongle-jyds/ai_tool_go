@@ -29,14 +29,6 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
   const params = useParams()
   const lang = params.lang as Locale
 
-  const onChangeActive1 = (id: string) => {
-    console.log(id)
-  }
-
-  const onChangeActive2 = (id: string) => {
-    console.log(id)
-  }
-
   const total = 99
   const [sort, setSort] = useState('popular')
 
@@ -67,8 +59,8 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
         <div className='h-1 w-3'></div>
         <h1 className='text-[1.75rem] font-bold'>{dict.header.Experience}</h1>
       </div>
-      <CusTabs onChangeActive={onChangeActive1} />
-      <CusSubTabs onChangeActive={onChangeActive2} />
+      <CusTabs source={routerName.experience} />
+      <CusSubTabs source={routerName.tools} />
       <div className='mb-5 mt-10 flex items-center justify-between'>
         <div className='flex items-center'></div>
         <DropdownMenu>

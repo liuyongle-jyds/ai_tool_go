@@ -1,4 +1,5 @@
 export const routerName = {
+  home: '/',
   login: '/login',
   privacy: '/privacy-agreement',
   termOfService: '/term-of-service',

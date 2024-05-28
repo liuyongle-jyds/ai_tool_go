@@ -56,12 +56,11 @@ export default function CusPagination({
   pageSize,
   path,
 }: Props) {
-  const getPreviousPath = () =>
-    current === 2 ? path : path + '/page/' + (current - 1)
+  const getPreviousPath = () => path + '/page/' + (current - 1)
 
   const getNextPath = () => path + '/page/' + (current + 1)
 
-  const getPathByPage = (e: number) => (e === 1 ? path : path + '/page/' + e)
+  const getPathByPage = (e: number) => path + '/page/' + e
 
   const maxPage = Math.ceil(total / pageSize)
 

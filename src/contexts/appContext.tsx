@@ -21,10 +21,10 @@ interface ContextProviderValue {
   setExperienceList: Dispatch<SetStateAction<LinkA[]>>
   categories1: Category[]
   categories2: Category[]
-  active1: number
-  active2: number
-  setActive1: Dispatch<SetStateAction<number>>
-  setActive2: Dispatch<SetStateAction<number>>
+  active1: string
+  active2: string
+  setActive1: Dispatch<SetStateAction<string>>
+  setActive2: Dispatch<SetStateAction<string>>
 }
 
 const AppContext = createContext({} as ContextProviderValue)
@@ -41,8 +41,8 @@ export const AppContextProvider = ({
   const [experienceList, setExperienceList] = useState([] as LinkA[])
   const [categories1, setCategories1] = useState([] as Category[])
   const [categories2, setCategories2] = useState([] as Category[])
-  const [active1, setActive1] = useState(0)
-  const [active2, setActive2] = useState(0)
+  const [active1, setActive1] = useState('')
+  const [active2, setActive2] = useState('')
 
   const getToolsList = () => {
     setToolsList([
@@ -103,7 +103,7 @@ export const AppContextProvider = ({
   }
 
   const getCategories1 = () => {
-    setCategories1([
+    const list: Category[] = [
       {
         text: 'All Industries',
         id: '1',
@@ -136,11 +136,13 @@ export const AppContextProvider = ({
         text: 'Speech Recognition',
         id: '8',
       },
-    ])
+    ]
+    setCategories1(list)
+    setActive1(list[0]?.id || '')
   }
 
   const getCategories2 = () => {
-    setCategories2([
+    const list: Category[] = [
       {
         text: 'All Functions',
         id: '1',
@@ -181,7 +183,9 @@ export const AppContextProvider = ({
         text: 'Market Economy',
         id: '10',
       },
-    ])
+    ]
+    setCategories2(list)
+    setActive2(list[0]?.id || '')
   }
 
   useEffect(() => {

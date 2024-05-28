@@ -47,8 +47,11 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
         <div className='h-1 w-3'></div>
         <h1 className='text-[1.75rem] font-bold'>{dict.tools['All Tools']}</h1>
       </div>
-      <CusTabs onChangeActive={onChangeActive1} />
-      <CusSubTabs onChangeActive={onChangeActive2} />
+      <CusTabs
+        onChangeActive={onChangeActive1}
+        source={routerName.experience}
+      />
+      <CusSubTabs onChangeActive={onChangeActive2} source={routerName.tools} />
       <CusGridUl></CusGridUl>
       <div className='h-5'></div>
       <CusPagination

@@ -24,6 +24,7 @@ import { routerName } from '@/router'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
 import { useParams } from 'next/navigation'
+import { useApp } from '@/contexts/appContext'
 
 const list3: Tool[] = [
   {
@@ -256,6 +257,7 @@ interface Props {
 
 export default function IndexChild({ dict }: Props) {
   const params = useParams()
+  const { active1, active2 } = useApp()
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -328,7 +330,9 @@ export default function IndexChild({ dict }: Props) {
         <Link
           href={href}
           title={title}
-          className='flex cursor-pointer items-center text-t3'
+          className={cn('flex cursor-pointer items-center text-t3', {
+            'pointer-events-none': !active1 || !active2,
+          })}
         >
           <span className='font-medium'>{dict.index['See All']}</span>
           <div className='h-1 w-1'></div>
@@ -505,15 +509,15 @@ export default function IndexChild({ dict }: Props) {
           </div>
         </div>
       )}
-      <CusTabs onChangeActive={onChangeActive1} />
-      <CusSubTabs onChangeActive={onChangeActive2} />
+      <CusTabs onChangeActive={onChangeActive1} source={routerName.home} />
+      <CusSubTabs onChangeActive={onChangeActive2} source={routerName.home} />
       <div className='h-10'></div>
       <div className='mb-10 grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
         <div>
           {rankingTitleDom({
             icon: '/icons/rank_tool@2x.png',
             title: dict.index['Tool Ranking'],
-            href: `/${lang + routerName.tools}`,
+            href: `/${lang + routerName.tools}/${active1}/${active2}/page/1`,
           })}
           <ul className='space-y-3 pl-4'>
             {toolRanking.map((tool) => (
@@ -531,10 +535,10 @@ export default function IndexChild({ dict }: Props) {
           {rankingTitleDom({
             icon: '/icons/rank_exp@2x.png',
             title: dict.index['Experience Ranking'],
-            href: `/${lang + routerName.experience}`,
+            href: `/${lang + routerName.experience}/${active1}/${active2}/page/1`,
           })}
           <ul className='space-y-3'>
-            {expRanking.map((exp, index) => (
+            {expRanking.map((exp) => (
               <CusExp key={exp.id} exp={exp} onTabVote={onVoteExp} isNotFull />
             ))}
           </ul>

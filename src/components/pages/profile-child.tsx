@@ -166,7 +166,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             list={tabs}
             active={active}
             onChangeActive={onChangeActive}
-            isSelf
+            useSelfList
           >
             <DropdownMenu>
               <DropdownMenuTrigger
