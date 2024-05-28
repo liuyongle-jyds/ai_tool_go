@@ -12,5 +12,5 @@ export default async function Page({
   const dict = await getDictionary(lang)
   const page = convertPageToNumber(params.page)
 
-  return <ToolsChild dict={dict} page={page} lang={lang} />
+  return <ToolsChild dict={dict} page={page} />
 }

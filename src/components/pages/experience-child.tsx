@@ -16,22 +16,19 @@ import {
 import LinkA from '@/types/LinkA'
 import CusUl from '../cus/cus-ul'
 import { useState } from 'react'
+import { useParams } from 'next/navigation'
 
 interface Props {
   dict: Dictionary
   page?: number
-  lang: Locale
   c1?: string
   c2?: string
 }
 
-export default function ExperienceChild({
-  dict,
-  page = 1,
-  lang,
-  c1,
-  c2,
-}: Props) {
+export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
+  const params = useParams()
+  const lang = params.lang as Locale
+
   const onChangeActive1 = (id: string) => {
     console.log(id)
   }

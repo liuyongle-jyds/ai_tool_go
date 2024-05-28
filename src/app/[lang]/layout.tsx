@@ -61,9 +61,7 @@ export default async function RootLayout({
     <AppContextProvider>
       <html lang={params.lang}>
         <body className={inter.className}>
-          <CusLayout dict={dict} lang={lang}>
-            {children}
-          </CusLayout>
+          <CusLayout dict={dict}>{children}</CusLayout>
           <Toaster />
         </body>
       </html>

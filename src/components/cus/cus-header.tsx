@@ -15,14 +15,16 @@ import CusUl from './cus-ul'
 import CusLanguage from './cus-language'
 import CusLogin from './cus-login'
 import { useApp } from '@/contexts/appContext'
+import { useParams } from 'next/navigation'
 
 interface Props {
   dict: Dictionary
-  lang: Locale
 }
 
-export default function CusHeader({ dict, lang }: Props) {
+export default function CusHeader({ dict }: Props) {
   const { toolsList, experienceList } = useApp()
+  const params = useParams()
+  const lang = params.lang as Locale
 
   return (
     <header className='flex h-20 w-full items-center'>
@@ -65,9 +67,9 @@ export default function CusHeader({ dict, lang }: Props) {
           </NavigationMenu>
         </div>
         <div className='flex items-center'>
-          <CusLanguage lang={lang} />
+          <CusLanguage />
           <div className='h-1 w-5'></div>
-          <CusLogin dict={dict} lang={lang} />
+          <CusLogin dict={dict} />
         </div>
       </div>
     </header>

@@ -2,24 +2,26 @@
 
 import { Dictionary } from '@/types/Dictionary'
 import CusHeader from './cus-header'
-import { Locale } from '@/types/Locale'
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CusFooter from './cus-footer'
 import { ScrollArea } from '../ui/scroll-area'
 import Image from 'next/image'
+import { Locale } from '@/types/Locale'
 
 interface Props {
   children: React.ReactNode
   dict: Dictionary
-  lang: Locale
 }
 
 const homeTopBg = '/images/home_top_bg.png'
 
-export default function CusLayout({ children, dict, lang }: Props) {
+export default function CusLayout({ children, dict }: Props) {
   const pathName = usePathname()
+  const params = useParams()
   const [topUrl, setTopUrl] = useState('')
+
+  const lang = params.lang as Locale
 
   useEffect(() => {
     setTopUrl(pathName === `/${lang}` ? homeTopBg : '')
@@ -38,12 +40,12 @@ export default function CusLayout({ children, dict, lang }: Props) {
         />
       )}
       <div className='container relative z-20'>
-        <CusHeader dict={dict} lang={lang} />
+        <CusHeader dict={dict} />
       </div>
       <ScrollArea className='relative z-10 w-full flex-1'>
         <div className='container'>
           {children}
-          <CusFooter dict={dict} lang={lang} />
+          <CusFooter dict={dict} />
         </div>
       </ScrollArea>
     </div>

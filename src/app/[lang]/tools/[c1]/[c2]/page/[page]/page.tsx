@@ -17,7 +17,5 @@ export default async function Page({ params }: Props) {
   const dict = await getDictionary(lang)
   const pageNumber = convertPageToNumber(page)
 
-  return (
-    <ToolsChild dict={dict} page={pageNumber} lang={lang} c1={c1} c2={c2} />
-  )
+  return <ToolsChild dict={dict} page={pageNumber} c1={c1} c2={c2} />
 }

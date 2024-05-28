@@ -14,5 +14,5 @@ export default async function Page({ params }: Props) {
   const { lang, c1, c2 } = params
   const dict = await getDictionary(lang)
 
-  return <ExperienceChild dict={dict} lang={lang} c1={c1} c2={c2} />
+  return <ExperienceChild dict={dict} c1={c1} c2={c2} />
 }

@@ -1,6 +1,6 @@
 import { Locale } from '@/types/Locale'
 import CusUl from './cus-ul'
-import { usePathname, useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { setCookie } from '@/utils/actions'
 import CusIcon from './cus-icon'
 import { cn } from '@/lib/utils'
@@ -27,15 +27,12 @@ const languages: Lang[] = [
   },
 ]
 
-export default function CusLanguage({
-  lang,
-  isGrey = false,
-}: {
-  lang: Locale
-  isGrey?: boolean
-}) {
+export default function CusLanguage({ isGrey = false }: { isGrey?: boolean }) {
   const pathName = usePathname()
   const router = useRouter()
+  const params = useParams()
+
+  const lang = params.lang as Locale
 
   const list = languages.map((language) => {
     let link = '/'

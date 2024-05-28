@@ -23,6 +23,7 @@ import { Locale } from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
+import { useParams } from 'next/navigation'
 
 const list3: Tool[] = [
   {
@@ -251,10 +252,10 @@ const list5: Faq[] = [
 
 interface Props {
   dict: Dictionary
-  lang: Locale
 }
 
-export default function IndexChild({ dict, lang }: Props) {
+export default function IndexChild({ dict }: Props) {
+  const params = useParams()
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -264,6 +265,8 @@ export default function IndexChild({ dict, lang }: Props) {
   const [searchTip, setSearchTip] = useState('')
   const [searchTools, setSearchTools] = useState([] as Tool[])
   const [searchExp, setSearchExp] = useState([] as Experience[])
+
+  const lang = params.lang as Locale
 
   const onSearch = () => {
     if (loading) return

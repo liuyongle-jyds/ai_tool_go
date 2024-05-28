@@ -8,16 +8,19 @@ import CusGridUl from '../cus/cus-grid-ul'
 import CusPagination from '../cus/cus-pagination'
 import { Locale } from '@/types/Locale'
 import { routerName } from '@/router'
+import { useParams } from 'next/navigation'
 
 interface Props {
   dict: Dictionary
   page?: number
-  lang: Locale
   c1?: string
   c2?: string
 }
 
-export default function ToolsChild({ dict, page = 1, lang, c1, c2 }: Props) {
+export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
+  const params = useParams()
+  const lang = params.lang as Locale
+
   const onChangeActive1 = (id: string) => {
     console.log(id)
   }

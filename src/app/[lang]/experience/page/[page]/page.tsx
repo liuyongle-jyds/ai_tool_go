@@ -15,5 +15,5 @@ export default async function Page({ params }: Props) {
   const dict = await getDictionary(lang)
   const pageNumber = convertPageToNumber(page)
 
-  return <ExperienceChild dict={dict} page={pageNumber} lang={lang} />
+  return <ExperienceChild dict={dict} page={pageNumber} />
 }

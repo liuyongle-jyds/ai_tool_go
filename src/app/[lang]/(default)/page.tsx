@@ -6,5 +6,5 @@ export default async function Page({ params }: { params: { lang: Locale } }) {
   const { lang } = params
   const dict = await getDictionary(lang)
 
-  return <IndexChild dict={dict} lang={lang} />
+  return <IndexChild dict={dict} />
 }

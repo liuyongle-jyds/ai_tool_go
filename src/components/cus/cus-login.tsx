@@ -16,15 +16,13 @@ import { CircleUser, LogOut } from 'lucide-react'
 import { routerName } from '@/router'
 import { Locale } from '@/types/Locale'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
-export default function CusLogin({
-  dict,
-  lang,
-}: {
-  dict: Dictionary
-  lang: Locale
-}) {
+export default function CusLogin({ dict }: { dict: Dictionary }) {
+  const params = useParams()
   const [hasToken, setHasToken] = useState(false)
+
+  const lang = params.lang as Locale
 
   const init = async () => {
     const token = await getCookie('token')

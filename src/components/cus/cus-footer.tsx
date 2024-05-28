@@ -1,7 +1,6 @@
 'use client'
 
 import { Dictionary } from '@/types/Dictionary'
-import { Locale } from '@/types/Locale'
 import CusLanguage from './cus-language'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -9,14 +8,13 @@ import { useApp } from '@/contexts/appContext'
 
 interface Props {
   dict: Dictionary
-  lang: Locale
 }
 
 const mail1 = 'info@aitoolgo.com'
 const mail2 = 'suggestion@aitoolgo.com'
 const mail3 = 'partners@aitoolgo.com'
 
-export default function CusFooter({ dict, lang }: Props) {
+export default function CusFooter({ dict }: Props) {
   const { toolsList, experienceList } = useApp()
 
   const mailList = [
@@ -60,7 +58,7 @@ export default function CusFooter({ dict, lang }: Props) {
             {toolsList.map((e, index) => (
               <li key={index}>
                 <Link
-                  href={e.link}
+                  href={e.link!}
                   title={e.text}
                   className='flex h-10 items-center hover:opacity-85'
                 >
@@ -80,7 +78,7 @@ export default function CusFooter({ dict, lang }: Props) {
             {experienceList.map((e, index) => (
               <li key={index}>
                 <Link
-                  href={e.link}
+                  href={e.link!}
                   title={e.text}
                   className='flex h-10 items-center hover:opacity-85'
                 >
@@ -113,7 +111,7 @@ export default function CusFooter({ dict, lang }: Props) {
       </div>
       <div className='h-5'></div>
       <div className='flex h-16 items-center justify-between'>
-        <CusLanguage lang={lang} isGrey />
+        <CusLanguage isGrey />
         <div className='flex h-full items-center text-xs text-t3'>
           <Link href=''>{dict.footer['Term of service']}</Link>
           <div className='h-1 w-5'></div>
