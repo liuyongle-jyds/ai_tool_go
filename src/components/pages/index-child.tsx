@@ -25,6 +25,7 @@ import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
 import { useParams } from 'next/navigation'
 import { useApp } from '@/contexts/appContext'
+import { LoaderCircle, ArrowRight } from 'lucide-react'
 
 const list3: Tool[] = [
   {
@@ -413,12 +414,11 @@ export default function IndexChild({ dict }: Props) {
           onClick={onSearch}
           disabled={loading}
         >
-          <CusIcon
-            name={loading ? 'loader-circle' : 'arrow-right'}
-            className={cn('w-4', {
-              'animate-spin': loading,
-            })}
-          />
+          {loading ? (
+            <LoaderCircle className='w-4 animate-spin' />
+          ) : (
+            <ArrowRight className='w-4' />
+          )}
         </Button>
       </div>
       {searchTip && (

@@ -21,10 +21,12 @@ const buttonVariants = cva(
         primary:
           'bg-primary text-primary-foreground hover:bg-primary/80 rounded',
         link: 'text-t3 underline-offset-4 hover:underline rounded-full',
+        plain: 'text-base font-normal',
       },
       size: {
         default: 'h-10 px-5',
         icon: 'h-10 w-10 p-0',
+        plain: '',
       },
     },
     defaultVariants: {

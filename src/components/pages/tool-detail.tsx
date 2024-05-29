@@ -134,7 +134,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
             </div>
           </div>
         </div>
-        <div className='sticky left-0 top-0 w-full bg-background'>
+        <div className='sticky left-0 top-0 z-10 w-full bg-background'>
           <CusTabs
             list={tabs}
             active={active}
