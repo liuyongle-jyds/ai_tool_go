@@ -1,5 +1,5 @@
 import Config from '@/config'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
 import { toast } from 'sonner'
 

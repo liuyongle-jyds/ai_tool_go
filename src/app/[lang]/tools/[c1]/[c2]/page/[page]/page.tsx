@@ -1,4 +1,4 @@
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import ToolsChild from '@/components/pages/tools-child'
 import { getDictionary } from '@/app/[lang]/dictionaries'
 import { convertPageToNumber } from '@/utils'

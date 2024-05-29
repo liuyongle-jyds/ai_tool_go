@@ -1,11 +1,11 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
 import CusGridUl from '../cus/cus-grid-ul'
 import CusPagination from '../cus/cus-pagination'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusIcon from '../cus/cus-icon'
 import { useState } from 'react'

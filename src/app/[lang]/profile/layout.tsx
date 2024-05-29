@@ -1,5 +1,5 @@
 import { routerName } from '@/router'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { getAltLanguages } from '@/utils'
 import { Metadata } from 'next'
 

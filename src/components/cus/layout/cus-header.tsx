@@ -1,7 +1,7 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
-import { Locale } from '@/types/Locale'
+import Dictionary from '@/types/Dictionary'
+import Locale from '@/types/Locale'
 import Image from 'next/image'
 import Link from 'next/link'
 import {

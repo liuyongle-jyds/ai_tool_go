@@ -1,6 +1,6 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import CusLanguage from './cus-language'
 import Link from 'next/link'
 import Image from 'next/image'

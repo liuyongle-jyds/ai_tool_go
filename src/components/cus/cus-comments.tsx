@@ -1,4 +1,4 @@
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import CusFilter from './cus-filter'
 import { useState } from 'react'
 
@@ -7,7 +7,7 @@ interface Props {
   total: string
 }
 
-export default function CusComment({ dict, total = '0' }: Props) {
+export default function CusComments({ dict, total = '0' }: Props) {
   const [commentSort, setCommentSort] = useState('latest')
 
   const onChangeCommentSort = (e: string) => {

@@ -1,13 +1,13 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import CusHeader from './cus-header'
 import { useParams, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CusFooter from './cus-footer'
 import { ScrollArea } from '../../ui/scroll-area'
 import Image from 'next/image'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'
 
 interface Props {

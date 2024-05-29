@@ -1,6 +1,6 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import CusIcon from '../cus/cus-icon'
 import { KeyboardEvent, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
@@ -19,7 +19,7 @@ import {
 } from '../ui/accordion'
 import CusTool from '../cus/cus-tool'
 import CusExp from '../cus/cus-exp'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'

@@ -1,4 +1,4 @@
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { getDictionary } from '@/app/[lang]/dictionaries'
 import ExperienceDetail from '@/components/pages/experience-detail'
 

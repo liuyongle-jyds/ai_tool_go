@@ -1,4 +1,4 @@
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import CusUl from '../cus-ul'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { setCookie } from '@/utils/actions'

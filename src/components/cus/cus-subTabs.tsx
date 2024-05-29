@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 import { useApp } from '@/contexts/appContext'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Category from '@/types/Categories'
 import { routerName } from '@/router'
-import { TabSource } from '@/types/TabSource'
+import TabSource from '@/types/TabSource'
 
 interface Props {
   onChangeActive?: CallableFunction

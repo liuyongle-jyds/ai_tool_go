@@ -4,9 +4,9 @@ import { useApp } from '@/contexts/appContext'
 import Category from '@/types/Categories'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { routerName } from '@/router'
-import { TabSource } from '@/types/TabSource'
+import TabSource from '@/types/TabSource'
 
 interface Props {
   children?: React.ReactNode

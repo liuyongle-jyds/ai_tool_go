@@ -1,8 +1,8 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import { Button } from '../ui/button'
-import { Operation } from '@/types/Operation'
+import Operation from '@/types/Operation'
 import CusTabs from '../cus/cus-tabs'
 import { ChangeEvent, useEffect, useState } from 'react'
 import {
@@ -19,8 +19,7 @@ import { uploadFile } from '@/services'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import CusGridUl from '../cus/cus-grid-ul'
-
-type Filter = 'tools' | 'experience'
+import ItemType from '@/types/ItemType'
 
 export default function ProfileChild({ dict }: { dict: Dictionary }) {
   const tabs: { text: string; id: Operation }[] = [
@@ -45,7 +44,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
       id: 'history',
     },
   ]
-  const filters: { text: string; value: Filter }[] = [
+  const filters: { text: string; value: ItemType }[] = [
     {
       text: dict.header.Tools,
       value: 'tools',
@@ -57,7 +56,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
   ]
 
   const [active, setActive] = useState('vote' as Operation)
-  const [filter, setFilter] = useState('tools' as Filter)
+  const [filter, setFilter] = useState('tools' as ItemType)
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState<Partial<User>>({
@@ -73,7 +72,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
     setActive(id)
   }
 
-  const onChangeFilter = (val: Filter) => {
+  const onChangeFilter = (val: ItemType) => {
     setFilter(val)
   }
 

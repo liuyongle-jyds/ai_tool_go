@@ -1,6 +1,6 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import Tool from '@/types/Tool'
 import CusTag from '../cus/cus-tag'
 import { Button } from '../ui/button'
@@ -10,7 +10,7 @@ import Category from '@/types/Categories'
 import { useState } from 'react'
 import CusTabs from '../cus/cus-tabs'
 import CusFilter from '../cus/cus-filter'
-import CusComment from '../cus/cus-comment'
+import CusComments from '../cus/cus-comments'
 
 export default function ToolDetail({ dict }: { dict: Dictionary }) {
   const [active, setActive] = useState('tool-information')
@@ -176,7 +176,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
             </Button>
           </div>
         </div>
-        <CusComment dict={dict} total={tool.comment} />
+        <CusComments dict={dict} total={tool.comment} />
       </div>
       <div className='flex-1'>
         <div className='py-5' id='related-tools'>

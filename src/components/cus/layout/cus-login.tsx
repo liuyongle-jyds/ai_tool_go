@@ -1,6 +1,6 @@
 'use client'
 
-import { Dictionary } from '@/types/Dictionary'
+import Dictionary from '@/types/Dictionary'
 import { getCookie } from '@/utils/actions'
 import { useEffect, useState } from 'react'
 import { Button } from '../../ui/button'
@@ -14,7 +14,7 @@ import {
 } from '../../ui/dropdown-menu'
 import { CircleUser, LogOut } from 'lucide-react'
 import { routerName } from '@/router'
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 

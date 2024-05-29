@@ -1,4 +1,4 @@
-import { Locale } from '@/types/Locale'
+import Locale from '@/types/Locale'
 import { getDictionary } from '../dictionaries'
 import IndexChild from '@/components/pages/index-child'
 
