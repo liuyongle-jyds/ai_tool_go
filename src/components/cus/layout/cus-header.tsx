@@ -48,7 +48,7 @@ export default function CusHeader({ dict }: Props) {
                   {dict.header.Tools}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <CusUl list={toolsList} isNav />
+                  <CusUl list={toolsList} isNav active='' />
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>

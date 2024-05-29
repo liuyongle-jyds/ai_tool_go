@@ -70,7 +70,7 @@ export default function CusLanguage({ isGrey = false }: { isGrey?: boolean }) {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='p-0'>
-        <CusUl list={list} callbackFn={onChangeLang} />
+        <CusUl list={list} callbackFn={onChangeLang} active={lang} />
       </DropdownMenuContent>
     </DropdownMenu>
   )

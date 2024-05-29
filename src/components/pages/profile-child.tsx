@@ -150,11 +150,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             </div>
           </div>
           <div className='h-1 w-1'></div>
-          <Button
-            variant='outline'
-            className='rounded-lg'
-            onClick={() => setEditing(true)}
-          >
+          <Button variant='outline' onClick={() => setEditing(true)}>
             {dict.profile['Edit Profile']}
           </Button>
         </div>
@@ -179,7 +175,11 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className='p-0'>
-                <CusUl list={filters} callbackFn={onChangeFilter} />
+                <CusUl
+                  list={filters}
+                  active={filter}
+                  callbackFn={onChangeFilter}
+                />
               </DropdownMenuContent>
             </DropdownMenu>
           </CusTabs>
@@ -188,10 +188,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
       </div>
       <div className={cn('hidden flex-col items-center', { flex: editing })}>
         <div className='my-5 h-[7.5rem] w-[7.5rem] rounded-full bg-primary/75'></div>
-        <Button
-          variant='outline'
-          className='relative mb-10 rounded-lg px-5 text-sm'
-        >
+        <Button variant='outline' className='relative mb-10'>
           {dict.profile['Upload new picture']}
           <input
             type='file'

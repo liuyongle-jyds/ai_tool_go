@@ -6,13 +6,19 @@ import CusTag from '../cus/cus-tag'
 import { Button } from '../ui/button'
 import CusIcon from '../cus/cus-icon'
 import { Triangle } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import Category from '@/types/Categories'
 import { useState } from 'react'
 import CusTabs from '../cus/cus-tabs'
+import CusFilter from '../cus/cus-filter'
+import CusComment from '../cus/cus-comment'
 
 export default function ToolDetail({ dict }: { dict: Dictionary }) {
   const [active, setActive] = useState('tool-information')
+  const [expSort, setExpSort] = useState('popular')
+
+  const onChangeExpSort = (e: string) => {
+    setExpSort(e)
+  }
 
   const tool: Tool = {
     id: '1',
@@ -140,7 +146,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           <h3 className='mb-5 text-xl font-semibold'>
             {dict.tools['Tool Information']}
           </h3>
-          <div className='mb-5 whitespace-pre-wrap rounded-xl rounded-tl-none bg-foreground p-5 text-sm leading-normal text-t2'>
+          <div className='mb-5 whitespace-pre-wrap rounded-xl rounded-tl-none bg-foreground p-5 text-sm text-t2'>
             {tool.desc}
           </div>
           <div className='grid grid-cols-4 gap-3'>
@@ -159,13 +165,18 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           <CusTag list={tool.tag} size='lg' />
         </div>
         <div className='py-5' id='experience'>
-          <h3 className='mb-5 text-xl font-semibold'>
-            {dict.header.Experience}
-          </h3>
+          <div className='mb-5 flex items-center justify-between'>
+            <h3 className='text-xl font-semibold'>{dict.header.Experience}</h3>
+            <CusFilter active={expSort} onChangeSort={onChangeExpSort} />
+          </div>
+          <div></div>
+          <div className='flex justify-center'>
+            <Button variant='outline' className='min-w-60 text-t2'>
+              {dict.index['See All']}
+            </Button>
+          </div>
         </div>
-        <div className='py-5' id='comment'>
-          <h3 className='mb-5 text-xl font-semibold'>{dict.index.Comment}</h3>
-        </div>
+        <CusComment dict={dict} total={tool.comment} />
       </div>
       <div className='flex-1'>
         <div className='py-5' id='related-tools'>

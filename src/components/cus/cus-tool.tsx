@@ -29,7 +29,7 @@ export default function CusTool({
     <li className='relative rounded-xl border p-5'>
       <div className='mb-3 flex flex-1 items-center justify-between'>
         <Link
-          href={`/${lang + routerName.tools}/domains/tasks/${tool.id}`}
+          href={`/${lang + routerName.tools}/all-domains/all-tasks/${tool.id}`}
           title={tool.name}
           className='flex-1'
         >

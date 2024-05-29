@@ -26,7 +26,7 @@ export default function CusExp({
     <li key={exp.id} className='rounded-xl border border-dashed p-5'>
       <div className='mb-3 flex items-center justify-between'>
         <Link
-          href={`/${lang + routerName.experience}/domains/tasks/${exp.id}`}
+          href={`/${lang + routerName.experience}/all-domains/all-tasks/${exp.id}`}
           title={exp.name}
           className='flex-1'
         >

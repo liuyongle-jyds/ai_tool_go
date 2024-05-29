@@ -13,19 +13,41 @@ interface Props {
   list: LinkA[]
   callbackFn?: CallableFunction
   isNav?: boolean
+  active?: string
 }
 
-export default function CusUl({ list, callbackFn, isNav = false }: Props) {
+export default function CusUl({
+  list,
+  callbackFn,
+  isNav = false,
+  active = 'no-active',
+}: Props) {
   const style = cn(
     navigationMenuTriggerStyle(),
     '!block w-full truncate text-center font-normal',
   )
 
-  const ItemDom = (children: React.ReactNode) => {
+  const ItemDom = (children: React.ReactNode, isActive: boolean) => {
     if (isNav) {
-      return <NavigationMenuItem asChild>{children}</NavigationMenuItem>
+      return (
+        <NavigationMenuItem
+          asChild
+          className={cn({
+            'bg-primary/55': isActive,
+          })}
+        >
+          {children}
+        </NavigationMenuItem>
+      )
     }
-    return <DropdownMenuItem asChild>{children}</DropdownMenuItem>
+    return (
+      <DropdownMenuItem
+        asChild
+        className={cn({ 'bg-foreground/55': isActive })}
+      >
+        {children}
+      </DropdownMenuItem>
+    )
   }
 
   const LinkDom = (text: string, href: string) => {
@@ -52,8 +74,8 @@ export default function CusUl({ list, callbackFn, isNav = false }: Props) {
           onClick={debounce(() => callbackFn?.(e.value), 200, true)}
         >
           {e.link == undefined
-            ? ItemDom(<div className={style}>{e.text}</div>)
-            : ItemDom(LinkDom(e.text, e.link))}
+            ? ItemDom(<div className={style}>{e.text}</div>, e.value === active)
+            : ItemDom(LinkDom(e.text, e.link), e.value === active)}
         </li>
       ))}
     </ul>
