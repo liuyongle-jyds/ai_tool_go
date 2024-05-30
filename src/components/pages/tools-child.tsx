@@ -9,6 +9,10 @@ import CusPagination from '../cus/cus-pagination'
 import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import { useParams } from 'next/navigation'
+import { list3 } from '@/data/test-list'
+import CusTool from '../cus/cus-tool'
+import { useEffect, useState } from 'react'
+import Tool from '@/types/Tool'
 
 interface Props {
   dict: Dictionary
@@ -19,6 +23,8 @@ interface Props {
 
 export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
   const params = useParams()
+  const [list, setList] = useState([] as Tool[])
+
   const lang = params.lang as Locale
 
   const onChangeActive1 = (id: string) => {
@@ -33,6 +39,29 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
 
   const getBasePath = () =>
     `/${lang + routerName.tools}` + (c1 && c2 ? `/${c1}/${c2}` : '')
+
+  const onVoteTool = (id: string) => {
+    setList((e) =>
+      e.map((tool) =>
+        tool.id === id
+          ? {
+              ...tool,
+              voted: !tool.voted,
+            }
+          : tool,
+      ),
+    )
+  }
+
+  const init = () => {
+    setTimeout(() => {
+      setList(list3)
+    }, 500)
+  }
+
+  useEffect(() => {
+    init()
+  }, [])
 
   return (
     <>
@@ -52,7 +81,18 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
         source={routerName.experience}
       />
       <CusSubTabs onChangeActive={onChangeActive2} source={routerName.tools} />
-      <CusGridUl></CusGridUl>
+      <div className='h-5'></div>
+      <CusGridUl>
+        {list.map((tool) => (
+          <CusTool
+            key={tool.id}
+            tool={tool}
+            dict={dict}
+            lang={lang}
+            onTabVote={onVoteTool}
+          />
+        ))}
+      </CusGridUl>
       <div className='h-5'></div>
       <CusPagination
         current={page}

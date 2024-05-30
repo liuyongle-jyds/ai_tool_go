@@ -51,7 +51,7 @@ export default function CusExp({
           <div className='h-1 w-2'></div>
           <Button
             variant={exp.voted ? 'primary' : 'secondary'}
-            className='h-8 w-8 px-0'
+            className='h-8 w-8 rounded-full p-0'
             onClick={() => onTabVote(exp.id)}
           >
             <Triangle
@@ -73,7 +73,8 @@ export default function CusExp({
         <>
           <div className='h-3'></div>
           <CusTag list={exp.tag} />
-          <div className='flex items-center justify-between pt-2 text-xs leading-none text-t2'>
+          <div className='h-2'></div>
+          <div className='flex h-4 items-center justify-between text-xs leading-4 text-t2'>
             <span>{exp.time}</span>
             <div className='flex items-center'>
               {exp.collected ? (

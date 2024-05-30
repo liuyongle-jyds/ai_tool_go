@@ -7,14 +7,29 @@ import { Button } from '../ui/button'
 import CusIcon from '../cus/cus-icon'
 import { Triangle } from 'lucide-react'
 import Category from '@/types/Categories'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CusTabs from '../cus/cus-tabs'
 import CusFilter from '../cus/cus-filter'
 import CusComments from '../cus/cus-comments'
+import Experience from '@/types/Experience'
+import { list3, list4 } from '@/data/test-list'
+import CusTool from '../cus/cus-tool'
+import Locale from '@/types/Locale'
+import { useParams } from 'next/navigation'
+import CusExp from '../cus/cus-exp'
+
+function AnchorDom({ id }: { id: string }) {
+  return <div className='invisible -mt-12 h-12' id={id}></div>
+}
 
 export default function ToolDetail({ dict }: { dict: Dictionary }) {
+  const params = useParams()
   const [active, setActive] = useState('tool-information')
   const [expSort, setExpSort] = useState('popular')
+  const [relatedTools, setRelatedTools] = useState([] as Tool[])
+  const [expList, setExpList] = useState([] as Experience[])
+
+  const lang = params.lang as Locale
 
   const onChangeExpSort = (e: string) => {
     setExpSort(e)
@@ -68,6 +83,43 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
   const onChangeActive = (id: string) => {
     setActive(id)
   }
+
+  const onVoteTool = (id: string) => {
+    setRelatedTools((e) =>
+      e.map((tool) =>
+        tool.id === id
+          ? {
+              ...tool,
+              voted: !tool.voted,
+            }
+          : tool,
+      ),
+    )
+  }
+
+  const onVoteExp = (id: string) => {
+    setExpList((e) =>
+      e.map((exp) =>
+        exp.id === id
+          ? {
+              ...exp,
+              voted: !exp.voted,
+            }
+          : exp,
+      ),
+    )
+  }
+
+  const init = () => {
+    setTimeout(() => {
+      setRelatedTools(list3)
+      setExpList(list4)
+    }, 500)
+  }
+
+  useEffect(() => {
+    init()
+  }, [])
 
   return (
     <div className='flex space-x-10'>
@@ -142,7 +194,8 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
             onChangeActive={onChangeActive}
           />
         </div>
-        <div className='py-5' id='tool-information'>
+        <AnchorDom id='tool-information' />
+        <div className='py-5'>
           <h3 className='mb-5 text-xl font-semibold'>
             {dict.tools['Tool Information']}
           </h3>
@@ -158,24 +211,31 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
             ))}
           </div>
         </div>
-        <div className='pb-2 pt-5' id='application-cases'>
+        <AnchorDom id='application-cases' />
+        <div className='pb-2 pt-5'>
           <h3 className='mb-5 text-xl font-semibold'>
             {dict.tools['Application Cases']}
           </h3>
           <CusTag list={tool.tag} size='lg' />
         </div>
-        <div className='py-5' id='experience'>
+        <AnchorDom id='experience' />
+        <div className='py-5'>
           <div className='mb-5 flex items-center justify-between'>
             <h3 className='text-xl font-semibold'>{dict.header.Experience}</h3>
             <CusFilter active={expSort} onChangeSort={onChangeExpSort} />
           </div>
-          <div></div>
+          <ul className='mb-5 space-y-5'>
+            {expList.map((e) => (
+              <CusExp key={e.id} exp={e} onTabVote={onVoteExp} lang={lang} />
+            ))}
+          </ul>
           <div className='flex justify-center'>
             <Button variant='outline' className='min-w-60 text-t2'>
               {dict.index['See All']}
             </Button>
           </div>
         </div>
+        <AnchorDom id='comment' />
         <CusComments dict={dict} total={tool.comment} />
       </div>
       <div className='flex-1'>
@@ -183,6 +243,18 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           <h3 className='mb-5 text-xl font-semibold'>
             {dict.tools['Related Tools']}
           </h3>
+          <ul className='space-y-3'>
+            {relatedTools.map((e) => (
+              <CusTool
+                tipLimit
+                key={e.id}
+                tool={e}
+                dict={dict}
+                lang={lang}
+                onTabVote={onVoteTool}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     </div>

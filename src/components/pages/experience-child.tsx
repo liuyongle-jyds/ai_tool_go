@@ -8,9 +8,12 @@ import CusPagination from '../cus/cus-pagination'
 import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusIcon from '../cus/cus-icon'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import CusFilter from '../cus/cus-filter'
+import Experience from '@/types/Experience'
+import { list4 } from '@/data/test-list'
+import CusExp from '../cus/cus-exp'
 
 interface Props {
   dict: Dictionary
@@ -21,6 +24,8 @@ interface Props {
 
 export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
   const params = useParams()
+  const [list, setList] = useState([] as Experience[])
+
   const lang = params.lang as Locale
 
   const total = 99
@@ -32,6 +37,29 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
 
   const getBasePath = () =>
     `/${lang + routerName.experience}` + (c1 && c2 ? `/${c1}/${c2}` : '')
+
+  const onVoteExp = (id: string) => {
+    setList((e) =>
+      e.map((exp) =>
+        exp.id === id
+          ? {
+              ...exp,
+              voted: !exp.voted,
+            }
+          : exp,
+      ),
+    )
+  }
+
+  const init = () => {
+    setTimeout(() => {
+      setList(list4)
+    }, 500)
+  }
+
+  useEffect(() => {
+    init()
+  }, [])
 
   return (
     <>
@@ -48,7 +76,11 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
         <div className='flex items-center'></div>
         <CusFilter active={sort} onChangeSort={onChangeSort} />
       </div>
-      <CusGridUl></CusGridUl>
+      <CusGridUl>
+        {list.map((exp) => (
+          <CusExp key={exp.id} exp={exp} onTabVote={onVoteExp} lang={lang} />
+        ))}
+      </CusGridUl>
       <div className='h-5'></div>
       <CusPagination
         current={page}

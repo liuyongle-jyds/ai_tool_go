@@ -9,13 +9,15 @@ import Link from 'next/link'
 import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTag from './cus-tag'
+import { cn } from '@/lib/utils'
 
 interface Props {
   tool: Tool
   dict: Dictionary
   onTabVote: CallableFunction
-  isNotFull?: boolean
+  hideExpNum?: boolean
   lang: Locale
+  tipLimit?: boolean
 }
 
 export default function CusTool({
@@ -23,7 +25,8 @@ export default function CusTool({
   dict,
   onTabVote,
   lang,
-  isNotFull = false,
+  hideExpNum = false,
+  tipLimit = false,
 }: Props) {
   return (
     <li className='relative rounded-xl border p-5'>
@@ -98,16 +101,24 @@ export default function CusTool({
       <div className='flex'>
         <CusIcon name='lightbulb' className='w-6' />
         <div className='h-1 w-3'></div>
-        <div className='flex-1 text-sm font-medium leading-4'>{tool.tip}</div>
+        <div
+          className={cn('flex-1 text-sm font-medium leading-4', {
+            'line-clamp-2': tipLimit,
+          })}
+        >
+          {tool.tip}
+        </div>
       </div>
-      {!isNotFull && (
+      {!hideExpNum && (
         <div className='mt-2 rounded bg-foreground py-1 text-center text-xs leading-4 text-t2'>
           {tool.experiences + ' ' + dict.index.experiences}
         </div>
       )}
-      <div className='absolute left-0 top-0 -translate-x-1/2'>
-        <CusRanking rank={tool.ranking} />
-      </div>
+      {!tipLimit && (
+        <div className='absolute left-0 top-0 -translate-x-1/2'>
+          <CusRanking rank={tool.ranking} />
+        </div>
+      )}
     </li>
   )
 }

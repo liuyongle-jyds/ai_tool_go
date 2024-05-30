@@ -99,7 +99,7 @@ export default function CusComments({ dict, total = '0' }: Props) {
   }, [handleClickOutside])
 
   return (
-    <div className='py-5' id='comment'>
+    <div className='py-5'>
       <div className='mb-5 flex items-center justify-between'>
         <h3 className='text-xl font-semibold'>
           {dict.index.Comment}({total})
