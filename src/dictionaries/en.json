@@ -59,5 +59,14 @@
     "Reply": "Reply",
     "Add your comment here...": "Add your comment here...",
     "UPVOTE": "UPVOTE"
+  },
+  "experience": {
+    "Brief introduction": "Brief introduction",
+    "Using tool": "Using tool",
+    "Main steps": "Main steps",
+    "Original link": "Original link",
+    "Recommend": "Recommend",
+    "Keywords": "Keywords",
+    "Similar Experience": "Similar Experience"
   }
 }

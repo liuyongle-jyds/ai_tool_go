@@ -5,13 +5,19 @@ import CusComment from './cus-comment'
 import CusCommentsInp from './cus-comments-inp'
 import { Separator } from '../ui/separator'
 import Comment from '@/types/Comment'
+import { cn } from '@/lib/utils'
 
-interface Props {
+interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   dict: Dictionary
   total: string
 }
 
-export default function CusComments({ dict, total = '0' }: Props) {
+export default function CusComments({
+  dict,
+  total = '0',
+  className,
+  ...props
+}: Props) {
   const [commentSort, setCommentSort] = useState('latest')
   const [active, setActive] = useState('')
 
@@ -99,7 +105,7 @@ export default function CusComments({ dict, total = '0' }: Props) {
   }, [handleClickOutside])
 
   return (
-    <div className='py-5'>
+    <div {...props} className={cn('py-5', className)}>
       <div className='mb-5 flex items-center justify-between'>
         <h3 className='text-xl font-semibold'>
           {dict.index.Comment}({total})

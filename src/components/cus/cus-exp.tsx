@@ -14,6 +14,7 @@ interface Props {
   onTabVote: CallableFunction
   isNotFull?: boolean
   lang: Locale
+  hideRanking?: boolean
 }
 
 export default function CusExp({
@@ -21,6 +22,7 @@ export default function CusExp({
   onTabVote,
   lang,
   isNotFull = false,
+  hideRanking = false,
 }: Props) {
   return (
     <li key={exp.id} className='rounded-xl border border-dashed p-5'>
@@ -31,8 +33,12 @@ export default function CusExp({
           className='flex-1'
         >
           <div className='flex items-center'>
-            <CusRanking rank={exp.ranking} isExp />
-            <div className='h-1 w-2'></div>
+            {!hideRanking && (
+              <>
+                <CusRanking rank={exp.ranking} isExp />
+                <div className='h-1 w-2'></div>
+              </>
+            )}
             <div className='h-10 w-10 rounded-full bg-primary/75'></div>
             <div className='h-1 w-3'></div>
             <div className='flex-1'>
@@ -62,18 +68,18 @@ export default function CusExp({
           </Button>
         </div>
       </div>
-      <div
+      <h4
         className={cn('line-clamp-2 whitespace-pre-wrap', {
           'font-medium leading-5': isNotFull,
         })}
       >
         {exp.name}
-      </div>
+      </h4>
       {!isNotFull && (
         <>
           <div className='h-3'></div>
-          <CusTag list={exp.tag} />
-          <div className='h-2'></div>
+          {/* <CusTag list={exp.tag} /> */}
+          {/* <div className='h-2'></div> */}
           <div className='flex h-4 items-center justify-between text-xs leading-4 text-t2'>
             <span>{exp.time}</span>
             <div className='flex items-center'>

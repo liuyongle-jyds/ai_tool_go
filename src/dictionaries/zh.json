@@ -59,5 +59,14 @@
     "Reply": "回复",
     "Add your comment here...": "在此添加您的评论...",
     "UPVOTE": "投票"
+  },
+  "experience": {
+    "Brief introduction": "简介",
+    "Using tool": "工具使用",
+    "Main steps": "主要步骤",
+    "Original link": "源链接",
+    "Recommend": "推荐",
+    "Keywords": "关键词",
+    "Similar Experience": "相似经验"
   }
 }

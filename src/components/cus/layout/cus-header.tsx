@@ -31,7 +31,7 @@ export default function CusHeader({ dict }: Props) {
       <Link href={`/${lang}`} title={dict.meta.title} className='shrink-0'>
         <Image
           src='/images/logo@2x.png'
-          alt='AIToolGo logo'
+          alt='AIToolGo'
           width={96}
           height={18}
           className='w-24'

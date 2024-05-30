@@ -116,7 +116,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
               <h1 className='mb-1 text-2xl font-semibold leading-7'>
                 {tool.name}
               </h1>
-              <h2 className='mb-3 text-t2'>{tool.creator}</h2>
+              <div className='mb-3 text-t2'>{tool.creator}</div>
               <CusTag list={tool.tag} />
             </div>
           </div>
@@ -140,16 +140,19 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
               </Button>
               <Button
                 variant={tool.voted ? 'primary' : 'secondary'}
-                className='rounded'
+                className='rounded font-normal'
               >
                 <Triangle
                   fill={tool.voted ? '#fff' : '#90979D'}
                   strokeWidth={0}
-                  className='h-3 w-4'
+                  className='h-3 w-5'
                 />
+                <span className='translate-y-[1px]'>
+                  &nbsp;{dict.tools.UPVOTE}&nbsp;{tool.vote}
+                </span>
               </Button>
             </div>
-            <div className='flex items-center text-xs leading-none text-t3'>
+            <div className='flex items-center text-xs leading-none text-t2'>
               {tool.collected ? (
                 <CusIcon
                   name='star'
@@ -158,14 +161,14 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
                   className='w-3'
                 />
               ) : (
-                <CusIcon name='star' className='w-3 ' />
+                <CusIcon name='star' className='w-3 text-t3' />
               )}
               <span className='translate-y-[1px]'>&nbsp;{tool.collection}</span>
               <div className='h-1 w-3'></div>
-              <CusIcon name='message-circle' className='w-3' />
+              <CusIcon name='message-circle' className='w-3 text-t3' />
               <span className='translate-y-[1px]'>&nbsp;{tool.comment}</span>
               <div className='h-1 w-3'></div>
-              <CusIcon name='lightbulb' className='w-3' />
+              <CusIcon name='lightbulb' className='w-3 text-t3' />
               <span className='translate-y-[1px]'>&nbsp;{'2,222'}</span>
             </div>
           </div>
