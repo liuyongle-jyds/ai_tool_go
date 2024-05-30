@@ -30,27 +30,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
   const [expList, setExpList] = useState([] as Experience[])
 
   const lang = params.lang as Locale
-
-  const onChangeExpSort = (e: string) => {
-    setExpSort(e)
-  }
-
-  const tool: Tool = {
-    id: '1',
-    head: '',
-    ranking: 1,
-    name: 'ChatGPT',
-    creator: 'OpenAI',
-    voted: false,
-    vote: '36.8m',
-    collected: true,
-    collection: '32.6m',
-    comment: '1,253',
-    desc: 'The OpenAI API can be applied to almost any task that requires understanding or generating natural language and code. The OpenAI API can also be used to generate and edit images or convert speech into text.',
-    tag: ['AI', 'Chat', 'Text Description'],
-    tip: '”The GPT (Generative Pre Training Transformer) model of OpenAI can understand natural language and code after training, and GPT provides text output in response to its input.”',
-    experiences: '309',
-  }
+  const tool: Tool = list3[0]
 
   const tabs: Category[] = [
     {
@@ -79,6 +59,10 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
       link: '#related-tools',
     },
   ]
+
+  const onChangeExpSort = (e: string) => {
+    setExpSort(e)
+  }
 
   const onChangeActive = (id: string) => {
     setActive(id)
@@ -156,7 +140,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
               </Button>
               <Button
                 variant={tool.voted ? 'primary' : 'secondary'}
-                className='h-10 w-10 rounded-full p-0'
+                className='rounded'
               >
                 <Triangle
                   fill={tool.voted ? '#fff' : '#90979D'}
