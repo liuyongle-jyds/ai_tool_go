@@ -1,19 +1,19 @@
 import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
 
-interface Props {
+interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   placeholder: string
   onSendSucess: CallableFunction
-  className?: string
 }
 
 export default function CusCommentsInp({
   placeholder,
   onSendSucess,
   className,
+  ...props
 }: Props) {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
@@ -28,7 +28,7 @@ export default function CusCommentsInp({
   }
 
   return (
-    <div className={cn('relative flex-1', className)}>
+    <div className={cn('relative flex-1', className)} {...props}>
       <Textarea
         name='comment'
         value={content}

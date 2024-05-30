@@ -1,6 +1,6 @@
 import Dictionary from '@/types/Dictionary'
 import CusFilter from './cus-filter'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import CusComment from './cus-comment'
 import CusCommentsInp from './cus-comments-inp'
 import { Separator } from '../ui/separator'
@@ -14,7 +14,6 @@ interface Props {
 export default function CusComments({ dict, total = '0' }: Props) {
   const [commentSort, setCommentSort] = useState('latest')
   const [active, setActive] = useState('')
-  const [currentInp, setCurrentInp] = useState<HTMLDivElement | null>(null)
 
   const list: Comment[] = [
     {
@@ -79,16 +78,25 @@ export default function CusComments({ dict, total = '0' }: Props) {
     console.log(111)
   }
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (currentInp && !currentInp.contains(event.target as Node)) {
-      setActive('')
-    }
-  }
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      const currentInp = document.getElementById(`cus-comment-inp-${active}`)
+      const currentBtn = document.getElementById(`cus-comment-btn-${active}`)
+      if (
+        currentInp &&
+        !currentInp.contains(event.target as Node) &&
+        !currentBtn?.contains(event.target as Node)
+      ) {
+        setActive('')
+      }
+    },
+    [active],
+  )
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  }, [handleClickOutside])
 
   return (
     <div className='py-5' id='comment'>
@@ -114,7 +122,6 @@ export default function CusComments({ dict, total = '0' }: Props) {
               <CusComment
                 active={active}
                 comment={comment}
-                setCurrentInp={setCurrentInp}
                 dict={dict}
                 setActive={setActive}
               />

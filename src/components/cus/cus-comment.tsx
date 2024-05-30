@@ -12,7 +12,6 @@ interface Prosp {
   dict: Dictionary
   active: string
   setActive: Dispatch<SetStateAction<string>>
-  setCurrentInp: Dispatch<SetStateAction<HTMLDivElement | null>>
 }
 
 export default function CusComment({
@@ -20,11 +19,8 @@ export default function CusComment({
   dict,
   active,
   setActive,
-  setCurrentInp,
   isSingle = false,
 }: Prosp) {
-  const inputRef = useRef<HTMLDivElement>(null)
-
   const onSendSuccess = () => {
     setActive('')
   }
@@ -47,6 +43,7 @@ export default function CusComment({
           <span>{comment.time}</span>
           <div className='flex items-center'>
             <Button
+              id={`cus-comment-btn-${comment.id}`}
               variant='plain'
               size='plain'
               className='text-xs text-t2'
@@ -66,13 +63,12 @@ export default function CusComment({
           </div>
         </div>
         {active === comment.id && (
-          <div ref={inputRef}>
-            <CusCommentsInp
-              className='mt-5'
-              placeholder={dict.tools.Reply + '@' + 'sssa'}
-              onSendSucess={onSendSuccess}
-            />
-          </div>
+          <CusCommentsInp
+            id={`cus-comment-inp-${comment.id}`}
+            className='mt-5'
+            placeholder={dict.tools.Reply + '@' + 'sssa'}
+            onSendSucess={onSendSuccess}
+          />
         )}
         {comment.replies && (
           <ul>
@@ -80,7 +76,6 @@ export default function CusComment({
               <li key={subcomment.id} className='pt-5'>
                 <CusComment
                   active={active}
-                  setCurrentInp={setCurrentInp}
                   setActive={setActive}
                   comment={subcomment}
                   dict={dict}
