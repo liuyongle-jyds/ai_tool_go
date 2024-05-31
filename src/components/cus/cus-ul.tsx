@@ -66,7 +66,7 @@ export default function CusUl({
   }
 
   return (
-    <ul className='min-w-28 max-w-48'>
+    <ul className='min-w-20 max-w-28 md:min-w-28 md:max-w-48'>
       {list.map((e, index) => (
         <li
           key={index}

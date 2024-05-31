@@ -26,7 +26,11 @@ const languages: Lang[] = [
   },
 ]
 
-export default function CusLanguage({ isGrey = false }: { isGrey?: boolean }) {
+interface Props {
+  isGrey?: boolean
+}
+
+export default function CusLanguage({ isGrey = false }: Props) {
   const pathName = usePathname()
   const router = useRouter()
   const params = useParams()
@@ -62,9 +66,9 @@ export default function CusLanguage({ isGrey = false }: { isGrey?: boolean }) {
             'text-t2': isGrey,
           })}
         >
-          <CusIcon name='globe' className='w-5' />
-          <div className='h-1 w-2'></div>
-          <span>
+          <CusIcon name='globe' className='w-3 md:w-5' />
+          <div className='h-1 w-1 md:w-2'></div>
+          <span className='text-xs md:text-base'>
             {languages.find((language) => language.value === lang)?.text ?? ''}
           </span>
         </div>
