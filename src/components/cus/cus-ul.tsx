@@ -8,23 +8,28 @@ import { cn } from '@/lib/utils'
 import { DropdownMenuItem } from '../ui/dropdown-menu'
 import LinkA from '@/types/LinkA'
 import { debounce } from '@/utils'
+import { DrawerClose } from '../ui/drawer'
 
 interface Props {
   list: LinkA[]
   callbackFn?: CallableFunction
   isNav?: boolean
+  isAccordion?: boolean
   active?: string
+  fromDrawer?: boolean
 }
 
 export default function CusUl({
   list,
   callbackFn,
   isNav = false,
+  isAccordion = false,
+  fromDrawer = false,
   active = 'no-active',
 }: Props) {
   const style = cn(
     navigationMenuTriggerStyle(),
-    '!block w-full truncate text-center font-normal',
+    '!flex items-center w-full truncate text-center font-normal',
   )
 
   const ItemDom = (children: React.ReactNode, isActive: boolean) => {
@@ -39,6 +44,9 @@ export default function CusUl({
           {children}
         </NavigationMenuItem>
       )
+    }
+    if (isAccordion) {
+      return children
     }
     return (
       <DropdownMenuItem
@@ -58,6 +66,15 @@ export default function CusUl({
         </NavigationMenuLink>
       )
     }
+    if (fromDrawer) {
+      return (
+        <DrawerClose asChild>
+          <Link href={href} title={text} className={style}>
+            {text}
+          </Link>
+        </DrawerClose>
+      )
+    }
     return (
       <Link href={href} title={text} className={style}>
         {text}
@@ -66,7 +83,11 @@ export default function CusUl({
   }
 
   return (
-    <ul className='min-w-20 max-w-28 md:min-w-28 md:max-w-48'>
+    <ul
+      className={cn('min-w-20 max-w-28 md:min-w-28 md:max-w-48', {
+        'w-full min-w-full max-w-none': isAccordion,
+      })}
+    >
       {list.map((e, index) => (
         <li
           key={index}

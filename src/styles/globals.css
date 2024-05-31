@@ -14,7 +14,7 @@
       --popover-foreground: 210 11% 14%;
 
       --primary: 276 64% 53%;
-      --primary-foreground: 0 0 100%;
+      --primary-foreground: 0 0% 100%;
 
       --secondary: 0 8% 97%;
       --secondary-foreground: 213 4% 40%;
@@ -104,5 +104,11 @@
     .loading {
       pointer-events: none;
       opacity: 0.8;
+    }
+  }
+
+  @media (max-width: 1400px) {
+    .container {
+      max-width: 100%;
     }
   }

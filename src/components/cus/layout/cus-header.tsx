@@ -19,6 +19,12 @@ import { useParams } from 'next/navigation'
 import CusIcon from '../cus-icon'
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import { Menu } from 'lucide-react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
 interface Props {
   dict: Dictionary
@@ -44,9 +50,9 @@ export default function CusHeader({ dict }: Props) {
         <Image
           src='/images/logo.png'
           alt='AIToolGo'
-          width={48}
-          height={9}
-          className='w-14 md:hidden'
+          width={64}
+          height={12}
+          className='w-16 md:hidden'
           priority
         />
       </Link>
@@ -58,8 +64,31 @@ export default function CusHeader({ dict }: Props) {
           <DrawerTrigger asChild>
             <Menu className='w-5' />
           </DrawerTrigger>
-          <DrawerContent className='h-full w-[80vw]'>
-            <div>123</div>
+          <DrawerContent className='h-full w-[85vw] px-5 py-2'>
+            <div className='flex-1'>
+              <Accordion type='single' collapsible>
+                <AccordionItem value='1'>
+                  <AccordionTrigger>{dict.header.Tools}</AccordionTrigger>
+                  <AccordionContent>
+                    <CusUl list={toolsList} isAccordion fromDrawer active='' />
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value='2'>
+                  <AccordionTrigger>{dict.header.Experience}</AccordionTrigger>
+                  <AccordionContent>
+                    <CusUl
+                      list={experienceList}
+                      isAccordion
+                      fromDrawer
+                      active=''
+                    />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+            <div>
+              <CusLogin dict={dict} fromDrawer />
+            </div>
           </DrawerContent>
         </Drawer>
       </div>

@@ -358,7 +358,7 @@ export default function IndexChild({ dict }: Props) {
           <div className='grid grid-cols-1 md:grid-cols-2 md:gap-x-10'>
             {faqList.map((faq) => (
               <AccordionItem key={faq.id} value={faq.id}>
-                <AccordionTrigger>{faq.title}</AccordionTrigger>
+                <AccordionTrigger>· {faq.title}</AccordionTrigger>
                 <AccordionContent>{faq.content}</AccordionContent>
               </AccordionItem>
             ))}

@@ -17,8 +17,14 @@ import { routerName } from '@/router'
 import Locale from '@/types/Locale'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import { DrawerClose } from '@/components/ui/drawer'
 
-export default function CusLogin({ dict }: { dict: Dictionary }) {
+interface Props {
+  dict: Dictionary
+  fromDrawer?: boolean
+}
+
+export default function CusLogin({ dict, fromDrawer = false }: Props) {
   const params = useParams()
   const [hasToken, setHasToken] = useState(false)
 
@@ -29,39 +35,49 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
     setHasToken(!!token)
   }
 
+  const profileLink = () => (
+    <Link href={`/${lang + routerName.profile}`} rel='nofollow'>
+      <CircleUser className='w-4 md:w-5' />
+      <div className='h-1 w-2'></div>
+      <span>{dict.header.Profile}</span>
+    </Link>
+  )
+
   useEffect(() => {
     init()
   }, [])
 
   return (
     <>
-      {hasToken ? (
+      {!hasToken ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild className='cursor-pointer'>
             <div className='flex items-center'>
-              <div className='max-w-28 truncate font-medium'>user</div>
-              <div className='h-1 w-3'></div>
-              <div className='h-10 w-10 rounded-full bg-primary/75' />
+              <div className='h-8 w-8 rounded-full bg-primary/75 md:h-10 md:w-10' />
+              <div className='h-1 w-2 md:w-3'></div>
+              <div className='max-w-[50vw] truncate break-words text-sm font-medium md:max-w-28 md:text-base'>
+                user
+              </div>
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className='w-64'>
+          <DropdownMenuContent className='w-[70vw] md:w-64'>
             <div className='flex flex-col items-center'>
-              <div className='h-20 w-20 rounded-full bg-primary/75' />
-              <div className='my-3 w-full break-words text-center font-medium'>
+              <div className='h-14 w-14 rounded-full bg-primary/75 md:h-20 md:w-20' />
+              <div className='my-1 w-full text-center font-medium md:my-3'>
                 user
               </div>
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link href={`/${lang + routerName.profile}`} rel='nofollow'>
-                  <CircleUser className='h-5 w-5' />
-                  <div className='h-1 w-2'></div>
-                  <span>{dict.header.Profile}</span>
-                </Link>
+                {fromDrawer ? (
+                  <DrawerClose asChild>{profileLink()}</DrawerClose>
+                ) : (
+                  profileLink()
+                )}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <LogOut className='h-5 w-5' />
+                <LogOut className='w-4 md:w-5' />
                 <div className='h-1 w-2'></div>
                 <span>{dict.header['Sign Out']}</span>
               </DropdownMenuItem>
@@ -69,7 +85,9 @@ export default function CusLogin({ dict }: { dict: Dictionary }) {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button className='min-w-20'>{dict.header['Sign up']}</Button>
+        <Button className='w-full md:w-auto md:min-w-20'>
+          {dict.header['Sign up']}
+        </Button>
       )}
     </>
   )
