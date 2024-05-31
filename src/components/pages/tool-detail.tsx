@@ -19,7 +19,7 @@ import { useParams } from 'next/navigation'
 import CusExp from '../cus/cus-exp'
 
 function AnchorDom({ id }: { id: string }) {
-  return <div className='invisible -mt-12 h-12' id={id}></div>
+  return <div className='invisible -mt-6 h-6 md:-mt-12 md:h-12' id={id}></div>
 }
 
 export default function ToolDetail({ dict }: { dict: Dictionary }) {
@@ -106,27 +106,29 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
   }, [])
 
   return (
-    <div className='flex space-x-10'>
-      <div className='flex-grow-[2] basis-0'>
-        <div className='mb-5 flex'>
+    <div className='md:flex md:space-x-10'>
+      <div className='md:flex-grow-[2] md:basis-0'>
+        <div className='mb-2 flex flex-wrap md:mb-5'>
           <div className='flex flex-1'>
-            <div className='h-20 w-20 flex-shrink-0 rounded-full bg-primary/75'></div>
-            <div className='h-1 w-3'></div>
+            <div className='h-12 w-12 flex-shrink-0 rounded-full bg-primary/75 md:h-20 md:w-20'></div>
+            <div className='h-1 w-1 md:w-3'></div>
             <div>
-              <h1 className='mb-1 text-2xl font-semibold leading-7'>
+              <h1 className='text-base font-semibold md:mb-1 md:text-2xl md:leading-7'>
                 {tool.name}
               </h1>
-              <div className='mb-3 text-t2'>{tool.creator}</div>
+              <div className='mb-2 text-xs text-t2 md:mb-3 md:text-base'>
+                {tool.creator}
+              </div>
               <CusTag list={tool.tag} />
             </div>
           </div>
           <div className='h-1 w-1'></div>
-          <div className='flex flex-shrink-0 flex-col items-end'>
-            <div className='mb-4 flex items-center'>
+          <div className='mt-2 flex w-full flex-shrink-0 flex-col items-end md:mt-0 md:w-auto'>
+            <div className='mb-2 flex items-center md:mb-4'>
               <Button variant='secondary' size='icon'>
                 <CusIcon name='share-2' className='w-3' />
               </Button>
-              <Button variant='secondary' size='icon' className='mx-5'>
+              <Button variant='secondary' size='icon' className='mx-3 md:mx-5'>
                 {tool.collected ? (
                   <CusIcon
                     name='star'
@@ -147,7 +149,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
                   strokeWidth={0}
                   className='h-3 w-5'
                 />
-                <span className='translate-y-[1px]'>
+                <span className='md:translate-y-[1px]'>
                   &nbsp;{dict.tools.UPVOTE}&nbsp;{tool.vote}
                 </span>
               </Button>
@@ -163,13 +165,15 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
               ) : (
                 <CusIcon name='star' className='w-3 text-t3' />
               )}
-              <span className='translate-y-[1px]'>&nbsp;{tool.collection}</span>
-              <div className='h-1 w-3'></div>
+              <span className='md:translate-y-[1px]'>
+                &nbsp;{tool.collection}
+              </span>
+              <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='message-circle' className='w-3 text-t3' />
-              <span className='translate-y-[1px]'>&nbsp;{tool.comment}</span>
-              <div className='h-1 w-3'></div>
+              <span className='md:translate-y-[1px]'>&nbsp;{tool.comment}</span>
+              <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='lightbulb' className='w-3 text-t3' />
-              <span className='translate-y-[1px]'>&nbsp;{'2,222'}</span>
+              <span className='md:translate-y-[1px]'>&nbsp;{'2,222'}</span>
             </div>
           </div>
         </div>
@@ -182,18 +186,18 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           />
         </div>
         <AnchorDom id='tool-information' />
-        <div className='py-5'>
-          <h3 className='mb-5 text-xl font-semibold'>
+        <div className='py-2 md:py-5'>
+          <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
             {dict.tools['Tool Information']}
           </h3>
-          <div className='mb-5 whitespace-pre-wrap rounded-xl rounded-tl-none bg-foreground p-5 text-sm text-t2'>
+          <div className='mb-2 whitespace-pre-wrap rounded rounded-tl-none bg-foreground p-2 text-xs text-t2 md:mb-5 md:rounded-xl md:p-5 md:text-sm'>
             {tool.desc}
           </div>
-          <div className='grid grid-cols-4 gap-3'>
+          <div className='grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3'>
             {tool.tag.map((e, index) => (
               <div
                 key={index}
-                className='h-36 rounded-xl bg-primary/75 object-cover'
+                className='h-20 rounded bg-primary/75 md:h-36 md:rounded-xl'
               ></div>
             ))}
           </div>
@@ -225,8 +229,8 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
         <AnchorDom id='comment' />
         <CusComments dict={dict} total={tool.comment} />
       </div>
-      <div className='flex-1'>
-        <div className='py-5' id='related-tools'>
+      <div className='md:flex-grow-[1]'>
+        <div id='related-tools'>
           <h3 className='mb-5 text-xl font-semibold'>
             {dict.tools['Related Tools']}
           </h3>
