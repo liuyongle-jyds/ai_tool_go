@@ -25,27 +25,28 @@ export default function CusExp({
   hideRanking = false,
 }: Props) {
   return (
-    <li key={exp.id} className='rounded-xl border border-dashed p-5'>
-      <div className='mb-3 flex items-center justify-between'>
+    <li
+      key={exp.id}
+      className='rounded-lg border border-dashed p-2 md:rounded-xl md:p-5'
+    >
+      <div className='mb-1 flex items-center justify-between md:mb-3'>
         <Link
           href={`/${lang + routerName.experience}/all-domains/all-tasks/${exp.id}`}
           title={exp.name}
           className='flex-1'
         >
           <div className='flex items-center'>
-            {!hideRanking && (
-              <>
-                <CusRanking rank={exp.ranking} isExp />
-                <div className='h-1 w-2'></div>
-              </>
+            {hideRanking ? (
+              <div className='h-7 w-7 rounded-full bg-primary/75 md:h-10 md:w-10'></div>
+            ) : (
+              <CusRanking rank={exp.ranking} isExp />
             )}
-            <div className='h-10 w-10 rounded-full bg-primary/75'></div>
-            <div className='h-1 w-3'></div>
+            <div className='h-1 w-1 md:w-2'></div>
             <div className='flex-1'>
-              <p className='line-clamp-1 break-all font-medium'>
+              <p className='line-clamp-1 break-all text-xs font-medium md:text-base'>
                 {exp.creator}
               </p>
-              <p className='line-clamp-1 break-all text-xs text-t2'>
+              <p className='line-clamp-1 break-all text-[0.625rem] text-t2 md:text-xs'>
                 {exp.job}
               </p>
             </div>
@@ -53,24 +54,25 @@ export default function CusExp({
         </Link>
         <div className='h-1 w-1'></div>
         <div className='flex items-center'>
-          <span className='font-medium'>{exp.vote}</span>
-          <div className='h-1 w-2'></div>
+          <span className='text-xs font-medium md:text-base'>{exp.vote}</span>
+          <div className='h-1 w-1 md:w-2'></div>
           <Button
             variant={exp.voted ? 'primary' : 'secondary'}
-            className='h-8 w-8 rounded-full p-0'
+            className='rounded-full'
+            size='icon'
             onClick={() => onTabVote(exp.id)}
           >
             <Triangle
               fill={exp.voted ? '#fff' : '#90979D'}
               strokeWidth={0}
-              className='h-3 w-4'
+              className='h-2 w-3 md:h-3 md:w-4'
             />
           </Button>
         </div>
       </div>
       <h4
-        className={cn('line-clamp-2 whitespace-pre-wrap', {
-          'font-medium leading-5': isNotFull,
+        className={cn('line-clamp-2 whitespace-pre-wrap text-xs md:text-base', {
+          'font-medium md:leading-5': isNotFull,
         })}
       >
         {exp.name}

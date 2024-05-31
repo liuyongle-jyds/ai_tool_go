@@ -44,15 +44,7 @@ export default function CusHeader({ dict }: Props) {
           alt='AIToolGo'
           width={96}
           height={18}
-          className='hidden w-24 md:block'
-          priority
-        />
-        <Image
-          src='/images/logo.png'
-          alt='AIToolGo'
-          width={64}
-          height={12}
-          className='w-16 md:hidden'
+          className='w-16 md:w-24'
           priority
         />
       </Link>

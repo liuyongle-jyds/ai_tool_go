@@ -29,21 +29,21 @@ export default function CusTool({
   tipLimit = false,
 }: Props) {
   return (
-    <li className='relative rounded-xl border p-5'>
-      <div className='mb-3 flex flex-1 items-center justify-between'>
+    <li className='relative rounded-lg border p-2 md:rounded-xl md:p-5'>
+      <div className='mb-1 flex flex-1 items-center justify-between md:mb-3'>
         <Link
           href={`/${lang + routerName.tools}/all-domains/all-tasks/${tool.id}`}
           title={tool.name}
           className='flex-1'
         >
           <div className='flex items-center'>
-            <div className='h-12 w-12 rounded-full bg-primary/75'></div>
-            <div className='h-1 w-3'></div>
+            <div className='h-6 w-6 rounded-full bg-primary/75 md:h-12 md:w-12'></div>
+            <div className='h-1 w-1 md:w-3'></div>
             <div className='flex flex-1 flex-col justify-center'>
-              <div className='line-clamp-1 break-all text-xs'>
+              <div className='line-clamp-1 break-all text-[0.625rem] leading-3 md:text-xs md:leading-4'>
                 {tool.creator}
               </div>
-              <h4 className='line-clamp-1 break-all text-xl font-semibold'>
+              <h4 className='line-clamp-1 break-all text-xs font-semibold leading-4 md:text-xl md:leading-6'>
                 {tool.name}
               </h4>
             </div>
@@ -51,62 +51,69 @@ export default function CusTool({
         </Link>
         <div className='h-1 w-1'></div>
         <div className='flex items-center'>
-          <span className='font-medium'>{tool.vote}</span>
-          <div className='h-1 w-2'></div>
+          <span className='text-xs font-medium md:text-base'>{tool.vote}</span>
+          <div className='h-1 w-1 md:w-2'></div>
           <Button
             variant={tool.voted ? 'primary' : 'secondary'}
-            className='h-8 w-8 rounded-full p-0'
+            size='icon'
+            className='rounded-full'
             onClick={() => onTabVote(tool.id)}
           >
             <Triangle
               fill={tool.voted ? '#fff' : '#90979D'}
               strokeWidth={0}
-              className='h-3 w-4'
+              className='h-2 w-3 md:h-3 md:w-4'
             />
           </Button>
         </div>
       </div>
-      <div className='pl-[3.75rem]'>
-        <div className='mb-3 line-clamp-2 whitespace-pre-wrap text-sm leading-4 text-t2'>
+      <div className='pl-7 md:pl-[3.75rem]'>
+        <div className='mb-2 line-clamp-2 whitespace-pre-wrap text-[0.625rem] leading-[0.875rem] text-t2 md:mb-3 md:text-sm md:leading-4'>
           {tool.desc}
         </div>
         <CusTag list={tool.tag} />
-        <div className='flex items-center pt-2 text-xs font-medium leading-none'>
+        <div className='flex h-4 items-center pt-1 text-[0.625rem] font-medium leading-3 md:pt-2 md:text-xs md:leading-none'>
           {tool.collected ? (
             <CusIcon
               name='star'
               fill='#EEB244'
               strokeWidth={0}
-              className='w-3 text-t3'
+              className='w-[0.625rem] text-t3 md:w-3'
             />
           ) : (
-            <CusIcon name='star' className='w-3 text-t3' />
+            <CusIcon name='star' className='w-[0.625rem] text-t3 md:w-3' />
           )}
-          <span className='mx-1 translate-y-[1px] text-t3'>
+          <span className='mx-[1px] text-t3 md:mx-1 md:translate-y-[0.125rem]'>
             {dict.index.Collection}
           </span>
-          <span className='translate-y-[1px]'>{tool.collection}</span>
-          <div className='h-1 w-5'></div>
-          <CusIcon name='message-circle' className='w-3 text-t3' />
-          <span className='mx-1 translate-y-[1px] text-t3'>
+          <span className='md:translate-y-[0.125rem]'>{tool.collection}</span>
+          <div className='h-1 w-2 md:w-5'></div>
+          <CusIcon
+            name='message-circle'
+            className='w-[0.625rem] text-t3 md:w-3'
+          />
+          <span className='mx-[1px] text-t3 md:mx-1 md:translate-y-[0.125rem]'>
             {dict.index.Comment}
           </span>
-          <span className='translate-y-[1px]'>{tool.comment}</span>
-          <div className='h-1 w-5'></div>
-          <CusIcon name='share-2' className='w-3 text-t3' />
-          <span className='mx-1 translate-y-[1px] text-t3'>
+          <span className='md:translate-y-[0.125rem]'>{tool.comment}</span>
+          <div className='h-1 w-2 md:w-5'></div>
+          <CusIcon name='share-2' className='w-[0.625rem] text-t3 md:w-3' />
+          <span className='mx-[1px] text-t3 md:mx-1 md:translate-y-[0.125rem]'>
             {dict.index.Share}
           </span>
         </div>
       </div>
-      <Separator className='my-5' />
+      <Separator className='my-2 md:my-5' />
       <div className='flex'>
-        <CusIcon name='lightbulb' className='w-6' />
-        <div className='h-1 w-3'></div>
+        <CusIcon name='lightbulb' className='w-3 md:w-6' />
+        <div className='h-1 w-1 md:w-3'></div>
         <div
-          className={cn('flex-1 text-sm font-medium leading-4', {
-            'line-clamp-2': tipLimit,
-          })}
+          className={cn(
+            'flex-1 text-[0.625rem] font-medium leading-3 md:text-sm md:leading-4',
+            {
+              'line-clamp-2': tipLimit,
+            },
+          )}
         >
           {tool.tip}
         </div>

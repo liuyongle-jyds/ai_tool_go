@@ -55,7 +55,7 @@ export default function CusTabs({
         key={item.id}
         onClick={() => onTabItem(item.id)}
         className={cn(
-          'relative flex h-full shrink-0 cursor-pointer items-center px-5 font-medium hover:opacity-85',
+          'relative flex h-full shrink-0 cursor-pointer items-center px-1 text-xs font-bold hover:opacity-85 md:px-5 md:text-base md:font-medium',
           {
             'text-primary': isActive,
           },
@@ -89,15 +89,15 @@ export default function CusTabs({
   }
 
   return (
-    <div className='mb-5 flex min-h-14 w-full items-center justify-between border-b'>
+    <div className='mb-2 flex min-h-10 w-full items-center justify-between border-b md:mb-5 md:min-h-14'>
       <ScrollArea className='flex-1 whitespace-nowrap'>
-        <ul className='flex h-14 flex-1 items-center space-x-3'>
+        <ul className='flex h-10 flex-1 items-center space-x-1 md:h-14 md:space-x-3'>
           {getArr().map((item) => liDom(item))}
         </ul>
 
         <ScrollBar orientation='horizontal' />
       </ScrollArea>
-      {children && <div className='pl-2'>{children}</div>}
+      {children && <div className='pl-1 md:pl-2'>{children}</div>}
     </div>
   )
 }

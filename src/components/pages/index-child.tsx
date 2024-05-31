@@ -25,7 +25,7 @@ import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
 import { useParams } from 'next/navigation'
 import { useApp } from '@/contexts/appContext'
-import { LoaderCircle, ArrowRight } from 'lucide-react'
+import { LoaderCircle, ArrowRight, X, RefreshCcw } from 'lucide-react'
 import { list3, list4 } from '@/data/test-list'
 
 const list5: Faq[] = [
@@ -118,27 +118,32 @@ export default function IndexChild({ dict }: Props) {
     href: string
   }) => {
     return (
-      <div className='mb-5 flex items-center justify-between'>
+      <div className='mb-2 flex items-center justify-between md:mb-5'>
         <div className='flex items-center'>
           <Image
             src={icon}
             alt='rank tool icon'
             width={32}
             height={32}
-            className='h-8 w-8'
+            className='w-6 md:w-8'
             priority
           />
-          <div className='h-1 w-2'></div>
-          <h3 className='text-2xl font-semibold'>{title}</h3>
+          <div className='h-1 w-1 md:w-2'></div>
+          <h3 className='text-base font-semibold md:text-2xl'>{title}</h3>
         </div>
         <Link
           href={href}
           title={title}
-          className={cn('flex cursor-pointer items-center text-t3', {
-            'pointer-events-none': !active1 || !active2,
-          })}
+          className={cn(
+            'flex cursor-pointer items-center text-sm text-t3 md:text-base',
+            {
+              'pointer-events-none': !active1 || !active2,
+            },
+          )}
         >
-          <span className='font-medium'>{dict.index['See All']}</span>
+          <span className='text-sm font-medium md:text-base'>
+            {dict.index['See All']}
+          </span>
           <div className='h-1 w-1'></div>
           <CusIcon name='arrow-right' className='w-4' />
         </Link>
@@ -186,88 +191,97 @@ export default function IndexChild({ dict }: Props) {
 
   return (
     <>
-      <h1 className='mb-5 whitespace-pre-wrap text-center text-6xl font-semibold leading-tight'>
+      <h1 className='mb-2 whitespace-pre-wrap text-center text-xl font-semibold leading-tight md:mb-5 md:text-6xl'>
         {dict.index.title}
       </h1>
-      <h2 className='mb-10 text-center text-t2'>{dict.index.subtitle}</h2>
+      <h2 className='mb-5 text-center text-xs text-t2 md:mb-10 md:text-xl'>
+        {dict.index.subtitle}
+      </h2>
       <div
         className={cn(
-          'mb-10 flex h-14 items-center rounded-full border bg-background px-5',
+          'mb-4 flex h-10 items-center rounded-full border bg-background px-2 md:mb-10 md:h-14 md:px-5',
           { 'border-primary': isFocus },
         )}
       >
-        <CusIcon name='search' className='w-6 text-t3' />
-        <div className='h-1 w-3'></div>
+        <CusIcon name='search' className='w-4 text-t3 md:w-6' />
+        <div className='h-1 w-1 md:w-3'></div>
         <input
           type='text'
           id='text'
           value={searchVal}
           disabled={loading}
           placeholder={dict.index.placeholder}
-          className='h-full flex-1 bg-transparent placeholder-t3 outline-none'
+          className='h-full flex-1 bg-transparent text-xs placeholder-t3 outline-none md:text-base'
           enterKeyHint='search'
           onChange={(e) => setSearchVal(e.target.value)}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onKeyDown={debounce(handleInputKeydown, 400, true)}
         />
-        <div className='h-1 w-3'></div>
-        <Button
-          className='h-10 w-10 px-0'
-          onClick={onSearch}
-          disabled={loading}
-        >
+        <div className='h-1 w-1 md:w-3'></div>
+        <Button size='icon' onClick={onSearch} disabled={loading}>
           {loading ? (
-            <LoaderCircle className='w-4 animate-spin' />
+            <LoaderCircle className='w-3 animate-spin md:w-4' />
           ) : (
-            <ArrowRight className='w-4' />
+            <ArrowRight className='w-3 md:w-4' />
           )}
         </Button>
       </div>
       {searchTip && (
-        <div className='mb-5 rounded-xl border-b pb-10'>
-          <div className='mx-auto mb-5 max-w-5xl rounded-3xl rounded-tl-none bg-foreground p-5'>
+        <div className='mb-2 border-b pb-10 md:mb-5'>
+          <div className='mx-auto mb-2 max-w-5xl whitespace-pre-wrap rounded-lg rounded-tl-none bg-foreground p-2 text-sm md:mb-5 md:rounded-3xl md:p-5 md:text-base'>
             {searchTip}
           </div>
-          <div className='mb-10 flex items-center justify-center'>
-            <Button variant='secondary' size='icon'>
-              <CusIcon name='refresh-ccw' className='w-4' />
+          <div className='mb-5 flex items-center justify-center md:mb-10'>
+            <Button variant='secondary' size='icon' className='h-8 w-8'>
+              <RefreshCcw className='w-3 md:w-4' />
             </Button>
             <div className='h-1 w-5'></div>
-            <Button variant='secondary' onClick={clearSearch} size='icon'>
-              <CusIcon name='x' className='w-4' />
+            <Button
+              variant='secondary'
+              onClick={clearSearch}
+              size='icon'
+              className='h-8 w-8'
+            >
+              <X className='w-3 md:w-4' />
             </Button>
           </div>
-          <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
+          <div className='grid grid-cols-1 gap-y-5 md:grid-cols-2 md:gap-x-10'>
             <div>
-              <div className='mb-5 flex items-center'>
+              <div className='mb-2 flex items-center md:mb-5'>
                 <Image
                   src='/icons/recommend@2x.png'
                   alt='recommend icon'
                   width={24}
                   height={24}
-                  className='h-6 w-6'
+                  className='w-4 md:w-6'
                 />
-                <div className='h-1 w-2'></div>
-                <h3 className='text-lg font-medium'>
+                <div className='h-1 w-1 md:w-2'></div>
+                <h3 className='text-sm font-medium md:text-lg'>
                   {dict.index['Recommended tools']}
                 </h3>
               </div>
-              <ul className='space-y-3'>
+              <ul className='space-y-2 md:space-y-3'>
                 {searchTools.map((tool) => (
-                  <li key={tool.id} className='rounded-xl border p-5'>
-                    <div className='mb-3 flex items-center justify-between'>
+                  <li
+                    key={tool.id}
+                    className='rounded-lg border p-2 md:rounded-xl md:p-5'
+                  >
+                    <div className='mb-1 flex items-center justify-between md:mb-3'>
                       <div className='flex flex-1 items-center'>
-                        <div className='h-8 w-8 rounded-full bg-primary/75'></div>
-                        <div className='h-1 w-2'></div>
-                        <h4 className='line-clamp-1 break-all font-medium'>
+                        <div className='h-5 w-5 rounded-full bg-primary/75 md:h-8 md:w-8'></div>
+                        <div className='h-1 w-1 md:w-2'></div>
+                        <h4 className='line-clamp-1 break-all text-sm font-medium md:text-base'>
                           {tool.name}
                         </h4>
                       </div>
                       <div className='h-1 w-1'></div>
-                      <CusIcon name='arrow-right' className='w-4 text-t3' />
+                      <CusIcon
+                        name='arrow-right'
+                        className='w-3 text-t3 md:w-4'
+                      />
                     </div>
-                    <div className='line-clamp-3 whitespace-pre-wrap text-sm text-t2'>
+                    <div className='line-clamp-3 whitespace-pre-wrap text-xs text-t2 md:text-sm'>
                       {tool.desc}
                     </div>
                   </li>
@@ -275,30 +289,33 @@ export default function IndexChild({ dict }: Props) {
               </ul>
             </div>
             <div>
-              <div className='mb-5 flex items-center'>
+              <div className='mb-2 flex items-center md:mb-5'>
                 <Image
                   src='/icons/related@2x.png'
                   alt='related icon'
                   width={24}
                   height={24}
-                  className='h-6 w-6'
+                  className='w-4 md:w-6'
                 />
-                <div className='h-1 w-2'></div>
-                <h3 className='text-lg font-medium'>
+                <div className='h-1 w-1 md:w-2'></div>
+                <h3 className='text-sm font-medium md:text-lg'>
                   {dict.index['Related experience']}
                 </h3>
               </div>
-              <ul className='space-y-3'>
+              <ul className='space-y-2 md:space-y-3'>
                 {searchExp.map((exp) => (
-                  <li key={exp.id} className='rounded-xl border p-5'>
-                    <h4 className='mb-3 line-clamp-2 font-medium leading-5'>
+                  <li
+                    key={exp.id}
+                    className='rounded-lg border p-2 md:rounded-xl md:p-5'
+                  >
+                    <h4 className='mb-1 line-clamp-2 text-xs font-bold leading-4 md:mb-4 md:text-base md:font-medium md:leading-5'>
                       {exp.name}
                     </h4>
-                    <p className='mb-1 line-clamp-1 break-all text-sm'>
+                    <p className='mb-[1px] line-clamp-1 break-all text-xs md:mb-1 md:text-sm'>
                       <span className='font-medium'>@ {exp.creator}</span>
                       <span>&nbsp;- {exp.job}</span>
                     </p>
-                    <div className='line-clamp-2 whitespace-pre-wrap text-sm text-t2'>
+                    <div className='line-clamp-2 whitespace-pre-wrap text-xs text-t2 md:text-sm'>
                       {exp.content}
                     </div>
                   </li>
@@ -310,15 +327,15 @@ export default function IndexChild({ dict }: Props) {
       )}
       <CusTabs onChangeActive={onChangeActive1} source={routerName.home} />
       <CusSubTabs onChangeActive={onChangeActive2} source={routerName.home} />
-      <div className='h-10'></div>
-      <div className='mb-10 grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
+      <div className='h-5 md:h-10'></div>
+      <div className='mb-5 grid grid-cols-1 gap-y-5 md:mb-10 md:grid-cols-2 md:gap-x-10'>
         <div>
           {rankingTitleDom({
             icon: '/icons/rank_tool@2x.png',
             title: dict.index['Tool Ranking'],
             href: `/${lang + routerName.tools}/${active1}/${active2}/page/1`,
           })}
-          <ul className='space-y-3 pl-4'>
+          <ul className='space-y-2 pl-2 md:space-y-3 md:pl-4'>
             {toolRanking.map((tool) => (
               <CusTool
                 key={tool.id}
@@ -337,7 +354,7 @@ export default function IndexChild({ dict }: Props) {
             title: dict.index['Experience Ranking'],
             href: `/${lang + routerName.experience}/${active1}/${active2}/page/1`,
           })}
-          <ul className='space-y-3'>
+          <ul className='space-y-2 md:space-y-3'>
             {expRanking.map((exp) => (
               <CusExp
                 key={exp.id}
@@ -350,8 +367,8 @@ export default function IndexChild({ dict }: Props) {
           </ul>
         </div>
       </div>
-      <div className='py-10'>
-        <h3 className='mb-5 text-xl font-semibold'>
+      <div className='py-5 md:py-10'>
+        <h3 className='mb-1 text-base font-semibold md:mb-5 md:text-xl'>
           {dict.index['AIToolGo’s FAQ']}
         </h3>
         <Accordion type='single' collapsible>

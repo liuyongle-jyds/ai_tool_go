@@ -35,7 +35,9 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
 
   const liInnerDom = (item: Category) => {
     const inner = (
-      <div className='flex h-full items-center px-3'>{item.text}</div>
+      <div className='flex h-full items-center px-1 text-xs md:px-3 md:text-base'>
+        {item.text}
+      </div>
     )
     if (hideLinkOrNot()) {
       return inner
@@ -48,14 +50,14 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
   }
 
   return (
-    <ScrollArea className='min-h-10 w-full whitespace-nowrap'>
-      <ul className='flex h-10 items-center space-x-4'>
+    <ScrollArea className='min-h-7 w-full whitespace-nowrap md:min-h-10'>
+      <ul className='flex h-7 items-center space-x-2 md:h-10 md:space-x-4'>
         {categories2.map((item) => (
           <li
             key={item.id}
             onClick={() => onTabItem(item.id)}
             className={cn(
-              'relative h-full shrink-0 cursor-pointer rounded-lg bg-foreground hover:opacity-85',
+              'relative h-full shrink-0 cursor-pointer rounded bg-foreground hover:opacity-85 md:rounded-lg',
               {
                 'text-primary': active2 === item.id,
               },
