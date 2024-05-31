@@ -74,7 +74,7 @@ export default function CusLanguage({ isGrey = false }: Props) {
           </span>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='max-h-[60vh] overflow-y-auto p-0'>
+      <DropdownMenuContent className='max-h-[60vh] overflow-y-auto p-0 md:p-0'>
         <CusUl list={list} callbackFn={onChangeLang} active={lang} />
       </DropdownMenuContent>
     </DropdownMenu>

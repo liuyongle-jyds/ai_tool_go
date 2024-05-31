@@ -20,6 +20,7 @@ import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import CusGridUl from '../cus/cus-grid-ul'
 import ItemType from '@/types/ItemType'
+import CusFilter from '../cus/cus-filter'
 
 export default function ProfileChild({ dict }: { dict: Dictionary }) {
   const tabs: { text: string; id: Operation }[] = [
@@ -165,22 +166,11 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             onChangeActive={onChangeActive}
             useSelfList
           >
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                asChild
-                needAngle
-                className='h-6 rounded border px-1 text-xs md:h-10 md:px-5 md:text-sm'
-              >
-                {filters.find((e) => e.value === filter)?.text ?? ''}
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className='p-0'>
-                <CusUl
-                  list={filters}
-                  active={filter}
-                  callbackFn={onChangeFilter}
-                />
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <CusFilter
+              active={filter}
+              list={filters}
+              onChangeSort={onChangeFilter}
+            />
           </CusTabs>
           <CusGridUl></CusGridUl>
         </div>
