@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { debounce } from '@/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs md:text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -15,16 +15,15 @@ const buttonVariants = cva(
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full',
         outline:
-          'border hover:bg-accent hover:text-accent-foreground rounded-lg',
-        secondary:
-          'bg-secondary text-sm text-t3 hover:bg-secondary/80 rounded-full',
+          'border hover:bg-accent hover:text-accent-foreground rounded md:rounded-lg',
+        secondary: 'bg-secondary text-t3 hover:bg-secondary/80 rounded-full',
         primary:
           'bg-primary text-primary-foreground hover:bg-primary/80 rounded',
         link: 'text-t3 underline-offset-4 hover:underline rounded-full',
-        plain: 'text-base font-normal',
+        plain: 'font-normal',
       },
       size: {
-        default: 'h-10 px-5',
+        default: 'h-7 px-2 md:h-10 md:px-5',
         icon: 'h-6 w-6 p-0 md:h-10 md:w-10',
         plain: '',
       },

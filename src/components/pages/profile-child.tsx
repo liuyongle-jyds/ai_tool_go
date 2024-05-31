@@ -135,28 +135,30 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
           hidden: editing,
         })}
       >
-        <div className='flex items-center justify-between py-5'>
+        <div className='flex flex-wrap items-center justify-between py-2 md:py-5'>
           <div className='flex flex-1 items-center'>
-            <div className='h-20 w-20 rounded-full bg-primary/75'></div>
-            <div className='h-1 w-5'></div>
+            <div className='h-10 w-10 rounded-full bg-primary/75 md:h-20 md:w-20'></div>
+            <div className='h-1 w-2 md:w-5'></div>
             <div className='flex-1'>
-              <h1 className='mb-2 line-clamp-1 break-all text-2xl font-semibold leading-7'>
+              <h1 className='mb-1 line-clamp-1 break-all font-semibold leading-5 md:mb-2 md:text-2xl md:leading-7'>
                 Kathryn Murphy
               </h1>
-              <h2 className='line-clamp-1 break-all leading-5 text-t2'>
+              <h2 className='line-clamp-1 break-all text-xs leading-4 text-t2 md:text-base md:leading-5'>
                 kathrynmurphy@gmail.com
               </h2>
             </div>
           </div>
           <div className='h-1 w-1'></div>
-          <Button variant='outline' onClick={() => setEditing(true)}>
-            {dict.profile['Edit Profile']}
-          </Button>
+          <div className='mt-3 w-full md:mt-0 md:w-auto'>
+            <Button variant='outline' onClick={() => setEditing(true)}>
+              {dict.profile['Edit Profile']}
+            </Button>
+          </div>
         </div>
-        <div className='mt-5 whitespace-pre-wrap rounded-xl rounded-tl-none bg-foreground p-3 text-t2'>
+        <div className='mt-2 whitespace-pre-wrap rounded-lg rounded-tl-none bg-foreground px-2 text-xs text-t2 md:mt-5 md:rounded-xl md:p-3 md:text-base'>
           Likes to try various new things, and maintain a passion for life
         </div>
-        <div className='my-5'>
+        <div className='my-2 md:my-5'>
           <CusTabs
             list={tabs}
             active={active}
@@ -167,11 +169,9 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
               <DropdownMenuTrigger
                 asChild
                 needAngle
-                className='h-10 rounded border px-5'
+                className='h-6 rounded border px-1 text-xs md:h-10 md:px-5 md:text-sm'
               >
-                <div className='text-sm'>
-                  {filters.find((e) => e.value === filter)?.text ?? ''}
-                </div>
+                {filters.find((e) => e.value === filter)?.text ?? ''}
               </DropdownMenuTrigger>
               <DropdownMenuContent className='p-0'>
                 <CusUl
@@ -186,8 +186,8 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
         </div>
       </div>
       <div className={cn('hidden flex-col items-center', { flex: editing })}>
-        <div className='my-5 h-[7.5rem] w-[7.5rem] rounded-full bg-primary/75'></div>
-        <Button variant='outline' className='relative mb-10'>
+        <div className='my-3 h-20 w-20 rounded-full bg-primary/75 md:my-5 md:h-[7.5rem] md:w-[7.5rem]'></div>
+        <Button variant='outline' className='relative mb-5 md:mb-10'>
           {dict.profile['Upload new picture']}
           <input
             type='file'
@@ -197,9 +197,12 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
           />
         </Button>
         <div className='w-full max-w-4xl'>
-          <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-10'>
-            <div className='grid gap-2'>
-              <label className='font-medium' htmlFor='name'>
+          <div className='grid grid-cols-1 gap-y-5 md:grid-cols-2 md:gap-x-10'>
+            <div className='grid gap-1 md:gap-2'>
+              <label
+                className='text-sm font-medium md:text-base'
+                htmlFor='name'
+              >
                 {dict.profile.Name} <span className='text-destructive'>*</span>
               </label>
               <Input
@@ -213,7 +216,10 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
               />
             </div>
             <div className='grid gap-2'>
-              <label className='font-medium' htmlFor='email'>
+              <label
+                className='text-sm font-medium md:text-base'
+                htmlFor='email'
+              >
                 {dict.profile['E-mail']}{' '}
                 <span className='text-destructive'>*</span>
               </label>
@@ -229,7 +235,10 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             </div>
           </div>
           <div className='mt-10 grid gap-2'>
-            <label htmlFor='description' className='font-medium'>
+            <label
+              htmlFor='description'
+              className='text-sm font-medium md:text-base'
+            >
               {dict.profile.Description}
             </label>
             <Textarea
