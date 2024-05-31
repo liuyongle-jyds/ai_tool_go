@@ -35,7 +35,7 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
     console.log(id)
   }
 
-  const total = 99
+  const total = 9999
 
   const getBasePath = () =>
     `/${lang + routerName.tools}` + (c1 && c2 ? `/${c1}/${c2}` : '')
@@ -65,23 +65,25 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
 
   return (
     <>
-      <div className='mb-10 mt-5 flex items-center'>
+      <div className='mb-2 mt-2 flex items-center md:mb-10 md:mt-5'>
         <Image
-          src='/images/alltools.png'
+          src='/images/alltools@2x.png'
           alt='tools icon'
           width={64}
           height={64}
-          className='h-16 w-16'
+          className='w-8 md:w-16'
         />
-        <div className='h-1 w-3'></div>
-        <h1 className='text-[1.75rem] font-bold'>{dict.tools['All Tools']}</h1>
+        <div className='h-1 w-1 md:w-3'></div>
+        <h1 className='text-lg font-bold md:text-[1.75rem]'>
+          {dict.tools['All Tools']}
+        </h1>
       </div>
       <CusTabs
         onChangeActive={onChangeActive1}
         source={routerName.experience}
       />
       <CusSubTabs onChangeActive={onChangeActive2} source={routerName.tools} />
-      <div className='h-5'></div>
+      <div className='h-3 md:h-5'></div>
       <CusGridUl>
         {list.map((tool) => (
           <CusTool

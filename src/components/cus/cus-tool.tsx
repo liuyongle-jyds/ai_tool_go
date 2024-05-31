@@ -67,7 +67,7 @@ export default function CusTool({
           </Button>
         </div>
       </div>
-      <div className='pl-7 md:pl-[3.75rem]'>
+      <div className='md:pl-[3.75rem]'>
         <div className='mb-2 line-clamp-2 whitespace-pre-wrap text-[0.625rem] leading-[0.875rem] text-t2 md:mb-3 md:text-sm md:leading-4'>
           {tool.desc}
         </div>

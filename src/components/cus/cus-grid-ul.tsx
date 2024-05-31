@@ -4,7 +4,7 @@ interface Props {
 
 export default function CusGridUl({ children }: Props) {
   return (
-    <ul className='grid min-h-96 grid-cols-1 gap-y-5 md:grid-cols-2 md:gap-x-5'>
+    <ul className='grid grid-cols-1 gap-y-2 md:min-h-96 md:grid-cols-2 md:gap-x-5'>
       {children}
     </ul>
   )

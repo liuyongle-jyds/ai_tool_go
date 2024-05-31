@@ -21,7 +21,7 @@ const PaginationContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ul
     ref={ref}
-    className={cn('flex flex-row items-center gap-3', className)}
+    className={cn('flex flex-row items-center gap-1 md:gap-3', className)}
     {...props}
   />
 ))
@@ -31,7 +31,7 @@ const PaginationItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<'li'>
 >(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn('', className)} {...props} />
+  <li ref={ref} className={cn('h-7 md:h-9', className)} {...props} />
 ))
 PaginationItem.displayName = 'PaginationItem'
 
@@ -55,7 +55,7 @@ const PaginationLink = ({
         variant: 'outline',
         size,
       }),
-      'h-8 w-min min-w-8 rounded px-2 font-medium',
+      'h-full w-min min-w-6 rounded px-0 font-medium md:h-full md:w-min md:min-w-8 md:px-0',
       {
         'border-primary text-primary': isActive,
       },
@@ -79,7 +79,7 @@ const PaginationPrevious = ({
     className={className}
     {...props}
   >
-    <ChevronLeft className='h-4 w-4' strokeWidth={3} />
+    <ChevronLeft className='w-3 md:w-4' strokeWidth={3} />
   </PaginationLink>
 )
 PaginationPrevious.displayName = 'PaginationPrevious'
@@ -94,7 +94,7 @@ const PaginationNext = ({
     className={className}
     {...props}
   >
-    <ChevronRight className='h-4 w-4' strokeWidth={3} />
+    <ChevronRight className='w-3 md:w-4' strokeWidth={3} />
   </PaginationLink>
 )
 PaginationNext.displayName = 'PaginationNext'

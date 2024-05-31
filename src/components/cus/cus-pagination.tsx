@@ -10,7 +10,7 @@ import {
 
 const getPagesToDisplay = (current: number, maxPage: number) => {
   const pages = []
-  const maxVisiblePages = 4
+  const maxVisiblePages = 3
   const halfVisiblePages = Math.floor(maxVisiblePages / 2)
 
   let startPage = Math.max(1, current - halfVisiblePages)
@@ -86,7 +86,11 @@ export default function CusPagination({
           }
           return (
             <PaginationItem key={index}>
-              <PaginationLink href={getPathByPage(e)} isActive={current === e}>
+              <PaginationLink
+                href={getPathByPage(e)}
+                className='px-1 md:px-2'
+                isActive={current === e}
+              >
                 {e}
               </PaginationLink>
             </PaginationItem>
