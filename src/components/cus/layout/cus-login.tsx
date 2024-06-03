@@ -18,6 +18,7 @@ import Locale from '@/types/Locale'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { DrawerClose } from '@/components/ui/drawer'
+import CusImage from '../cus-image'
 
 interface Props {
   dict: Dictionary
@@ -53,7 +54,13 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild className='cursor-pointer'>
             <div className='flex items-center'>
-              <div className='h-8 w-8 rounded-full bg-primary/75 md:h-10 md:w-10' />
+              <CusImage
+                src=''
+                alt='user head'
+                width={40}
+                height={40}
+                className='h-8 w-8 rounded-full md:h-10 md:w-10'
+              />
               <div className='h-1 w-2 md:w-3'></div>
               <div className='max-w-[50vw] truncate break-words text-sm font-medium md:max-w-28 md:text-base'>
                 user
