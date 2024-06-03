@@ -28,7 +28,7 @@ export default function CusCommentsInp({
   }
 
   return (
-    <div className={cn('relative flex-1', className)} {...props}>
+    <div {...props} className={cn('relative flex-1', className)}>
       <Textarea
         name='comment'
         value={content}

@@ -141,11 +141,11 @@ export default function IndexChild({ dict }: Props) {
             },
           )}
         >
-          <span className='text-sm font-medium md:text-base'>
+          <span className='text-xs font-medium md:text-base'>
             {dict.index['See All']}
           </span>
           <div className='h-1 w-1'></div>
-          <CusIcon name='arrow-right' className='w-4' />
+          <CusIcon name='arrow-right' className='w-3 md:w-4' />
         </Link>
       </div>
     )

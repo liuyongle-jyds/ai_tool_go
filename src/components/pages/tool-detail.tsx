@@ -106,8 +106,8 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
   }, [])
 
   return (
-    <div className='md:flex md:space-x-10'>
-      <div className='md:flex-grow-[2] md:basis-0'>
+    <div className='xl:flex xl:space-x-10'>
+      <div className='xl:w-2/3'>
         <div className='mb-2 flex flex-wrap md:mb-5'>
           <div className='flex flex-1'>
             <div className='h-12 w-12 flex-shrink-0 rounded-full bg-primary/75 md:h-20 md:w-20'></div>
@@ -177,14 +177,13 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
             </div>
           </div>
         </div>
-        <div className='sticky left-0 top-0 z-10 w-full bg-background'>
-          <CusTabs
-            list={tabs}
-            active={active}
-            useSelfList
-            onChangeActive={onChangeActive}
-          />
-        </div>
+        <CusTabs
+          list={tabs}
+          active={active}
+          useSelfList
+          className='sticky left-0 top-0 z-10 bg-background'
+          onChangeActive={onChangeActive}
+        />
         <AnchorDom id='tool-information' />
         <div className='py-2 md:py-5'>
           <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
@@ -231,9 +230,9 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
         <AnchorDom id='comment' />
         <CusComments dict={dict} total={tool.comment} />
       </div>
-      <div className='md:flex-1'>
+      <div className='xl:w-1/3'>
         <AnchorDom id='related-tools' />
-        <div className='py-2 md:py-0'>
+        <div className='py-2 xl:py-0'>
           <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
             {dict.tools['Related Tools']}
           </h3>

@@ -8,7 +8,7 @@ import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import TabSource from '@/types/TabSource'
 
-interface Props {
+interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
   onChangeActive?: CallableFunction
   list?: Category[]
@@ -24,6 +24,8 @@ export default function CusTabs({
   active,
   useSelfList = false,
   source,
+  className,
+  ...props
 }: Props) {
   const { categories1, active1, setActive1, active2 } = useApp()
   const params = useParams()
@@ -89,7 +91,13 @@ export default function CusTabs({
   }
 
   return (
-    <div className='mb-2 flex min-h-10 w-full items-center justify-between border-b md:mb-5 md:min-h-14'>
+    <div
+      {...props}
+      className={cn(
+        'mb-2 flex min-h-10 w-full items-center justify-between border-b md:mb-5 md:min-h-14',
+        className,
+      )}
+    >
       <ScrollArea className='flex-1 whitespace-nowrap'>
         <ul className='flex h-10 flex-1 items-center space-x-1 md:h-14 md:space-x-3'>
           {getArr().map((item) => liDom(item))}

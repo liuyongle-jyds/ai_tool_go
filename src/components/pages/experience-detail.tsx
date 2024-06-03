@@ -90,8 +90,8 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
   }, [])
 
   return (
-    <div className='mt-2 md:mt-5 md:flex md:space-x-10'>
-      <div className='space-y-5 md:flex-grow-[2] md:basis-0 md:space-y-10'>
+    <div className='mt-2 md:mt-5 xl:flex xl:space-x-10'>
+      <div className='space-y-5 md:space-y-10 xl:w-2/3'>
         <div>
           <h1 className='mb-2 text-base font-bold md:mb-3 md:text-2xl'>
             {exp.name}
@@ -122,7 +122,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
             </div>
           </div>
         </div>
-        <div className='flex flex-wrap justify-between md:flex-nowrap'>
+        <div className='flex flex-wrap justify-between'>
           <div className='mb-2 flex w-full items-center md:mb-0 md:w-auto md:flex-1'>
             <div className='h-8 w-8 flex-shrink-0 rounded-full bg-primary/75 md:h-10 md:w-10'></div>
             <div className='h-1 w-1 md:w-3'></div>
@@ -174,7 +174,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
             }
           </p>
         </Link>
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-wrap items-center justify-between'>
           <div className='flex items-center'>
             <div className='h-6 w-6 rounded-full bg-primary md:h-10 md:w-10'></div>
             <div className='-ml-2 h-6 w-6 rounded-full bg-black md:-ml-4 md:h-10 md:w-10'></div>
@@ -188,7 +188,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
         </div>
         <CusComments dict={dict} total={exp.comment} className='border-t' />
       </div>
-      <div className='mt-4 md:mt-0 md:flex-1'>
+      <div className='mt-4 xl:mt-0 xl:w-1/3'>
         <div className='mb-4 rounded-lg border p-2 pb-1 md:mb-5 md:rounded-xl md:p-5 md:pb-3'>
           <Link
             href=''
