@@ -212,7 +212,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
         <AnchorDom id='experience' />
         <div className='py-2 md:py-5'>
           <div className='mb-2 flex items-center justify-between md:mb-5'>
-            <h3 className='text-base font-semibold md:mb-5 md:text-xl'>
+            <h3 className='text-base font-semibold md:text-xl'>
               {dict.header.Experience}
             </h3>
             <CusFilter active={expSort} onChangeSort={onChangeExpSort} />
@@ -231,7 +231,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
         <AnchorDom id='comment' />
         <CusComments dict={dict} total={tool.comment} />
       </div>
-      <div className='md:flex-grow-[1]'>
+      <div className='md:flex-1'>
         <AnchorDom id='related-tools' />
         <div className='py-2 md:py-0'>
           <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
