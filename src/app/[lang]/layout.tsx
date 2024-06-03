@@ -9,6 +9,7 @@ import Config from '@/config'
 import { AppContextProvider } from '@/contexts/appContext'
 import { Toaster } from '@/components/ui/sonner'
 import CusLayout from '@/components/cus/layout'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -58,13 +59,15 @@ export default async function RootLayout({
   const dict = await getDictionary(lang)
 
   return (
-    <AppContextProvider>
-      <html lang={params.lang}>
-        <body className={inter.className}>
-          <CusLayout dict={dict}>{children}</CusLayout>
-          <Toaster />
-        </body>
-      </html>
-    </AppContextProvider>
+    <ClerkProvider>
+      <AppContextProvider>
+        <html lang={params.lang}>
+          <body className={inter.className}>
+            <CusLayout dict={dict}>{children}</CusLayout>
+            <Toaster />
+          </body>
+        </html>
+      </AppContextProvider>
+    </ClerkProvider>
   )
 }

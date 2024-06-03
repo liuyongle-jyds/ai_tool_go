@@ -1,5 +1,7 @@
 'use client'
 
+import { useUser } from '@clerk/nextjs'
+import { UserResource } from '@clerk/types'
 import Category from '@/types/Categories'
 import LinkA from '@/types/LinkA'
 import User from '@/types/User'
@@ -7,10 +9,13 @@ import {
   Dispatch,
   SetStateAction,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react'
+import { deleteCookie, getCookie, setCookie } from '@/utils/actions'
+import { postGetUser, postLogin } from '@/services'
 
 interface ContextProviderValue {
   user: User
@@ -36,6 +41,7 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const { isLoaded, isSignedIn, user: clerkUser } = useUser()
   const [user, setUser] = useState<User>({} as User)
   const [toolsList, setToolsList] = useState([] as LinkA[])
   const [experienceList, setExperienceList] = useState([] as LinkA[])
@@ -43,6 +49,8 @@ export const AppContextProvider = ({
   const [categories2, setCategories2] = useState([] as Category[])
   const [active1, setActive1] = useState('')
   const [active2, setActive2] = useState('')
+
+  const [session, setSession] = useState('')
 
   const getToolsList = () => {
     setToolsList([
@@ -197,6 +205,52 @@ export const AppContextProvider = ({
     }
     init()
   }, [])
+
+  const checkLogin = useCallback(async (data = {}) => {
+    const token = await getCookie('token')
+    if (!token) {
+      try {
+        const res = await postLogin(data)
+        await setCookie('token', res.result.token)
+        setUser(res.result.user)
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      try {
+        const res = await postGetUser()
+        if (res.code === 401) {
+          await deleteLocalUser()
+          return
+        }
+        setUser(res.result)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }, [])
+
+  const deleteLocalUser = async () => {
+    setUser({} as User)
+    await deleteCookie('token')
+  }
+
+  useEffect(() => {
+    if (isLoaded) {
+      if (clerkUser?.id && !user.id) {
+        const { id, fullName, imageUrl, primaryEmailAddress } = clerkUser
+        const body = {
+          openid: id,
+          nickname: fullName,
+          avatarUrl: imageUrl,
+          email: primaryEmailAddress?.emailAddress,
+        }
+        checkLogin(body)
+      } else if (!clerkUser) {
+        deleteLocalUser()
+      }
+    }
+  }, [clerkUser, isLoaded, checkLogin, user.id])
 
   return (
     <AppContext.Provider

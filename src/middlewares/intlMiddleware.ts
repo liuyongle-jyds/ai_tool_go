@@ -1,9 +1,8 @@
 import i18n from '@/i18n-config'
 import Locale from '@/types/Locale'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import Negotiator from 'negotiator'
 import { match } from '@formatjs/intl-localematcher'
-import { whiteList } from '@/router'
 
 const getLocale: (request: NextRequest) => Locale = (request: NextRequest) => {
   const locale = request.cookies.get('locale')?.value
@@ -25,7 +24,6 @@ const getRedirectUrlByLang: (request: NextRequest) => string = (
   request: NextRequest,
 ) => {
   const { pathname } = request.nextUrl
-  if (whiteList.includes(pathname)) return ''
 
   const pathnameHasLocale = i18n.locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
@@ -37,4 +35,12 @@ const getRedirectUrlByLang: (request: NextRequest) => string = (
   return `/${locale + pathname}`
 }
 
-export default getRedirectUrlByLang
+const intlMiddleware = (req: NextRequest) => {
+  const redirectUrlByLang = getRedirectUrlByLang(req)
+  if (redirectUrlByLang) {
+    req.nextUrl.pathname = redirectUrlByLang
+    return NextResponse.redirect(req.nextUrl)
+  }
+}
+
+export default intlMiddleware

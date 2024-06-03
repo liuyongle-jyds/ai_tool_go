@@ -1,8 +1,7 @@
 export default interface User {
   id: string
-  head: string
-  nickName: string
+  avatarUrl: string
+  nickname: string
   email: string
-  sex: string | number
-  greeting: string
+  profile: string
 }

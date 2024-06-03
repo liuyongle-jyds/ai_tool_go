@@ -50,7 +50,7 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
 
   return (
     <>
-      {!hasToken ? (
+      {hasToken ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild className='cursor-pointer'>
             <div className='flex items-center'>
@@ -92,9 +92,11 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button className='w-full md:w-auto md:min-w-20'>
-          {dict.header['Sign up']}
-        </Button>
+        <Link href={`/${lang + routerName.profile}`} rel='nofollow'>
+          <Button className='w-full md:w-auto md:min-w-20'>
+            {dict.header['Sign up']}
+          </Button>
+        </Link>
       )}
     </>
   )

@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils'
 import { debounce, toastManager } from '@/utils'
 import { useApp } from '@/contexts/appContext'
 import User from '@/types/User'
-import { uploadFile } from '@/services'
+import { postUploadFile } from '@/services'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import CusGridUl from '../cus/cus-grid-ul'
@@ -61,9 +61,9 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState<Partial<User>>({
-    nickName: '',
-    head: '',
-    greeting: '',
+    nickname: '',
+    avatarUrl: '',
+    profile: '',
     email: '',
   })
 
@@ -87,15 +87,15 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
     try {
       setLoading(true)
       toastManager.showLoading(dict.common.Loading)
-      const res = await uploadFile(formData)
+      const res = await postUploadFile(formData)
       if (res.code === 200) {
         setUser((oldMap) => ({
           ...oldMap,
-          head: res.result,
+          avatarUrl: res.result,
         }))
         setForm((oldMap) => ({
           ...oldMap,
-          head: res.result,
+          avatarUrl: res.result,
         }))
       } else {
         toastManager.showToast(res.message)
@@ -120,10 +120,10 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
   useEffect(() => {
     if (user.id) {
       setForm((prevForm) => ({
-        nickName: prevForm.nickName || user.nickName,
-        head: prevForm.head || user.head,
+        nickname: prevForm.nickname || user.nickname,
+        avatarUrl: prevForm.avatarUrl || user.avatarUrl,
         email: prevForm.email || user.email,
-        greeting: prevForm.greeting || user.greeting,
+        profile: prevForm.profile || user.profile,
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -199,9 +199,9 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
                 type='text'
                 id='name'
                 autoComplete='name'
-                value={form.nickName}
+                value={form.nickname}
                 onChange={(e) =>
-                  setForm((oldMap) => ({ ...oldMap, nickName: e.target.value }))
+                  setForm((oldMap) => ({ ...oldMap, nickname: e.target.value }))
                 }
               />
             </div>
@@ -234,9 +234,9 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             <Textarea
               id='description'
               placeholder={dict.profile['Brief description']}
-              value={form.greeting}
+              value={form.profile}
               onChange={(e) =>
-                setForm((oldMap) => ({ ...oldMap, greeting: e.target.value }))
+                setForm((oldMap) => ({ ...oldMap, profile: e.target.value }))
               }
             />
           </div>
