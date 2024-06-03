@@ -34,17 +34,18 @@ export default function CusCommentsInp({
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder={placeholder}
-        className='w-full pr-20'
+        className='w-full pr-10 md:pr-20'
       />
       <Button
-        className='absolute bottom-3 right-5 h-10 w-10 px-0'
+        className='absolute bottom-2 right-2 md:bottom-3 md:right-2 '
         onClick={onSendComment}
+        size='icon'
         disabled={loading}
       >
         {loading ? (
-          <LoaderCircle className='w-4 animate-spin' />
+          <LoaderCircle className='w-3 animate-spin md:w-4' />
         ) : (
-          <ArrowRight className='w-4' />
+          <ArrowRight className='w-3 md:w-4' />
         )}
       </Button>
     </div>

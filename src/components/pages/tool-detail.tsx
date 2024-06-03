@@ -19,7 +19,7 @@ import { useParams } from 'next/navigation'
 import CusExp from '../cus/cus-exp'
 
 function AnchorDom({ id }: { id: string }) {
-  return <div className='invisible -mt-6 h-6 md:-mt-12 md:h-12' id={id}></div>
+  return <div className='invisible -mt-10 h-10 md:-mt-12 md:h-12' id={id}></div>
 }
 
 export default function ToolDetail({ dict }: { dict: Dictionary }) {
@@ -203,16 +203,18 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           </div>
         </div>
         <AnchorDom id='application-cases' />
-        <div className='pb-2 pt-5'>
-          <h3 className='mb-5 text-xl font-semibold'>
+        <div className='pt-2 md:pb-2 md:pt-5'>
+          <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
             {dict.tools['Application Cases']}
           </h3>
           <CusTag list={tool.tag} size='lg' />
         </div>
         <AnchorDom id='experience' />
-        <div className='py-5'>
-          <div className='mb-5 flex items-center justify-between'>
-            <h3 className='text-xl font-semibold'>{dict.header.Experience}</h3>
+        <div className='py-2 md:py-5'>
+          <div className='mb-2 flex items-center justify-between md:mb-5'>
+            <h3 className='text-base font-semibold md:mb-5 md:text-xl'>
+              {dict.header.Experience}
+            </h3>
             <CusFilter active={expSort} onChangeSort={onChangeExpSort} />
           </div>
           <ul className='mb-5 space-y-5'>
@@ -230,8 +232,9 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
         <CusComments dict={dict} total={tool.comment} />
       </div>
       <div className='md:flex-grow-[1]'>
-        <div id='related-tools'>
-          <h3 className='mb-5 text-xl font-semibold'>
+        <AnchorDom id='related-tools' />
+        <div className='py-2 md:py-0'>
+          <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
             {dict.tools['Related Tools']}
           </h3>
           <ul className='space-y-3'>

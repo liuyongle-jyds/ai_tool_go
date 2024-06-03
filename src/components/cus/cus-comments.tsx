@@ -105,22 +105,22 @@ export default function CusComments({
   }, [handleClickOutside])
 
   return (
-    <div {...props} className={cn('py-5', className)}>
-      <div className='mb-5 flex items-center justify-between'>
-        <h3 className='text-xl font-semibold'>
+    <div {...props} className={cn('py-2 md:py-5', className)}>
+      <div className='mb-2 flex items-center justify-between md:mb-5'>
+        <h3 className='text-base font-semibold md:text-xl'>
           {dict.index.Comment}({total})
         </h3>
         <CusFilter active={commentSort} onChangeSort={onChangeCommentSort} />
       </div>
-      <div className='mb-5 flex'>
-        <div className='h-8 w-8 rounded-full bg-primary/75'></div>
-        <div className='h-1 w-3'></div>
+      <div className='mb-2 flex md:mb-5'>
+        <div className='h-6 w-6 rounded-full bg-primary/75 md:h-8 md:w-8'></div>
+        <div className='h-1 w-1 md:w-3'></div>
         <CusCommentsInp
           placeholder={dict.tools['Add your comment here...']}
           onSendSucess={onSendSucess}
         />
       </div>
-      <ul className='rounded-xl border p-5'>
+      <ul className='rounded-lg border p-2 md:rounded-xl md:p-5'>
         {list.map((comment, index) => {
           const borderVisible = index + 1 !== list.length
           return (
@@ -131,7 +131,7 @@ export default function CusComments({
                 dict={dict}
                 setActive={setActive}
               />
-              {borderVisible && <Separator className='my-5' />}
+              {borderVisible && <Separator className='my-2 md:my-5' />}
             </li>
           )
         })}
