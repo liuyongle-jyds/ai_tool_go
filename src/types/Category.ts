@@ -1,5 +1,5 @@
 export default interface Category {
-  text: string
+  content: string
   id: string
   link?: string
 }

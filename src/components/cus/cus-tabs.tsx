@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area'
 import { useApp } from '@/contexts/appContext'
-import Category from '@/types/Categories'
+import Category from '@/types/Category'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import Locale from '@/types/Locale'
@@ -63,7 +63,7 @@ export default function CusTabs({
           },
         )}
       >
-        {item.text}
+        {item.content}
         {isActive && (
           <div className='absolute bottom-0 left-0 z-50 h-[2px] w-full bg-gradient-primary'></div>
         )}
@@ -74,7 +74,7 @@ export default function CusTabs({
         <Link
           key={item.id}
           href={item.link}
-          title={item.text}
+          title={item.content}
           className='h-full'
         >
           {li}
@@ -84,7 +84,7 @@ export default function CusTabs({
     if (useSelfList || hideLinkOrNot()) return li
     const path = `/${lang + source}/${item.id}/${active2}/page/1`
     return (
-      <Link key={item.id} href={path} title={item.text} className='h-full'>
+      <Link key={item.id} href={path} title={item.content} className='h-full'>
         {li}
       </Link>
     )

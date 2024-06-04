@@ -6,7 +6,7 @@ import CusTag from '../cus/cus-tag'
 import { Button } from '../ui/button'
 import CusIcon from '../cus/cus-icon'
 import { Triangle } from 'lucide-react'
-import Category from '@/types/Categories'
+import Category from '@/types/Category'
 import { useEffect, useState } from 'react'
 import CusTabs from '../cus/cus-tabs'
 import CusFilter from '../cus/cus-filter'
@@ -34,27 +34,27 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
 
   const tabs: Category[] = [
     {
-      text: dict.tools['Tool Information'],
+      content: dict.tools['Tool Information'],
       id: 'tool-information',
       link: '#tool-information',
     },
     {
-      text: dict.tools['Application Cases'],
+      content: dict.tools['Application Cases'],
       id: 'application-cases',
       link: '#application-cases',
     },
     {
-      text: dict.header.Experience,
+      content: dict.header.Experience,
       id: 'experience',
       link: '#experience',
     },
     {
-      text: dict.index.Comment,
+      content: dict.index.Comment,
       id: 'comment',
       link: '#comment',
     },
     {
-      text: dict.tools['Related Tools'],
+      content: dict.tools['Related Tools'],
       id: 'related-tools',
       link: '#related-tools',
     },

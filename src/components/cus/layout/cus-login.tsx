@@ -89,9 +89,15 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-[70vw] md:w-64'>
             <div className='flex flex-col items-center'>
-              <div className='h-14 w-14 rounded-full bg-primary/75 md:h-20 md:w-20' />
+              <CusImage
+                src={user.avatarUrl}
+                alt="user's avatar"
+                width={80}
+                height={80}
+                className='h-14 w-14 rounded-full md:h-20 md:w-20'
+              />
               <div className='my-1 w-full text-center font-medium md:my-3'>
-                user
+                {user.nickname}
               </div>
             </div>
             <DropdownMenuGroup>

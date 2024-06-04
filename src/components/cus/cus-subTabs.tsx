@@ -4,7 +4,7 @@ import { useApp } from '@/contexts/appContext'
 import Locale from '@/types/Locale'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import Category from '@/types/Categories'
+import Category from '@/types/Category'
 import { routerName } from '@/router'
 import TabSource from '@/types/TabSource'
 
@@ -36,14 +36,14 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
   const liInnerDom = (item: Category) => {
     const inner = (
       <div className='flex h-full items-center px-1 text-xs md:px-3 md:text-base'>
-        {item.text}
+        {item.content}
       </div>
     )
     if (hideLinkOrNot()) {
       return inner
     }
     return (
-      <Link title={item.text} href={getLink(item.id)} className='h-full'>
+      <Link title={item.content} href={getLink(item.id)} className='h-full'>
         {inner}
       </Link>
     )

@@ -57,3 +57,7 @@ export const postLogin = async (body = {}) => {
 export const postGetUser = async () => {
   return await fetchAPI('/user/info')
 }
+
+export const postGetTags = async (type: 'DOMAIN' | 'TASK') => {
+  return await fetchAPI('/meta-tag/list', { body: { type } })
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useUser, useClerk } from '@clerk/nextjs'
-import Category from '@/types/Categories'
+import Category from '@/types/Category'
 import LinkA from '@/types/LinkA'
 import User from '@/types/User'
 import {
@@ -14,7 +14,7 @@ import {
   useState,
 } from 'react'
 import { deleteCookie, getCookie, setCookie } from '@/utils/actions'
-import { postGetUser, postLogin } from '@/services'
+import { postGetTags, postGetUser, postLogin } from '@/services'
 
 interface ContextProviderValue {
   user: User
@@ -108,90 +108,26 @@ export const AppContextProvider = ({
     ])
   }
 
-  const getCategories1 = () => {
-    const list: Category[] = [
-      {
-        text: 'All Industries',
-        id: '1',
-      },
-      {
-        text: 'Electronic Commerce',
-        id: '2',
-      },
-      {
-        text: 'Program Development',
-        id: '3',
-      },
-      {
-        text: 'UI / UX',
-        id: '4',
-      },
-      {
-        text: 'Art',
-        id: '5',
-      },
-      {
-        text: 'Medical Treatment',
-        id: '6',
-      },
-      {
-        text: 'System',
-        id: '7',
-      },
-      {
-        text: 'Speech Recognition',
-        id: '8',
-      },
-    ]
-    setCategories1(list)
-    setActive1(list[0]?.id || '')
+  const getCategories1 = async () => {
+    try {
+      const res = await postGetTags('DOMAIN')
+      const list: Category[] = res.result || []
+      setCategories1(list)
+      setActive1(list[0]?.id || '')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const getCategories2 = () => {
-    const list: Category[] = [
-      {
-        text: 'All Functions',
-        id: '1',
-      },
-      {
-        text: 'Chat',
-        id: '2',
-      },
-      {
-        text: 'Photo Restoration',
-        id: '3',
-      },
-      {
-        text: 'Face Detection',
-        id: '4',
-      },
-      {
-        text: 'Speech Recognition',
-        id: '5',
-      },
-      {
-        text: 'E-commerce',
-        id: '6',
-      },
-      {
-        text: 'Article Writing',
-        id: '7',
-      },
-      {
-        text: 'Tourism',
-        id: '8',
-      },
-      {
-        text: 'System Safety',
-        id: '9',
-      },
-      {
-        text: 'Market Economy',
-        id: '10',
-      },
-    ]
-    setCategories2(list)
-    setActive2(list[0]?.id || '')
+  const getCategories2 = async () => {
+    try {
+      const res = await postGetTags('TASK')
+      const list: Category[] = res.result || []
+      setCategories2(list)
+      setActive2(list[0]?.id || '')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {

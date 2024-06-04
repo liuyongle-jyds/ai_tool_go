@@ -5,12 +5,6 @@ import { Button } from '../ui/button'
 import Operation from '@/types/Operation'
 import CusTabs from '../cus/cus-tabs'
 import { ChangeEvent, useEffect, useState } from 'react'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
-import CusUl from '../cus/cus-ul'
 import { cn } from '@/lib/utils'
 import { debounce, toastManager } from '@/utils'
 import { useApp } from '@/contexts/appContext'
@@ -21,27 +15,28 @@ import { Textarea } from '../ui/textarea'
 import CusGridUl from '../cus/cus-grid-ul'
 import ItemType from '@/types/ItemType'
 import CusFilter from '../cus/cus-filter'
+import CusImage from '../cus/cus-image'
 
 export default function ProfileChild({ dict }: { dict: Dictionary }) {
-  const tabs: { text: string; id: Operation }[] = [
+  const tabs: { content: string; id: Operation }[] = [
     {
-      text: dict.profile['My Votes'],
+      content: dict.profile['My Votes'],
       id: 'vote',
     },
     {
-      text: dict.profile['My Collection'],
+      content: dict.profile['My Collection'],
       id: 'collection',
     },
     {
-      text: dict.profile.Likes,
+      content: dict.profile.Likes,
       id: 'like',
     },
     {
-      text: dict.profile['My Comments'],
+      content: dict.profile['My Comments'],
       id: 'comment',
     },
     {
-      text: dict.profile['Browsing History'],
+      content: dict.profile['Browsing History'],
       id: 'history',
     },
   ]
@@ -126,8 +121,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
         profile: prevForm.profile || user.profile,
       }))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.id])
+  }, [user.avatarUrl, user.email, user.id, user.nickname, user.profile])
 
   return (
     <div className={cn({ loading })}>
@@ -138,14 +132,20 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
       >
         <div className='flex flex-wrap items-center justify-between py-2 md:py-5'>
           <div className='flex flex-1 items-center'>
-            <div className='h-10 w-10 rounded-full bg-primary/75 md:h-20 md:w-20'></div>
+            <CusImage
+              src={user.avatarUrl}
+              alt="user's avatar"
+              width={80}
+              height={80}
+              className='h-10 w-10 rounded-full md:h-20 md:w-20'
+            />
             <div className='h-1 w-2 md:w-5'></div>
             <div className='flex-1'>
               <h1 className='mb-1 line-clamp-1 break-all font-semibold leading-5 md:mb-2 md:text-2xl md:leading-7'>
-                Kathryn Murphy
+                {user.nickname}
               </h1>
               <h2 className='line-clamp-1 break-all text-xs leading-4 text-t2 md:text-base md:leading-5'>
-                kathrynmurphy@gmail.com
+                {user.email}
               </h2>
             </div>
           </div>
@@ -157,7 +157,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
           </div>
         </div>
         <div className='mt-2 whitespace-pre-wrap rounded-lg rounded-tl-none bg-foreground px-2 text-xs text-t2 md:mt-5 md:rounded-xl md:p-3 md:text-base'>
-          Likes to try various new things, and maintain a passion for life
+          {user.profile || ' '}
         </div>
         <div className='my-2 md:my-5'>
           <CusTabs
@@ -176,7 +176,13 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
         </div>
       </div>
       <div className={cn('hidden flex-col items-center', { flex: editing })}>
-        <div className='my-3 h-20 w-20 rounded-full bg-primary/75 md:my-5 md:h-[7.5rem] md:w-[7.5rem]'></div>
+        <CusImage
+          src={form.avatarUrl || ''}
+          alt="user's avatar"
+          width={120}
+          height={120}
+          className='my-3 h-20 w-20 rounded-full md:my-5 md:h-[7.5rem] md:w-[7.5rem]'
+        />
         <Button variant='outline' className='relative mb-5 md:mb-10'>
           {dict.profile['Upload new picture']}
           <input

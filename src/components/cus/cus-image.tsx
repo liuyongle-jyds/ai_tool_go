@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
 import { cn } from '@/lib/utils'
 import Config from '@/config'
+import { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
 type Proportion = '1:1' | '4:3'
 
