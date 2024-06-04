@@ -19,6 +19,9 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { DrawerClose } from '@/components/ui/drawer'
 import CusImage from '../cus-image'
+import { useApp } from '@/contexts/appContext'
+import { useAuth } from '@clerk/nextjs'
+import { toastManager } from '@/utils'
 
 interface Props {
   dict: Dictionary
@@ -28,6 +31,8 @@ interface Props {
 export default function CusLogin({ dict, fromDrawer = false }: Props) {
   const params = useParams()
   const [hasToken, setHasToken] = useState(false)
+  const { user } = useApp()
+  const { signOut } = useAuth()
 
   const lang = params.lang as Locale
 
@@ -44,9 +49,24 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
     </Link>
   )
 
+  const loginOut = () => {
+    toastManager.showDialog(dict.header['Sign Out'], {
+      action: {
+        label: dict.common.Accept,
+        onClick: async () => {
+          await signOut()
+        },
+      },
+      cancel: {
+        label: dict.common.Cancel,
+        onClick: () => {},
+      },
+    })
+  }
+
   useEffect(() => {
     init()
-  }, [])
+  }, [user.id])
 
   return (
     <>
@@ -55,15 +75,15 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
           <DropdownMenuTrigger asChild className='cursor-pointer'>
             <div className='flex items-center'>
               <CusImage
-                src=''
-                alt='user head'
+                src={user.avatarUrl}
+                alt="user's avatar"
                 width={40}
                 height={40}
                 className='h-8 w-8 rounded-full md:h-10 md:w-10'
               />
               <div className='h-1 w-2 md:w-3'></div>
               <div className='max-w-[50vw] truncate break-words text-sm font-medium md:max-w-28 md:text-base'>
-                user
+                {user.nickname}
               </div>
             </div>
           </DropdownMenuTrigger>
@@ -83,7 +103,7 @@ export default function CusLogin({ dict, fromDrawer = false }: Props) {
                 )}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={loginOut}>
                 <LogOut className='w-4 md:w-5' />
                 <div className='h-1 w-2'></div>
                 <span>{dict.header['Sign Out']}</span>

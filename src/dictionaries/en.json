@@ -4,7 +4,9 @@
     "description": "description"
   },
   "common": {
-    "Loading": "Loading"
+    "Loading": "Loading",
+    "Accept": "Accept",
+    "Cancel": "Cancel"
   },
   "header": {
     "Tools": "Tools",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
 import { cn } from '@/lib/utils'
 import Config from '@/config'
@@ -15,7 +15,7 @@ interface Props extends ImageProps {
 }
 
 export default function CusImage({ proportion = '1:1', ...props }: Props) {
-  const [url, setUrl] = useState(props.src)
+  const [url, setUrl] = useState('')
 
   const loadingBg = loadingBgs[proportion]
   const errorBg = loadingBg
@@ -27,6 +27,12 @@ export default function CusImage({ proportion = '1:1', ...props }: Props) {
     }
     return Config.oss + src
   }
+
+  useEffect(() => {
+    if (props.src) {
+      setUrl(props.src as string)
+    }
+  }, [props.src])
 
   return (
     <Image

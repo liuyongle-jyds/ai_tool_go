@@ -1,7 +1,6 @@
 'use client'
 
-import { useUser } from '@clerk/nextjs'
-import { UserResource } from '@clerk/types'
+import { useUser, useClerk } from '@clerk/nextjs'
 import Category from '@/types/Categories'
 import LinkA from '@/types/LinkA'
 import User from '@/types/User'
@@ -41,7 +40,8 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const { isLoaded, isSignedIn, user: clerkUser } = useUser()
+  const { isLoaded, user: clerkUser } = useUser()
+  const { openGoogleOneTap } = useClerk()
   const [user, setUser] = useState<User>({} as User)
   const [toolsList, setToolsList] = useState([] as LinkA[])
   const [experienceList, setExperienceList] = useState([] as LinkA[])
@@ -49,8 +49,6 @@ export const AppContextProvider = ({
   const [categories2, setCategories2] = useState([] as Category[])
   const [active1, setActive1] = useState('')
   const [active2, setActive2] = useState('')
-
-  const [session, setSession] = useState('')
 
   const getToolsList = () => {
     setToolsList([
@@ -247,10 +245,13 @@ export const AppContextProvider = ({
         }
         checkLogin(body)
       } else if (!clerkUser) {
+        if (!user.id) {
+          openGoogleOneTap()
+        }
         deleteLocalUser()
       }
     }
-  }, [clerkUser, isLoaded, checkLogin, user.id])
+  }, [clerkUser, isLoaded, checkLogin, user.id, openGoogleOneTap])
 
   return (
     <AppContext.Provider

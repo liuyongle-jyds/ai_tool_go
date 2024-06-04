@@ -1,6 +1,7 @@
 import Config from '@/config'
 import Locale from '@/types/Locale'
 import { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
+import { ReactNode } from 'react'
 import { toast } from 'sonner'
 
 const filterImage = (url: string) => {
@@ -58,6 +59,12 @@ function debounce<T extends (...args: any[]) => any>(
   }
 }
 
+interface Action {
+  label: string
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  actionButtonStyle?: React.CSSProperties
+}
+
 class ToastManager {
   private static instance: ToastManager
 
@@ -78,6 +85,31 @@ class ToastManager {
   public showToast(txt: string): void {
     this.dismiss()
     toast(txt)
+  }
+
+  public showDialog(
+    txt: string,
+    {
+      action,
+      cancel,
+      description,
+    }: {
+      description?: ReactNode
+      action?: ReactNode | Action
+      cancel?: ReactNode | Action
+    },
+  ): void {
+    this.dismiss()
+    toast(txt, {
+      description,
+      action,
+      cancel,
+      position: 'top-center',
+      duration: 99999,
+      actionButtonStyle: {
+        marginLeft: cancel ? 0 : 'var(--toast-button-margin-start)',
+      },
+    })
   }
 
   public dismiss(): void {
