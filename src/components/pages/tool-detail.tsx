@@ -17,20 +17,35 @@ import CusTool from '../cus/cus-tool'
 import Locale from '@/types/Locale'
 import { useParams } from 'next/navigation'
 import CusExp from '../cus/cus-exp'
+import { filterNumber } from '@/utils'
+import CusImage from '../cus/cus-image'
 
 function AnchorDom({ id }: { id: string }) {
   return <div className='invisible -mt-10 h-10 md:-mt-12 md:h-12' id={id}></div>
 }
 
-export default function ToolDetail({ dict }: { dict: Dictionary }) {
+let isPdata = true
+let lastToolsList: Tool[] = []
+
+export default function ToolDetail({
+  dict,
+  tool,
+  toolsList,
+}: {
+  dict: Dictionary
+  tool: Tool
+  toolsList: Tool[]
+}) {
   const params = useParams()
   const [active, setActive] = useState('tool-information')
   const [expSort, setExpSort] = useState('popular')
-  const [relatedTools, setRelatedTools] = useState([] as Tool[])
+  const [relatedTools, setRelatedTools] = useState(
+    isPdata ? toolsList : lastToolsList,
+  )
   const [expList, setExpList] = useState([] as Experience[])
 
   const lang = params.lang as Locale
-  const tool: Tool = list3[0]
+  lastToolsList = relatedTools
 
   const tabs: Category[] = [
     {
@@ -74,7 +89,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
         tool.id === id
           ? {
               ...tool,
-              voted: !tool.voted,
+              voted: !tool.isVoted,
             }
           : tool,
       ),
@@ -96,7 +111,6 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
 
   const init = () => {
     setTimeout(() => {
-      setRelatedTools(list3)
       setExpList(list4)
     }, 500)
   }
@@ -110,16 +124,22 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
       <div className='xl:w-2/3'>
         <div className='mb-2 flex flex-wrap md:mb-5'>
           <div className='flex flex-1'>
-            <div className='h-12 w-12 flex-shrink-0 rounded-full bg-primary/75 md:h-20 md:w-20'></div>
+            <CusImage
+              src={tool.logoUrl}
+              alt={tool.name + ' ' + 'logo'}
+              width={80}
+              height={80}
+              className='h-12 w-12 flex-shrink-0 rounded-full md:h-20 md:w-20'
+            />
             <div className='h-1 w-1 md:w-3'></div>
             <div>
               <h1 className='text-base font-semibold md:mb-1 md:text-2xl md:leading-7'>
                 {tool.name}
               </h1>
               <div className='mb-2 text-xs text-t2 md:mb-3 md:text-base'>
-                {tool.creator}
+                {tool.companyName}
               </div>
-              <CusTag list={tool.tag} />
+              <CusTag list={tool.tasks} />
             </div>
           </div>
           <div className='h-1 w-1'></div>
@@ -129,7 +149,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
                 <CusIcon name='share-2' className='w-3' />
               </Button>
               <Button variant='secondary' size='icon' className='mx-3 md:mx-5'>
-                {tool.collected ? (
+                {tool.isCollected ? (
                   <CusIcon
                     name='star'
                     fill='#EEB244'
@@ -141,21 +161,21 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
                 )}
               </Button>
               <Button
-                variant={tool.voted ? 'primary' : 'secondary'}
+                variant={tool.isVoted ? 'primary' : 'secondary'}
                 className='rounded font-normal'
               >
                 <Triangle
-                  fill={tool.voted ? '#fff' : '#90979D'}
+                  fill={tool.isVoted ? '#fff' : '#90979D'}
                   strokeWidth={0}
                   className='h-3 w-5'
                 />
                 <span className='md:translate-y-[1px]'>
-                  &nbsp;{dict.tools.UPVOTE}&nbsp;{tool.vote}
+                  &nbsp;{dict.tools.UPVOTE}&nbsp;{filterNumber(tool.votesCount)}
                 </span>
               </Button>
             </div>
             <div className='flex items-center text-xs leading-none text-t2'>
-              {tool.collected ? (
+              {tool.isCollected ? (
                 <CusIcon
                   name='star'
                   fill='#EEB244'
@@ -166,11 +186,13 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
                 <CusIcon name='star' className='w-3 text-t3' />
               )}
               <span className='md:translate-y-[1px]'>
-                &nbsp;{tool.collection}
+                &nbsp;{filterNumber(tool.collectsCount)}
               </span>
               <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='message-circle' className='w-3 text-t3' />
-              <span className='md:translate-y-[1px]'>&nbsp;{tool.comment}</span>
+              <span className='md:translate-y-[1px]'>
+                &nbsp;{filterNumber(tool.commentsCount)}
+              </span>
               <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='lightbulb' className='w-3 text-t3' />
               <span className='md:translate-y-[1px]'>&nbsp;{'2,222'}</span>
@@ -190,10 +212,10 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
             {dict.tools['Tool Information']}
           </h3>
           <div className='mb-2 whitespace-pre-wrap rounded rounded-tl-none bg-foreground p-2 text-xs text-t2 md:mb-5 md:rounded-xl md:p-5 md:text-sm'>
-            {tool.desc}
+            {tool.profile}
           </div>
           <div className='grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3'>
-            {tool.tag.map((e, index) => (
+            {tool.tasks.map((e, index) => (
               <div
                 key={index}
                 className='h-20 rounded bg-primary/75 md:h-36 md:rounded-xl'
@@ -206,7 +228,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
             {dict.tools['Application Cases']}
           </h3>
-          <CusTag list={tool.tag} size='lg' />
+          <CusTag list={tool.domains} size='lg' />
         </div>
         <AnchorDom id='experience' />
         <div className='py-2 md:py-5'>
@@ -228,7 +250,7 @@ export default function ToolDetail({ dict }: { dict: Dictionary }) {
           </div>
         </div>
         <AnchorDom id='comment' />
-        <CusComments dict={dict} total={tool.comment} />
+        <CusComments dict={dict} total={tool.commentsCount} />
       </div>
       <div className='xl:w-1/3'>
         <AnchorDom id='related-tools' />

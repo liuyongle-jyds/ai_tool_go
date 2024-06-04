@@ -61,3 +61,11 @@ export const postGetUser = async () => {
 export const postGetTags = async (type: 'DOMAIN' | 'TASK') => {
   return await fetchAPI('/meta-tag/list', { body: { type } })
 }
+
+export const postGetTools = async (body = {}) => {
+  return await fetchAPI('/tool/list', { body })
+}
+
+export const postGetTool = async (slugName: string) => {
+  return await fetchAPI(`/tool/detail?slugName=${slugName}`)
+}

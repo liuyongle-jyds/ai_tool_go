@@ -57,15 +57,21 @@ const list5: Faq[] = [
 
 interface Props {
   dict: Dictionary
+  toolsList: Tool[]
 }
 
-export default function IndexChild({ dict }: Props) {
+let isPdata = true
+let lastToolsList: Tool[] = []
+
+export default function IndexChild({ dict, toolsList }: Props) {
   const params = useParams()
   const { active1, active2 } = useApp()
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [toolRanking, setToolRanking] = useState([] as Tool[])
+  const [toolRanking, setToolRanking] = useState(
+    isPdata ? toolsList : lastToolsList,
+  )
   const [expRanking, setExpRanking] = useState([] as Experience[])
   const [faqList, setFaqList] = useState([] as Faq[])
   const [searchTip, setSearchTip] = useState('')
@@ -73,6 +79,7 @@ export default function IndexChild({ dict }: Props) {
   const [searchExp, setSearchExp] = useState([] as Experience[])
 
   const lang = params.lang as Locale
+  lastToolsList = toolRanking
 
   const onSearch = () => {
     if (loading) return
@@ -157,7 +164,7 @@ export default function IndexChild({ dict }: Props) {
         tool.id === id
           ? {
               ...tool,
-              voted: !tool.voted,
+              voted: !tool.isVoted,
             }
           : tool,
       ),
@@ -177,15 +184,11 @@ export default function IndexChild({ dict }: Props) {
     )
   }
 
-  const init = () => {
-    setTimeout(() => {
-      setToolRanking(list3)
+  useEffect(() => {
+    const init = () => {
       setExpRanking(list4)
       setFaqList(list5)
-    }, 500)
-  }
-
-  useEffect(() => {
+    }
     init()
   }, [])
 
@@ -282,7 +285,7 @@ export default function IndexChild({ dict }: Props) {
                       />
                     </div>
                     <div className='line-clamp-3 whitespace-pre-wrap text-xs text-t2 md:text-sm'>
-                      {tool.desc}
+                      {tool.profile}
                     </div>
                   </li>
                 ))}

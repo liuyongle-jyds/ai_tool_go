@@ -133,6 +133,14 @@ const convertPageToNumber = (str?: string) => {
   return page
 }
 
+const filterNumber = (num: number) => {
+  if (!num) return '0'
+  if (num < 1000) return num.toString()
+  if (num < 10000) return new Intl.NumberFormat().format(num)
+  if (num < 1000000) return (num / 1000).toFixed(num % 1000 === 0 ? 0 : 1) + 'k'
+  return '1m+'
+}
+
 export {
   filterImage,
   getAltLanguages,
@@ -140,4 +148,5 @@ export {
   toastManager,
   delay,
   convertPageToNumber,
+  filterNumber,
 }

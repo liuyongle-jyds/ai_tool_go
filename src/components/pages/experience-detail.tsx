@@ -58,7 +58,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
         tool.id === id
           ? {
               ...tool,
-              voted: !tool.voted,
+              voted: !tool.isVoted,
             }
           : tool,
       ),
@@ -202,7 +202,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
                   {list3[0].name}
                 </h4>
                 <p className='line-clamp-1 break-all text-xs text-t2'>
-                  {list3[0].creator}
+                  {list3[0].companyName}
                 </p>
               </div>
             </div>
@@ -212,7 +212,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
             <h5 className='mb-1 text-sm font-medium md:mb-3 md:text-base'>
               {dict.experience.Keywords}
             </h5>
-            <CusTag list={list3[0].tag} size='medium' />
+            <CusTag list={list3[0].tasks} size='medium' />
           </div>
         </div>
         <div className='mb-5 md:mb-10'>

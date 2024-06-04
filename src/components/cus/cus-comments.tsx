@@ -6,15 +6,16 @@ import CusCommentsInp from './cus-comments-inp'
 import { Separator } from '../ui/separator'
 import Comment from '@/types/Comment'
 import { cn } from '@/lib/utils'
+import { filterNumber } from '@/utils'
 
 interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   dict: Dictionary
-  total: string
+  total: number
 }
 
 export default function CusComments({
   dict,
-  total = '0',
+  total = 0,
   className,
   ...props
 }: Props) {
@@ -108,7 +109,7 @@ export default function CusComments({
     <div {...props} className={cn('py-2 md:py-5', className)}>
       <div className='mb-2 flex items-center justify-between md:mb-5'>
         <h3 className='text-base font-semibold md:text-xl'>
-          {dict.index.Comment}({total})
+          {dict.index.Comment}({filterNumber(total)})
         </h3>
         <CusFilter active={commentSort} onChangeSort={onChangeCommentSort} />
       </div>

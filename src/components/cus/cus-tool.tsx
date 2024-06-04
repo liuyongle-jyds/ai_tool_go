@@ -10,6 +10,8 @@ import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTag from './cus-tag'
 import { cn } from '@/lib/utils'
+import { filterNumber } from '@/utils'
+import CusImage from './cus-image'
 
 interface Props {
   tool: Tool
@@ -32,16 +34,22 @@ export default function CusTool({
     <li className='relative rounded-lg border p-2 md:rounded-xl md:p-5'>
       <div className='mb-1 flex flex-1 items-center justify-between md:mb-3'>
         <Link
-          href={`/${lang + routerName.tools}/all-domains/all-tasks/${tool.id}`}
+          href={`/${lang + routerName.tools}/all-domains/all-tasks/${tool.slugName}`}
           title={tool.name}
           className='flex-1'
         >
           <div className='flex items-center'>
-            <div className='h-6 w-6 rounded-full bg-primary/75 md:h-12 md:w-12'></div>
+            <CusImage
+              src={tool.logoUrl}
+              alt={tool.name + ' ' + 'logo'}
+              width={40}
+              height={40}
+              className='h-6 w-6 rounded-full md:h-12 md:w-12'
+            />
             <div className='h-1 w-1 md:w-3'></div>
             <div className='flex flex-1 flex-col justify-center'>
               <div className='line-clamp-1 break-all text-[0.625rem] leading-3 md:text-xs md:leading-4'>
-                {tool.creator}
+                {tool.companyName}
               </div>
               <h4 className='line-clamp-1 break-all text-xs font-semibold leading-4 md:text-xl md:leading-6'>
                 {tool.name}
@@ -51,16 +59,18 @@ export default function CusTool({
         </Link>
         <div className='h-1 w-1'></div>
         <div className='flex items-center'>
-          <span className='text-xs font-medium md:text-base'>{tool.vote}</span>
+          <span className='text-xs font-medium md:text-base'>
+            {filterNumber(tool.votesCount)}
+          </span>
           <div className='h-1 w-1 md:w-2'></div>
           <Button
-            variant={tool.voted ? 'primary' : 'secondary'}
+            variant={tool.isVoted ? 'primary' : 'secondary'}
             size='icon'
             className='rounded-full'
             onClick={() => onTabVote(tool.id)}
           >
             <Triangle
-              fill={tool.voted ? '#fff' : '#90979D'}
+              fill={tool.isVoted ? '#fff' : '#90979D'}
               strokeWidth={0}
               className='h-2 w-3 md:h-3 md:w-4'
             />
@@ -69,11 +79,11 @@ export default function CusTool({
       </div>
       <div className='md:pl-[3.75rem]'>
         <div className='mb-2 line-clamp-2 whitespace-pre-wrap text-[0.625rem] leading-[0.875rem] text-t2 md:mb-3 md:text-sm md:leading-4'>
-          {tool.desc}
+          {tool.profile}
         </div>
-        <CusTag list={tool.tag} />
+        <CusTag list={tool.tasks} />
         <div className='flex h-4 items-center pt-1 text-[0.625rem] font-medium leading-3 md:pt-2 md:text-xs md:leading-none'>
-          {tool.collected ? (
+          {tool.isCollected ? (
             <CusIcon
               name='star'
               fill='#EEB244'
@@ -83,24 +93,22 @@ export default function CusTool({
           ) : (
             <CusIcon name='star' className='w-[0.625rem] text-t3 md:w-3' />
           )}
-          <span className='mx-[1px] text-t3 md:mx-1 md:translate-y-[0.125rem]'>
+          <span className='mx-[1px] text-t3 md:mx-1'>
             {dict.index.Collection}
           </span>
-          <span className='md:translate-y-[0.125rem]'>{tool.collection}</span>
+          <span>{filterNumber(tool.collectsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>
           <CusIcon
             name='message-circle'
             className='w-[0.625rem] text-t3 md:w-3'
           />
-          <span className='mx-[1px] text-t3 md:mx-1 md:translate-y-[0.125rem]'>
+          <span className='mx-[1px] text-t3 md:mx-1 '>
             {dict.index.Comment}
           </span>
-          <span className='md:translate-y-[0.125rem]'>{tool.comment}</span>
+          <span>{filterNumber(tool.commentsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>
           <CusIcon name='share-2' className='w-[0.625rem] text-t3 md:w-3' />
-          <span className='mx-[1px] text-t3 md:mx-1 md:translate-y-[0.125rem]'>
-            {dict.index.Share}
-          </span>
+          <span className='mx-[1px] text-t3 md:mx-1'>{dict.index.Share}</span>
         </div>
       </div>
       <Separator className='my-2 md:my-5' />
@@ -115,17 +123,17 @@ export default function CusTool({
             },
           )}
         >
-          {tool.tip}
+          122333333
         </div>
       </div>
       {!hideExpNum && (
         <div className='mt-2 rounded bg-foreground py-1 text-center text-xs leading-4 text-t2'>
-          {tool.experiences + ' ' + dict.index.experiences}
+          {tool.experiencesCount + ' ' + dict.index.experiences}
         </div>
       )}
-      {!tipLimit && (
+      {!tipLimit && tool.rank && (
         <div className='absolute left-0 top-0 -translate-x-1/2'>
-          <CusRanking rank={tool.ranking} />
+          <CusRanking rank={tool.rank} />
         </div>
       )}
     </li>
