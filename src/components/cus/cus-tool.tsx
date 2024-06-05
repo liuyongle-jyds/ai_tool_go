@@ -131,7 +131,7 @@ export default function CusTool({
           {tool.experiencesCount + ' ' + dict.index.experiences}
         </div>
       )}
-      {!tipLimit && tool.rank && (
+      {!tipLimit && !!tool.rank && (
         <div className='absolute left-0 top-0 -translate-x-1/2'>
           <CusRanking rank={tool.rank} />
         </div>

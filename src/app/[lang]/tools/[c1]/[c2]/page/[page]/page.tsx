@@ -2,6 +2,9 @@ import Locale from '@/types/Locale'
 import ToolsChild from '@/components/pages/tools-child'
 import { getDictionary } from '@/app/[lang]/dictionaries'
 import { convertPageToNumber } from '@/utils'
+import Tool from '@/types/Tool'
+import { postGetTools } from '@/services'
+import filterTool from '@/services/filters/filterTool'
 
 interface Props {
   params: {
@@ -12,10 +15,36 @@ interface Props {
   }
 }
 
+const pageSize = 6
+
 export default async function Page({ params }: Props) {
   const { lang, c1, c2, page } = params
   const dict = await getDictionary(lang)
-  const pageNumber = convertPageToNumber(page)
+  const pageNo = convertPageToNumber(page)
 
-  return <ToolsChild dict={dict} page={pageNumber} c1={c1} c2={c2} />
+  let toolsList: Tool[] = []
+  let total = 0
+  try {
+    const res = await postGetTools({
+      pageNo,
+      pageSize,
+    })
+    const list: [] = res.result.rows || []
+    total = +res.result.total
+    toolsList = list.map((e) => filterTool(e))
+  } catch (error) {
+    console.log(error)
+  }
+
+  return (
+    <ToolsChild
+      dict={dict}
+      page={pageNo}
+      c1={c1}
+      c2={c2}
+      total={total}
+      toolsList={toolsList}
+      pageSize={pageSize}
+    />
+  )
 }

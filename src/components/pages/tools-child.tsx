@@ -9,23 +9,37 @@ import CusPagination from '../cus/cus-pagination'
 import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import { useParams } from 'next/navigation'
-import { list3 } from '@/data/test-list'
 import CusTool from '../cus/cus-tool'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Tool from '@/types/Tool'
 
 interface Props {
   dict: Dictionary
-  page?: number
+  page: number
   c1?: string
   c2?: string
+  toolsList: Tool[]
+  total: number
+  pageSize: number
 }
 
-export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
+let isPdata = true
+let lastToolsList: Tool[] = []
+
+export default function ToolsChild({
+  dict,
+  toolsList,
+  c1,
+  c2,
+  total,
+  page,
+  pageSize,
+}: Props) {
   const params = useParams()
-  const [list, setList] = useState([] as Tool[])
+  const [list, setList] = useState(isPdata ? toolsList : lastToolsList)
 
   const lang = params.lang as Locale
+  lastToolsList = list
 
   const onChangeActive1 = (id: string) => {
     console.log(id)
@@ -34,8 +48,6 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
   const onChangeActive2 = (id: string) => {
     console.log(id)
   }
-
-  const total = 9999
 
   const getBasePath = () =>
     `/${lang + routerName.tools}` + (c1 && c2 ? `/${c1}/${c2}` : '')
@@ -46,22 +58,12 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
         tool.id === id
           ? {
               ...tool,
-              voted: !tool.voted,
+              voted: !tool.isVoted,
             }
           : tool,
       ),
     )
   }
-
-  const init = () => {
-    setTimeout(() => {
-      setList(list3)
-    }, 500)
-  }
-
-  useEffect(() => {
-    init()
-  }, [])
 
   return (
     <>
@@ -99,7 +101,7 @@ export default function ToolsChild({ dict, page = 1, c1, c2 }: Props) {
       <CusPagination
         current={page}
         total={total}
-        pageSize={6}
+        pageSize={pageSize}
         path={getBasePath()}
       />
     </>

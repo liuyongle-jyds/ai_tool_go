@@ -24,7 +24,7 @@ export default async function Page({
   let toolsList: Tool[] = []
   try {
     const res = await postGetTools({
-      pageSize: 4,
+      pageSize: 3,
       pageNo: 1,
     })
     const list: [] = res.result.rows || []
