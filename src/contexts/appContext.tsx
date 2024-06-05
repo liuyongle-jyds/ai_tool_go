@@ -13,7 +13,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { deleteCookie, getCookie, setCookie } from '@/utils/actions'
+import { deleteCookie, filterResp, getCookie, setCookie } from '@/utils/actions'
 import { postGetTags, postGetUser, postLogin } from '@/services'
 
 interface ContextProviderValue {
@@ -111,9 +111,13 @@ export const AppContextProvider = ({
   const getCategories1 = async () => {
     try {
       const res = await postGetTags('DOMAIN')
-      const list: Category[] = res.result || []
-      setCategories1(list)
-      setActive1(list[0]?.id || '')
+      if (res.code === 200) {
+        const list: Category[] = res.result || []
+        setCategories1(list)
+        setActive1(list[0]?.id || '')
+      } else {
+        await filterResp(res)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -122,9 +126,13 @@ export const AppContextProvider = ({
   const getCategories2 = async () => {
     try {
       const res = await postGetTags('TASK')
-      const list: Category[] = res.result || []
-      setCategories2(list)
-      setActive2(list[0]?.id || '')
+      if (res.code === 200) {
+        const list: Category[] = res.result || []
+        setCategories2(list)
+        setActive2(list[0]?.id || '')
+      } else {
+        await filterResp(res)
+      }
     } catch (error) {
       console.log(error)
     }

@@ -33,6 +33,7 @@ const getCookie = async (name: string) => {
 const filterResp = async (res: any) => {
   if (!res) return
   if (res.code === 401) {
+    await deleteCookie('token')
     auth().redirectToSignIn()
   }
 }
