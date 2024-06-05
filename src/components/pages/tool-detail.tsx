@@ -232,12 +232,17 @@ export default function ToolDetail({
           <div className='mb-2 whitespace-pre-wrap rounded rounded-tl-none bg-foreground p-2 text-xs text-t2 md:mb-5 md:rounded-xl md:p-5 md:text-sm'>
             {tool.profile}
           </div>
-          <div className='grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3'>
-            {tool.tasks.map((e, index) => (
-              <div
+          <div className='flex flex-wrap space-x-3'>
+            {tool.previewUrl.map((e, index) => (
+              <CusImage
                 key={index}
-                className='h-20 rounded bg-primary/75 md:h-36 md:rounded-xl'
-              ></div>
+                src={e}
+                alt={tool.name + "'s image" + (index + 1)}
+                width={208}
+                height={144}
+                priority
+                className='h-20 w-28 rounded md:h-36 md:w-52 md:rounded-xl'
+              />
             ))}
           </div>
         </div>

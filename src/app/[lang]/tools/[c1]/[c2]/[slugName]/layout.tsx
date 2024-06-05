@@ -1,3 +1,4 @@
+import Config from '@/config'
 import { routerName } from '@/router'
 import { postGetTool } from '@/services'
 import filterTool from '@/services/filters/filterTool'
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = tool.seoTitle
   const description = tool.seoDesc
-  const imgUrl = filterImage(tool.logoUrl)
+  const imgUrl = filterImage(tool.logoUrl || Config.defaultImg)
 
   return {
     title,

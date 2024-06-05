@@ -65,7 +65,7 @@ let lastToolsList: Tool[] = []
 
 export default function IndexChild({ dict, toolsList }: Props) {
   const params = useParams()
-  const { active1, active2 } = useApp()
+  const { slugName1, slugName2 } = useApp()
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -144,7 +144,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
           className={cn(
             'flex cursor-pointer items-center text-sm text-t3 md:text-base',
             {
-              'pointer-events-none': !active1 || !active2,
+              'pointer-events-none': !slugName1 || !slugName2,
             },
           )}
         >
@@ -336,7 +336,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
           {rankingTitleDom({
             icon: '/icons/rank_tool@2x.png',
             title: dict.index['Tool Ranking'],
-            href: `/${lang + routerName.tools}/${active1}/${active2}/page/1`,
+            href: `/${lang + routerName.tools}/${slugName1}/${slugName2}/page/1`,
           })}
           <ul className='space-y-2 pl-2 md:space-y-3 md:pl-4'>
             {toolRanking.map((tool) => (
@@ -355,7 +355,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
           {rankingTitleDom({
             icon: '/icons/rank_exp@2x.png',
             title: dict.index['Experience Ranking'],
-            href: `/${lang + routerName.experience}/${active1}/${active2}/page/1`,
+            href: `/${lang + routerName.experience}/${slugName1}/${slugName2}/page/1`,
           })}
           <ul className='space-y-2 md:space-y-3'>
             {expRanking.map((exp) => (

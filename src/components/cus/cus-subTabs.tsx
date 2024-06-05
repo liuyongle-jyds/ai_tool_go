@@ -14,19 +14,19 @@ interface Props {
 }
 
 export default function CusSubTabs({ onChangeActive, source }: Props) {
-  const { categories2, active2, setActive2, active1 } = useApp()
+  const { categories2, active2, onSubTabChange, active1, slugName1 } = useApp()
   const params = useParams()
 
   const lang = params.lang as Locale
 
-  const onTabItem = (id: string) => {
+  const onTabItem = (e: Category) => {
     if (!active1 || !active2) return
-    setActive2(id)
-    onChangeActive?.(id)
+    onSubTabChange(e.id, e.slugName)
+    onChangeActive?.(e.id)
   }
 
   const getLink = (slugName?: string) =>
-    `/${lang + routerName.experience}/${active1}/${slugName || 'all-tasks'}/page/1`
+    `/${lang + routerName.experience}/${slugName1}/${slugName || 'all-tasks'}/page/1`
 
   const hideLinkOrNot = () => {
     if (!active1 || !active2 || source === routerName.home) return true
@@ -59,7 +59,7 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
         {categories2.map((item) => (
           <li
             key={item.id}
-            onClick={() => onTabItem(item.id)}
+            onClick={() => onTabItem(item)}
             className={cn(
               'relative h-full shrink-0 cursor-pointer rounded bg-foreground hover:opacity-85 md:rounded-lg',
               {

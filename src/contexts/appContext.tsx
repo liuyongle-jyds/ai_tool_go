@@ -27,8 +27,10 @@ interface ContextProviderValue {
   categories2: Category[]
   active1: string
   active2: string
-  setActive1: Dispatch<SetStateAction<string>>
-  setActive2: Dispatch<SetStateAction<string>>
+  slugName1: string
+  slugName2: string
+  onTabChange: (id: string, slugName?: string) => void
+  onSubTabChange: (id: string, slugName?: string) => void
 }
 
 const AppContext = createContext({} as ContextProviderValue)
@@ -49,6 +51,8 @@ export const AppContextProvider = ({
   const [categories2, setCategories2] = useState([] as Category[])
   const [active1, setActive1] = useState('')
   const [active2, setActive2] = useState('')
+  const [slugName1, setSlugName1] = useState('')
+  const [slugName2, setSlugName2] = useState('')
 
   const getToolsList = () => {
     setToolsList([
@@ -108,35 +112,44 @@ export const AppContextProvider = ({
     ])
   }
 
-  const getCategories1 = async () => {
+  const onTabChange = (id: string, slugName?: string) => {
+    setActive1(id)
+    setSlugName1(slugName || id)
+  }
+  const onSubTabChange = (id: string, slugName?: string) => {
+    setActive2(id)
+    setSlugName2(slugName || id)
+  }
+
+  const getCategories1 = useCallback(async () => {
     try {
       const res = await postGetTags('DOMAIN')
       if (res.code === 200) {
         const list: Category[] = res.result || []
         setCategories1(list)
-        setActive1(list[0]?.id || '')
+        onTabChange(list[0]?.id || '', list[0]?.slugName || '')
       } else {
         await filterResp(res)
       }
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
-  const getCategories2 = async () => {
+  const getCategories2 = useCallback(async () => {
     try {
       const res = await postGetTags('TASK')
       if (res.code === 200) {
         const list: Category[] = res.result || []
         setCategories2(list)
-        setActive2(list[0]?.id || '')
+        onSubTabChange(list[0]?.id || '', list[0]?.slugName || '')
       } else {
         await filterResp(res)
       }
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
   useEffect(() => {
     const init = () => {
@@ -146,7 +159,7 @@ export const AppContextProvider = ({
       getCategories2()
     }
     init()
-  }, [])
+  }, [getCategories1, getCategories2])
 
   const doLogin = async (data: any) => {
     try {
@@ -217,9 +230,11 @@ export const AppContextProvider = ({
         categories1,
         categories2,
         active1,
-        setActive1,
         active2,
-        setActive2,
+        slugName1,
+        onTabChange,
+        slugName2,
+        onSubTabChange,
       }}
     >
       {children}
