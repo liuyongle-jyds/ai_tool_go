@@ -88,26 +88,32 @@ export default function CusTool({
               name='star'
               fill='#EEB244'
               strokeWidth={0}
-              className='w-[0.625rem] text-t3 md:w-3'
+              className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
             />
           ) : (
-            <CusIcon name='star' className='w-[0.625rem] text-t3 md:w-3' />
+            <CusIcon
+              name='star'
+              className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
+            />
           )}
           <span className='mx-[1px] text-t3 md:mx-1'>
-            {dict.index.Collection}
+            {'g' + dict.index.Collection + 'g'}
           </span>
           <span>{filterNumber(tool.collectsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>
           <CusIcon
             name='message-circle'
-            className='w-[0.625rem] text-t3 md:w-3'
+            className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
           />
           <span className='mx-[1px] text-t3 md:mx-1 '>
             {dict.index.Comment}
           </span>
           <span>{filterNumber(tool.commentsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>
-          <CusIcon name='share-2' className='w-[0.625rem] text-t3 md:w-3' />
+          <CusIcon
+            name='share-2'
+            className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
+          />
           <span className='mx-[1px] text-t3 md:mx-1'>{dict.index.Share}</span>
         </div>
       </div>
