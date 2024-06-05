@@ -97,7 +97,7 @@ export default function CusTool({
             />
           )}
           <span className='mx-[1px] text-t3 md:mx-1'>
-            {'g' + dict.index.Collection + 'g'}
+            {dict.index.Collection}
           </span>
           <span>{filterNumber(tool.collectsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>

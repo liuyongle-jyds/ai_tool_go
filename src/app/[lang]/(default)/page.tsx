@@ -21,9 +21,7 @@ export default async function Page({ params }: { params: { lang: Locale } }) {
       const list: [] = res.result.rows || []
       toolsList = list.map((e) => filterTool(e))
     }
-  } catch (error) {
-    console.log(error)
-  }
+  } catch (error) {}
 
   await filterResp(res)
 

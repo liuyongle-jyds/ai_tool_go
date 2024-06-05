@@ -82,7 +82,7 @@ export default function CusTabs({
       )
     }
     if (useSelfList || hideLinkOrNot()) return li
-    const path = `/${lang + source}/${item.id}/${active2}/page/1`
+    const path = `/${lang + source}/${item.slugName || 'all-domains'}/${active2}/page/1`
     return (
       <Link key={item.id} href={path} title={item.content} className='h-full'>
         {li}

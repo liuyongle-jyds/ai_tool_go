@@ -1,6 +1,7 @@
 import Config from '@/config'
 import Locale from '@/types/Locale'
 import { Languages } from 'next/dist/lib/metadata/types/alternative-urls-types'
+import { title } from 'process'
 import { ReactNode } from 'react'
 import { toast } from 'sonner'
 
@@ -141,6 +142,46 @@ const filterNumber = (num: number) => {
   return '1m+'
 }
 
+const doCopy = (text: string) => {
+  return new Promise((resolve, reject) => {
+    navigator.clipboard
+      .writeText(text)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err))
+  })
+}
+
+const doShare: ({
+  title,
+  text,
+  url,
+}: {
+  title: string
+  text: string
+  url: string
+}) => Promise<1 | 2> = ({ title, text, url }) => {
+  return new Promise((resolve, reject) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title,
+          text,
+          url,
+        })
+        .then(() => resolve(1))
+        .catch(() => {
+          doCopy(url)
+            .then(() => resolve(2))
+            .catch((err) => reject(err))
+        })
+    } else {
+      doCopy(url)
+        .then(() => resolve(2))
+        .catch((err) => reject(err))
+    }
+  })
+}
+
 export {
   filterImage,
   getAltLanguages,
@@ -149,4 +190,6 @@ export {
   delay,
   convertPageToNumber,
   filterNumber,
+  doCopy,
+  doShare,
 }

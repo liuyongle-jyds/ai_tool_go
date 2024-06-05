@@ -34,9 +34,7 @@ export default async function Page({ params }: Props) {
     const list: [] = res.result.rows || []
     total = +res.result.total
     toolsList = list.map((e) => filterTool(e))
-  } catch (error) {
-    console.log(error)
-  }
+  } catch (error) {}
 
   await filterResp(res)
 

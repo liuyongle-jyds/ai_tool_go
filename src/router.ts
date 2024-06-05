@@ -4,4 +4,5 @@ export const routerName = {
   profile: '/profile',
   tools: '/tools',
   experience: '/experience',
+  notFound: '/not-found',
 }

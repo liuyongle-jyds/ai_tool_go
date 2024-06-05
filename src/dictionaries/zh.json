@@ -6,7 +6,8 @@
   "common": {
     "Loading": "加载中",
     "Accept": "确认",
-    "Cancel": "取消"
+    "Cancel": "取消",
+    "Copied": "已复制"
   },
   "header": {
     "Tools": "工具",

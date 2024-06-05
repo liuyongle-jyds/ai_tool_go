@@ -3,6 +3,7 @@
 import Config from '@/config'
 import User from '@/types/User'
 import { getCookie } from '@/utils/actions'
+import { ActionModel, ActionType } from '@/types/Action'
 
 interface Props {
   method?: string
@@ -72,4 +73,22 @@ export const postGetTools = async (body = {}) => {
 
 export const postGetTool = async (slugName: string) => {
   return await fetchAPI(`/tool/detail?slugName=${slugName}`)
+}
+
+type ActionPath = 'tool' | 'experience' | 'comment'
+export const postUserAction = async (
+  path: ActionPath,
+  {
+    actionModel,
+    type,
+    itemId,
+  }: {
+    actionModel: ActionModel
+    type: ActionType
+    itemId: string
+  },
+) => {
+  return await fetchAPI(`/user-action/${path}`, {
+    body: { actionModel, itemId, type },
+  })
 }

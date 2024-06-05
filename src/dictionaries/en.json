@@ -6,7 +6,8 @@
   "common": {
     "Loading": "Loading",
     "Accept": "Accept",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Copied": "Copied"
   },
   "header": {
     "Tools": "Tools",

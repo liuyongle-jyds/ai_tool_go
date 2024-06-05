@@ -25,8 +25,8 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
     onChangeActive?.(id)
   }
 
-  const getLink = (id: string) =>
-    `/${lang + routerName.experience}/${active1}/${id}/page/1`
+  const getLink = (slugName?: string) =>
+    `/${lang + routerName.experience}/${active1}/${slugName || 'all-tasks'}/page/1`
 
   const hideLinkOrNot = () => {
     if (!active1 || !active2 || source === routerName.home) return true
@@ -43,7 +43,11 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
       return inner
     }
     return (
-      <Link title={item.content} href={getLink(item.id)} className='h-full'>
+      <Link
+        title={item.content}
+        href={getLink(item.slugName)}
+        className='h-full'
+      >
         {inner}
       </Link>
     )

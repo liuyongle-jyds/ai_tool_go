@@ -17,7 +17,7 @@ import CusTool from '../cus/cus-tool'
 import Locale from '@/types/Locale'
 import { useParams } from 'next/navigation'
 import CusExp from '../cus/cus-exp'
-import { filterNumber } from '@/utils'
+import { doShare, filterNumber, toastManager } from '@/utils'
 import CusImage from '../cus/cus-image'
 
 function AnchorDom({ id }: { id: string }) {
@@ -46,6 +46,22 @@ export default function ToolDetail({
 
   const lang = params.lang as Locale
   lastToolsList = relatedTools
+
+  const onClickShare = async () => {
+    try {
+      const res = await doShare({
+        title: tool.seoTitle,
+        text: tool.seoDesc,
+        url: window.location.href,
+      })
+      if (res === 2) {
+        toastManager.showToast(dict.common.Copied)
+      }
+    } catch (error) {
+      console.log(error)
+      toastManager.showToast(error as string)
+    }
+  }
 
   const tabs: Category[] = [
     {
@@ -145,7 +161,7 @@ export default function ToolDetail({
           <div className='h-1 w-1'></div>
           <div className='mt-2 flex w-full flex-shrink-0 flex-col items-end md:mt-0 md:w-auto'>
             <div className='mb-2 flex items-center md:mb-4'>
-              <Button variant='secondary' size='icon'>
+              <Button variant='secondary' size='icon' onClick={onClickShare}>
                 <CusIcon name='share-2' className='w-3' />
               </Button>
               <Button variant='secondary' size='icon' className='mx-3 md:mx-5'>
@@ -195,7 +211,9 @@ export default function ToolDetail({
               </span>
               <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='lightbulb' className='w-3 text-t3' />
-              <span className='md:translate-y-[1px]'>&nbsp;{'2,222'}</span>
+              <span className='md:translate-y-[1px]'>
+                &nbsp;{filterNumber(tool.experiencesCount)}
+              </span>
             </div>
           </div>
         </div>
