@@ -1,8 +1,8 @@
 'use server'
 
 import Config from '@/config'
+import User from '@/types/User'
 import { getCookie } from '@/utils/actions'
-import { UserResource } from '@clerk/types'
 
 interface Props {
   method?: string
@@ -47,7 +47,7 @@ const fetchAPI = async (
 }
 
 export const postUploadFile = async (formData: FormData) => {
-  return await fetchAPI('/util/file/upload', { body: formData })
+  return await fetchAPI('/common/file/upload', { body: formData })
 }
 
 export const postLogin = async (body = {}) => {
@@ -56,6 +56,10 @@ export const postLogin = async (body = {}) => {
 
 export const postGetUser = async () => {
   return await fetchAPI('/user/info')
+}
+
+export const postUpdateUser = async (body: Partial<User>) => {
+  return await fetchAPI('/user/update', { body })
 }
 
 export const postGetTags = async (type: 'DOMAIN' | 'TASK') => {

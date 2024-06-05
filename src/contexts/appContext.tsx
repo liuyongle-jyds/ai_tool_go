@@ -140,27 +140,26 @@ export const AppContextProvider = ({
     init()
   }, [])
 
-  const checkLogin = useCallback(async (data = {}) => {
-    const token = await getCookie('token')
-    if (!token) {
-      try {
-        const res = await postLogin(data)
-        await setCookie('token', res.result.token)
-        setUser(res.result.user)
-      } catch (error) {
-        console.log(error)
+  const doLogin = async (data: any) => {
+    try {
+      const res = await postLogin(data)
+      await setCookie('token', res.result.token)
+      setUser(res.result.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getUser = useCallback(async () => {
+    try {
+      const res = await postGetUser()
+      if (res.code === 401) {
+        await deleteLocalUser()
+        return
       }
-    } else {
-      try {
-        const res = await postGetUser()
-        if (res.code === 401) {
-          await deleteLocalUser()
-          return
-        }
-        setUser(res.result)
-      } catch (error) {
-        console.log(error)
-      }
+      setUser(res.result)
+    } catch (error) {
+      console.log(error)
     }
   }, [])
 
@@ -170,6 +169,15 @@ export const AppContextProvider = ({
   }
 
   useEffect(() => {
+    const checkLogin = async (data: any) => {
+      const token = await getCookie('token')
+      if (!token) {
+        await doLogin(data)
+      } else {
+        await getUser()
+      }
+    }
+
     if (isLoaded) {
       if (clerkUser?.id && !user.id) {
         const { id, fullName, imageUrl, primaryEmailAddress } = clerkUser
@@ -187,7 +195,7 @@ export const AppContextProvider = ({
         deleteLocalUser()
       }
     }
-  }, [clerkUser, isLoaded, checkLogin, user.id, openGoogleOneTap])
+  }, [clerkUser, isLoaded, user.id, openGoogleOneTap, getUser])
 
   return (
     <AppContext.Provider

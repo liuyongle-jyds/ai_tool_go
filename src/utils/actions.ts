@@ -2,6 +2,7 @@
 
 import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { cookies } from 'next/headers'
+import { auth } from '@clerk/nextjs/server'
 
 const setCookie = async (
   name: string,
@@ -29,4 +30,11 @@ const getCookie = async (name: string) => {
   return cookies().get(name)?.value ?? ''
 }
 
-export { setCookie, deleteCookie, getCookie }
+const filterResp = async (res: any) => {
+  if (!res) return
+  if (res.code === 401) {
+    auth().redirectToSignIn()
+  }
+}
+
+export { setCookie, deleteCookie, getCookie, filterResp }

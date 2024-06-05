@@ -9,13 +9,14 @@ import { cn } from '@/lib/utils'
 import { debounce, toastManager } from '@/utils'
 import { useApp } from '@/contexts/appContext'
 import User from '@/types/User'
-import { postUploadFile } from '@/services'
+import { postUpdateUser, postUploadFile } from '@/services'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import CusGridUl from '../cus/cus-grid-ul'
 import ItemType from '@/types/ItemType'
 import CusFilter from '../cus/cus-filter'
 import CusImage from '../cus/cus-image'
+import { filterResp } from '@/utils/actions'
 
 export default function ProfileChild({ dict }: { dict: Dictionary }) {
   const tabs: { content: string; id: Operation }[] = [
@@ -78,38 +79,49 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
     const file = files[0]
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('folder', 'user_upload')
+    formData.append('prefix', 'user-head')
     try {
       setLoading(true)
       toastManager.showLoading(dict.common.Loading)
       const res = await postUploadFile(formData)
       if (res.code === 200) {
-        setUser((oldMap) => ({
-          ...oldMap,
-          avatarUrl: res.result,
-        }))
         setForm((oldMap) => ({
           ...oldMap,
           avatarUrl: res.result,
         }))
       } else {
+        await filterResp(res)
         toastManager.showToast(res.message)
       }
     } catch (error) {
+      console.log(error)
     } finally {
       toastManager.dismiss()
       setLoading(false)
     }
   }
 
-  const onTabSave = () => {
+  const onTabSave = async () => {
     toastManager.showLoading(dict.common.Loading)
     setLoading(true)
-    setTimeout(() => {
+    try {
+      const res = await postUpdateUser(form)
+      if (res.code === 200) {
+        setUser((oldMap) => ({
+          ...oldMap,
+          ...form,
+        }))
+        setEditing(false)
+      } else {
+        await filterResp(res)
+        toastManager.showToast(res.message)
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
       setLoading(false)
-      setEditing(false)
       toastManager.dismiss()
-    }, 1000)
+    }
   }
 
   useEffect(() => {

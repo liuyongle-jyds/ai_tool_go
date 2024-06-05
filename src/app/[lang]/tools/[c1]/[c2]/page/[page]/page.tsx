@@ -5,6 +5,7 @@ import { convertPageToNumber } from '@/utils'
 import Tool from '@/types/Tool'
 import { postGetTools } from '@/services'
 import filterTool from '@/services/filters/filterTool'
+import { filterResp } from '@/utils/actions'
 
 interface Props {
   params: {
@@ -24,8 +25,9 @@ export default async function Page({ params }: Props) {
 
   let toolsList: Tool[] = []
   let total = 0
+  let res: any
   try {
-    const res = await postGetTools({
+    res = await postGetTools({
       pageNo,
       pageSize,
     })
@@ -35,6 +37,8 @@ export default async function Page({ params }: Props) {
   } catch (error) {
     console.log(error)
   }
+
+  await filterResp(res)
 
   return (
     <ToolsChild
