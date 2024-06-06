@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "AIToolGo",
-    "description": "description"
+    "title": "Discover and Learn AI Tools with AiToolGo | Your AI Learning Platform",
+    "description": "Find the best AI tools and learning resources tailored to your needs at AiToolGo. Empower your AI journey with solutions for everyone, regardless of background or expertise. Join our community today!"
   },
   "common": {
     "Loading": "Loading",
@@ -11,26 +11,27 @@
   },
   "header": {
     "Tools": "Tools",
-    "Experience": "Experience",
+    "Learning": "Learning",
     "Sign up": "Sign up",
     "Sign Out": "Sign Out",
-    "Profile": "Profile"
+    "Profile": "Profile",
+    "Experience": "Experience"
   },
   "footer": {
-    "Term of service": "Term of service",
-    "Privacy Agreement": "Privacy Agreement",
+    "Terms of Service": "Terms of Service",
+    "Privacy Policy": "Privacy Policy",
     "Contact Us": "Contact Us",
     "Learn More: ": "Learn More: ",
     "Suggestions: ": "Suggestions: ",
     "Cooperation: ": "Cooperation: ",
-    "introduce": "Welcome to AiToolGo, your one-stop platform for discovering,mastering, and applying AI tools to unleash your potential!\n\nWe believe AI should be accessible and empowering for everyone, regardless of background or expertise.\n\nThat's why we curate a comprehensive collection of AI tools, resources, and insights across industries."
+    "introduce": "Welcome to AiToolGo, your one-stop platform for discovering, learning, and empowering yourself with the best AI tools and learning resources!\nWe believe AI should be accessible and empowering for everyone, regardless of background or expertise.\nThat's why we offer a curated collection of AI tools, resources, and insights across industries.\nOur mission is to bridge the gap between AI technology and real-world applications.\nWe provide a variety of AI tools, step-by-step tutorials, practical use cases, and expert insights to help you excel in AI skills.\nJoin our vibrant community of learners, practitioners, and innovators to embark on a journey of learning, creation, and growth.\nWhether you're a beginner or a seasoned pro, AiToolGo is your trusted companion to unlock the potential of AI for your life and work.\nDiscover, Learn, and Empower with AiToolGo - Making AI tools and learning resources accessible and empowering for everyone!"
   },
   "index": {
-    "title": "Discover, Master,\nEmpower with AI Tool, Go!",
-    "subtitle": "Making AI Accessible and Beneficial for Everyone, Regardless of Background or Expertise!",
+    "title": "Discover, Learn,\nand Empower with AI Tool,Go!",
+    "subtitle": "Making AI tools and learning resources accessible and empowering for everyone!",
     "placeholder": "Enter the content you want to inquire about.",
-    "Tool Ranking": "Tool Ranking",
-    "Experience Ranking": "Experience Ranking",
+    "Tool Ranking": "Top AI Tools",
+    "Experience Ranking": "Top AI Learning",
     "See All": "See All",
     "Collection": "Collection",
     "Comment": "Comment",
@@ -71,5 +72,57 @@
     "Recommend": "Recommend",
     "Keywords": "Keywords",
     "Similar Experience": "Similar Experience"
+  },
+  "termsOfService": {
+    "title": "AiToolGo Terms of Service",
+    "time": "Effective Date: June 12, 2024",
+    "Welcome": "Welcome to AiToolGo!",
+    "Welcome Tip": "These terms and conditions (\"Terms\") govern your use of our website (\"Website\" or \"Service\"). Please read these Terms carefully as they contain important information about your rights and obligations. If you do not agree with these Terms, please do not use our Website.",
+    "t1": "1. Acceptance of Terms",
+    "c1": "By accessing or using AiToolGo, you agree to be bound by these Terms. If you are using the Website on behalf of an entity, you represent and warrant that you have the authority to accept these Terms on behalf of that entity.",
+    "t2": "2. Changes to Terms",
+    "c2": "We may update these Terms from time to time. The updated Terms will be posted on this page with the effective date. Please review these Terms periodically to stay informed of any changes. Your continued use of the Website after any changes constitutes your acceptance of the new Terms.",
+    "t3": "3. Use of the Website",
+    "c3": "You agree to use the Website only for lawful purposes and not to engage in any of the following activities:\n • Violating any applicable laws or regulations\n • Infringing or misappropriating our intellectual property\n • Interfering with or disrupting the operation of the Website\n • Attempting to gain unauthorized access to any part of the Website or other users' accounts",
+    "t4": "4. User Accounts",
+    "c4": "Certain features may require you to register an account. You agree to provide accurate and complete registration information and to keep your account information up to date. You are responsible for maintaining the confidentiality of your account password and for all activities that occur under your account. You must notify us immediately of any unauthorized use or security breach.",
+    "t5": "5. Intellectual Property",
+    "c5": "Unless otherwise stated, all content on the Website, including but not limited to text, images, graphics, logos, button icons, video, and audio clips, is the property of AiToolGo or its licensors and is protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, transmit, display, perform, publish, or sell any content without our express written consent or the consent of the relevant rights holder.",
+    "t6": "6. Content Disclaimer",
+    "c6": "Some of the learning data and content on our Website may be sourced from other websites. We strive to ensure the accuracy and legality of this content, but we cannot guarantee it is free from infringement risks. If you believe that any content on our Website infringes your copyright or other rights, please contact us immediately. We will investigate and take appropriate action upon receiving such notification.",
+    "t7": "7. Disclaimer of Warranties",
+    "c7": "Our Website is provided on an \"as is\" and \"as available\" basis, without any warranties of any kind, either express or implied. We do not guarantee the accuracy, completeness, reliability, or availability of the Website. We disclaim all warranties, express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.",
+    "t8": "8. Limitation of Liability",
+    "c8": "To the maximum extent permitted by applicable law, we shall not be liable for any direct, indirect, incidental, special, or consequential damages, including but not limited to damages for loss of profits, data, or other intangible losses, resulting from your use of or inability to use the Website, even if we have been advised of the possibility of such damages.",
+    "t9": "9. Termination",
+    "c9": "We reserve the right to terminate or suspend your access to the Website at any time, with or without cause or notice. Upon termination, your right to use the Website will immediately cease.",
+    "t10": "10. Governing Law",
+    "c10": "These Terms are governed by and construed in accordance with the laws of the United States. You agree that any disputes arising out of or relating to these Terms will be resolved in the courts of the United States.",
+    "t11": "11. Contact Us",
+    "c11": "If you have any questions or require further information about these Terms, please contact us at:\nEmail: support@aitoolgo.com"
+  },
+  "privacyPolicy": {
+    "title": "AiToolGo Privacy Policy",
+    "time": "Effective Date: June 12, 2024",
+    "Welcome": "Welcome to AiToolGo!",
+    "Welcome Tip": "Welcome to AiToolGo (“we” or “our website”). We value your privacy and are committed to protecting your personal information. The following privacy policy explains how we collect, use, and protect your information.",
+    "t1": "1. Information We Collect",
+    "c1": "We may collect the following types of information:\n • Personal Information: This includes but is not limited to your name, email address, avatar, and IP address.\n • Non-Personal Information: This includes non-personal information collected through Google Analytics, such as browser type, operating system, access times and dates, and pages visited.",
+    "t2": "2. Use of Information",
+    "c2": "The information we collect is used for the following purposes:\n • To provide and improve our services\n • To personalize user experience\n • To send notifications and updates\n • To analyze website usage and trends",
+    "t3": "3. Information Sharing",
+    "c3": "We do not share your personal information with third parties except in the following circumstances:\n • With your explicit consent\n • To comply with legal obligations\n • To protect our rights and safety\nWe only share non-personal information with Google Analytics for the purpose of analyzing and improving our website.",
+    "t4": "4. Data Security",
+    "c4": "We take appropriate security measures to protect your personal information from unauthorized access, disclosure, or alteration. We use encryption technology and other security measures to ensure the safety of your data.",
+    "t5": "5. User Rights",
+    "c5": "You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us using the contact information provided below.",
+    "t6": "6. Cookies and Tracking Technologies",
+    "c6": "Our website uses cookies and other tracking technologies to enhance user experience, analyze usage trends, and manage the website. You can manage the use of cookies through your browser settings.",
+    "t7": "7. Children's Privacy",
+    "c7": "We do not knowingly collect personal information from children under the age of 13. If we become aware that we have inadvertently collected personal information from a child under the age of 13, we will take steps to delete such information.",
+    "t8": "8. Changes to the Privacy Policy",
+    "c8": "We may update this privacy policy from time to time. The updated privacy policy will be posted on this page with the effective date. Please review it periodically to stay informed of any changes.",
+    "t9": "9. Contact Us",
+    "c9": "If you have any questions or require further information about our privacy policy, please contact us at:\nEmail: support@aitoolgo.com"
   }
 }

@@ -5,6 +5,9 @@ import CusLanguage from './cus-language'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useApp } from '@/contexts/appContext'
+import Locale from '@/types/Locale'
+import { useParams } from 'next/navigation'
+import { routerName } from '@/router'
 
 interface Props {
   dict: Dictionary
@@ -16,6 +19,9 @@ const mail3 = 'partners@aitoolgo.com'
 
 export default function CusFooter({ dict }: Props) {
   const { toolsList, experienceList } = useApp()
+  const params = useParams()
+
+  const lang = params.lang as Locale
 
   const mailList = [
     {
@@ -71,7 +77,7 @@ export default function CusFooter({ dict }: Props) {
         </div>
         <div className='mb-4 md:mb-5'>
           <h2 className='text-base font-medium text-t1'>
-            {dict.header.Experience}
+            {dict.header.Learning}
           </h2>
           <div className='h-2 md:h-5'></div>
           <ul>
@@ -110,9 +116,13 @@ export default function CusFooter({ dict }: Props) {
       <div className='flex min-h-16 flex-wrap items-center justify-between'>
         <CusLanguage isGrey />
         <div className='flex h-full flex-wrap items-center text-xs leading-6 text-t3 md:leading-4'>
-          <Link href=''>{dict.footer['Term of service']}</Link>
+          <Link href={`/${lang + routerName.termsOfService}`}>
+            {dict.footer['Terms of Service']}
+          </Link>
           <div className='h-1 w-5'></div>
-          <Link href=''>{dict.footer['Privacy Agreement']}</Link>
+          <Link href={`/${lang + routerName.privacyPolicy}`}>
+            {dict.footer['Privacy Policy']}
+          </Link>
           <div className='h-1 w-5 md:w-10'></div>
           <span>© 2024 AIToolGo.com, Inc. All rights reserved</span>
         </div>

@@ -241,7 +241,6 @@ export default function IndexChild({ dict, toolsList }: Props) {
     }
     init()
     return () => {
-      console.log(22333)
       isPdata = false
     }
   }, [])

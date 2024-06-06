@@ -75,7 +75,7 @@ export const postGetTool = async (slugName: string) => {
   return await fetchAPI(`/tool/detail?slugName=${slugName}`)
 }
 
-type ActionPath = 'tool' | 'experience' | 'comment'
+type ActionPath = 'tool' | 'learn' | 'comment'
 export const postUserAction = async (
   path: ActionPath,
   {

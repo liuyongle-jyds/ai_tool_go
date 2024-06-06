@@ -66,7 +66,7 @@ export default function CusHeader({ dict }: Props) {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value='2'>
-                  <AccordionTrigger>{dict.header.Experience}</AccordionTrigger>
+                  <AccordionTrigger>{dict.header.Learning}</AccordionTrigger>
                   <AccordionContent>
                     <CusUl
                       list={experienceList}
@@ -102,7 +102,7 @@ export default function CusHeader({ dict }: Props) {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
-                  {dict.header.Experience}
+                  {dict.header.Learning}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <CusUl list={experienceList} isNav />
