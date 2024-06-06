@@ -12,7 +12,7 @@ export default interface Tool {
   seoTitle: string
   seoDesc: string
   createTime: string
-  experiencesCount: number
+  learnsCount: number
   collectsCount: number
   commentsCount: number
   isCollected: boolean

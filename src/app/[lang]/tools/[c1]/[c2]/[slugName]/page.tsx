@@ -16,32 +16,40 @@ export default async function Page({
   const { lang, slugName } = params
   const dict = await getDictionary(lang)
 
+  let toolRes = {} as any
+  let toolsListRes = {} as any
   let tool = {} as Tool
-  let res: any
+  let toolsList: Tool[] = []
+
   try {
-    res = await postGetTool(slugName)
-    if (res.code === 200) {
-      if (res.result) {
-        tool = filterTool(res.result)
-      }
+    const [res1, res2] = await Promise.all([
+      postGetTool(slugName),
+      postGetTools({ pageSize: 3, pageNo: 1 }),
+    ])
+    toolRes = res1
+    toolsListRes = res2
+
+    if (toolRes.code === 200 && toolRes.result) {
+      tool = filterTool(toolRes.result)
+    }
+
+    if (toolsListRes.code === 200 && toolsListRes.result) {
+      const list: [] = toolsListRes.result.rows || []
+      toolsList = list.map((e) => filterTool(e))
     }
   } catch (error) {}
 
-  await filterResp(res)
+  if (!tool.id) return redirect(routerName.notFound)
 
-  if (!tool.id) redirect(routerName.notFound)
+  await filterResp(toolRes)
+  await filterResp(toolsListRes)
 
-  let toolsList: Tool[] = []
-  try {
-    res = await postGetTools({
-      pageSize: 3,
-      pageNo: 1,
-    })
-    const list: [] = res.result.rows || []
-    toolsList = list.map((e) => filterTool(e))
-  } catch (error) {}
-
-  await filterResp(res)
-
-  return <ToolDetail dict={dict} tool={tool} toolsList={toolsList} />
+  return (
+    <ToolDetail
+      dict={dict}
+      slugName={slugName}
+      tool={tool}
+      toolsList={toolsList}
+    />
+  )
 }

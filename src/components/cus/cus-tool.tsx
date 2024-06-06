@@ -135,7 +135,7 @@ export default function CusTool({
       </div>
       {!hideExpNum && (
         <div className='mt-2 rounded bg-foreground py-1 text-center text-xs leading-4 text-t2'>
-          {tool.experiencesCount + ' ' + dict.index.experiences}
+          {tool.learnsCount + ' ' + dict.index.experiences}
         </div>
       )}
       {!tipLimit && !!tool.rank && (

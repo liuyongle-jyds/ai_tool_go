@@ -23,7 +23,7 @@ import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
-import { useParams, usePathname } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useApp } from '@/contexts/appContext'
 import { LoaderCircle, ArrowRight, X, RefreshCcw } from 'lucide-react'
 import { list3, list4 } from '@/data/test-list'
@@ -68,7 +68,6 @@ let lastToolsList: Tool[] = []
 
 export default function IndexChild({ dict, toolsList }: Props) {
   const params = useParams()
-  const pathName = usePathname()
   const { slugName1, slugName2 } = useApp()
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
@@ -208,7 +207,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
     )
   }
 
-  const getToolRanking = useCallback(async () => {
+  const getToolRanking = async () => {
     try {
       const res = await postGetTools({
         pageSize: 4,
@@ -219,20 +218,14 @@ export default function IndexChild({ dict, toolsList }: Props) {
         const newTools = list.map((e) => filterTool(e))
         isPdata = false
         setToolRanking(newTools)
-        lastToolsList = toolRanking
+        lastToolsList = newTools
       } else {
         await filterResp(res)
       }
     } catch (error) {
       console.log(error)
     }
-  }, [toolRanking])
-
-  useEffect(() => {
-    if (pathName === `/${lang}` && !isPdata) {
-      getToolRanking()
-    }
-  }, [pathName, lang, getToolRanking])
+  }
 
   useEffect(() => {
     const init = () => {
@@ -240,6 +233,9 @@ export default function IndexChild({ dict, toolsList }: Props) {
       setFaqList(list5)
     }
     init()
+    if (!isPdata) {
+      getToolRanking()
+    }
     return () => {
       isPdata = false
     }

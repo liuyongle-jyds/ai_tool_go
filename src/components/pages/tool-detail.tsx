@@ -5,9 +5,9 @@ import Tool from '@/types/Tool'
 import CusTag from '../cus/cus-tag'
 import { Button } from '../ui/button'
 import CusIcon from '../cus/cus-icon'
-import { Triangle } from 'lucide-react'
+import { Triangle, Star } from 'lucide-react'
 import Category from '@/types/Category'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import CusTabs from '../cus/cus-tabs'
 import CusFilter from '../cus/cus-filter'
 import CusComments from '../cus/cus-comments'
@@ -20,8 +20,9 @@ import CusExp from '../cus/cus-exp'
 import { doShare, filterImage, filterNumber, toastManager } from '@/utils'
 import CusImage from '../cus/cus-image'
 import ImageViewer from 'awesome-image-viewer'
-import { postUserAction } from '@/services'
+import { postGetTool, postGetTools, postUserAction } from '@/services'
 import { filterResp } from '@/utils/actions'
+import filterTool from '@/services/filters/filterTool'
 
 function AnchorDom({ id }: { id: string }) {
   return <div className='invisible -mt-10 h-10 md:-mt-12 md:h-12' id={id}></div>
@@ -35,9 +36,11 @@ export default function ToolDetail({
   dict,
   tool,
   toolsList,
+  slugName,
 }: {
   dict: Dictionary
   tool: Tool
+  slugName: string
   toolsList: Tool[]
 }) {
   const params = useParams()
@@ -113,6 +116,69 @@ export default function ToolDetail({
     setActive(id)
   }
 
+  const onVoteTool = async () => {
+    try {
+      const res = await postUserAction('tool', {
+        actionModel: currentTool.isVoted ? 'CANCEL_ACTION' : 'ACTION',
+        itemId: currentTool.id,
+        type: 'VOTE',
+      })
+      if (res.code === 200) {
+        if (!res.result) return
+        isPdata = false
+        setCurrentTool((e) =>
+          e.id === currentTool.id
+            ? {
+                ...e,
+                isVoted: !currentTool.isVoted,
+                votesCount: Math.max(
+                  currentTool.votesCount + (currentTool.isVoted ? -1 : 1),
+                  0,
+                ),
+              }
+            : tool,
+        )
+        lastTool = currentTool
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const onCollectTool = async () => {
+    try {
+      const res = await postUserAction('tool', {
+        actionModel: currentTool.isCollected ? 'CANCEL_ACTION' : 'ACTION',
+        itemId: currentTool.id,
+        type: 'COLLECT',
+      })
+      if (res.code === 200) {
+        if (!res.result) return
+        isPdata = false
+        setCurrentTool((e) =>
+          e.id === currentTool.id
+            ? {
+                ...e,
+                isCollected: !currentTool.isCollected,
+                collectsCount: Math.max(
+                  currentTool.collectsCount +
+                    (currentTool.isCollected ? -1 : 1),
+                  0,
+                ),
+              }
+            : tool,
+        )
+        lastTool = currentTool
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const onVoteRelatedTool = async (data: Tool) => {
     try {
       const res = await postUserAction('tool', {
@@ -165,8 +231,46 @@ export default function ToolDetail({
     }, 500)
   }
 
+  const reload = useCallback(async () => {
+    try {
+      const res = await postGetTool(slugName)
+      if (res.code === 200) {
+        if (res.result) {
+          const newTool = filterTool(res.result)
+          isPdata = false
+          setCurrentTool(newTool)
+          lastTool = newTool
+        }
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {}
+
+    try {
+      const res = await postGetTools({ pageSize: 3, pageNo: 1 })
+      if (res.code === 200) {
+        if (res.result) {
+          const list: [] = res.result.rows || []
+          const newList = list.map((e) => filterTool(e))
+          isPdata = false
+          setRelatedTools(newList)
+          lastRelatedTools = newList
+        }
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {}
+  }, [slugName])
+
   useEffect(() => {
     init()
+    if (!isPdata) {
+      reload()
+    }
+    return () => {
+      isPdata = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -198,21 +302,24 @@ export default function ToolDetail({
               <Button variant='secondary' size='icon' onClick={onClickShare}>
                 <CusIcon name='share-2' className='w-3' />
               </Button>
-              <Button variant='secondary' size='icon' className='mx-3 md:mx-5'>
+              <Button
+                variant='secondary'
+                size='icon'
+                className='mx-3 md:mx-5'
+                delay={1000}
+                onClick={onCollectTool}
+              >
                 {currentTool.isCollected ? (
-                  <CusIcon
-                    name='star'
-                    fill='#EEB244'
-                    strokeWidth={0}
-                    className='w-4'
-                  />
+                  <Star fill='#EEB244' strokeWidth={0} className='w-4' />
                 ) : (
-                  <CusIcon name='star' className='w-4' />
+                  <Star className='w-4' />
                 )}
               </Button>
               <Button
                 variant={currentTool.isVoted ? 'primary' : 'secondary'}
                 className='rounded font-normal'
+                delay={1000}
+                onClick={onVoteTool}
               >
                 <Triangle
                   fill={currentTool.isVoted ? '#fff' : '#90979D'}
@@ -226,16 +333,7 @@ export default function ToolDetail({
               </Button>
             </div>
             <div className='flex items-center text-xs leading-none text-t2'>
-              {currentTool.isCollected ? (
-                <CusIcon
-                  name='star'
-                  fill='#EEB244'
-                  strokeWidth={0}
-                  className='w-3'
-                />
-              ) : (
-                <CusIcon name='star' className='w-3 text-t3' />
-              )}
+              <Star className='w-3 text-t3' />
               <span className='md:translate-y-[1px]'>
                 &nbsp;{filterNumber(currentTool.collectsCount)}
               </span>
@@ -247,7 +345,7 @@ export default function ToolDetail({
               <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='lightbulb' className='w-3 text-t3' />
               <span className='md:translate-y-[1px]'>
-                &nbsp;{filterNumber(currentTool.experiencesCount)}
+                &nbsp;{filterNumber(currentTool.learnsCount)}
               </span>
             </div>
           </div>
