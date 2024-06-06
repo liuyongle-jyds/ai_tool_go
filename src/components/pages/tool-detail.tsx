@@ -12,13 +12,14 @@ import CusTabs from '../cus/cus-tabs'
 import CusFilter from '../cus/cus-filter'
 import CusComments from '../cus/cus-comments'
 import Experience from '@/types/Experience'
-import { list3, list4 } from '@/data/test-list'
+import { list4 } from '@/data/test-list'
 import CusTool from '../cus/cus-tool'
 import Locale from '@/types/Locale'
 import { useParams } from 'next/navigation'
 import CusExp from '../cus/cus-exp'
-import { doShare, filterNumber, toastManager } from '@/utils'
+import { doShare, filterImage, filterNumber, toastManager } from '@/utils'
 import CusImage from '../cus/cus-image'
+import ImageViewer from 'awesome-image-viewer'
 
 function AnchorDom({ id }: { id: string }) {
   return <div className='invisible -mt-10 h-10 md:-mt-12 md:h-12' id={id}></div>
@@ -47,22 +48,6 @@ export default function ToolDetail({
   const lang = params.lang as Locale
   lastToolsList = relatedTools
 
-  const onClickShare = async () => {
-    try {
-      const res = await doShare({
-        title: tool.seoTitle,
-        text: tool.seoDesc,
-        url: window.location.href,
-      })
-      if (res === 2) {
-        toastManager.showToast(dict.common.Copied)
-      }
-    } catch (error) {
-      console.log(error)
-      toastManager.showToast(error as string)
-    }
-  }
-
   const tabs: Category[] = [
     {
       content: dict.tools['Tool Information'],
@@ -90,6 +75,30 @@ export default function ToolDetail({
       link: '#related-tools',
     },
   ]
+
+  const openImageViewer = (index: number) => {
+    const imgs = tool.previewUrl.map((e) => ({ mainUrl: filterImage(e) }))
+    new ImageViewer({
+      images: imgs,
+      currentSelected: index,
+    })
+  }
+
+  const onClickShare = async () => {
+    try {
+      const res = await doShare({
+        title: tool.seoTitle,
+        text: tool.seoDesc,
+        url: window.location.href,
+      })
+      if (res === 2) {
+        toastManager.showToast(dict.common.Copied)
+      }
+    } catch (error) {
+      console.log(error)
+      toastManager.showToast(error as string)
+    }
+  }
 
   const onChangeExpSort = (e: string) => {
     setExpSort(e)
@@ -242,6 +251,7 @@ export default function ToolDetail({
                 height={144}
                 priority
                 className='h-20 w-28 rounded md:h-36 md:w-52 md:rounded-xl'
+                onClick={() => openImageViewer(index)}
               />
             ))}
           </div>

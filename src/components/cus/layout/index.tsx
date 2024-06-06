@@ -40,11 +40,11 @@ export default function CusLayout({ children, dict }: Props) {
           priority
         />
       )}
-      <div className='container relative z-20'>
+      <div className='cus-container relative z-20'>
         <CusHeader dict={dict} />
       </div>
       <ScrollArea className='relative z-10 w-full flex-1'>
-        <div className='container'>
+        <div className='cus-container'>
           {children}
           <CusFooter dict={dict} />
         </div>

@@ -9,7 +9,7 @@ export default function NotFoundChild() {
   'use client'
   return (
     <>
-      <div className='container flex h-[100vh] flex-col items-center justify-center'>
+      <div className='cus-container flex h-[100vh] flex-col items-center justify-center'>
         <h2 className='flex items-center'>
           404 <Separator orientation='vertical' className='mx-2' /> Not Found
         </h2>

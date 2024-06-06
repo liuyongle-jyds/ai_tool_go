@@ -10,18 +10,6 @@ const config = {
   ],
   prefix: '',
   theme: {
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: '1rem',
-        md: '2rem',
-        '2xl': '6rem',
-      },
-      screens: {
-        md: '768px',
-        '2xl': '1400px',
-      },
-    },
     backgroundImage: {
       'gradient-primary':
         'linear-gradient(159deg, hsla(266, 100%, 75%, 1) 0%, hsla(240, 81%, 69%, 1) 58%, hsla(240, 69%, 42%, 1) 100%)',

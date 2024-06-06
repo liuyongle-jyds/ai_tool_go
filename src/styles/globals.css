@@ -1,6 +1,6 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
   @layer base {
     :root {
@@ -100,6 +100,16 @@
     }
   }
 
+  @layer components {
+    .cus-container {
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+  }
+
   @layer utilities {
     .loading {
       pointer-events: none;
@@ -107,8 +117,24 @@
     }
   }
 
+  @media (min-width: 768px) {
+    .cus-container {
+      max-width: 768px;
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+}
+
   @media (max-width: 1400px) {
-    .container {
+    .cus-container {
       max-width: 100%;
     }
   }
+
+  @media (min-width: 1400px) {
+    .cus-container {
+      max-width: 1400px;
+      padding-right: 6rem;
+      padding-left: 6rem;
+    }
+}
