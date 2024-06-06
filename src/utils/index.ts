@@ -182,6 +182,38 @@ const doShare: ({
   })
 }
 
+/**
+ * 根据时间戳转化为本地时间并简写
+ * @param timestamp 时间戳，单位是毫秒
+ * @returns 本地时间的简写字符串
+ */
+function formatTime(timestamp: number): string {
+  const now = new Date()
+  const commentDate = new Date(timestamp)
+
+  const diffInSeconds = Math.floor(
+    (now.getTime() - commentDate.getTime()) / 1000,
+  )
+  const diffInMinutes = Math.floor(diffInSeconds / 60)
+  const diffInHours = Math.floor(diffInMinutes / 60)
+
+  const commentYear = commentDate.getFullYear()
+  const commentMonth = commentDate.getMonth() + 1
+  const commentDay = commentDate.getDate()
+
+  const nowYear = now.getFullYear()
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}m`
+  } else if (diffInHours < 24) {
+    return `${diffInHours}h`
+  } else if (commentYear === nowYear) {
+    return `${commentMonth}-${commentDay}`
+  } else {
+    return `${commentYear}-${commentMonth}-${commentDay}-`
+  }
+}
+
 export {
   filterImage,
   getAltLanguages,
@@ -192,4 +224,5 @@ export {
   filterNumber,
   doCopy,
   doShare,
+  formatTime,
 }

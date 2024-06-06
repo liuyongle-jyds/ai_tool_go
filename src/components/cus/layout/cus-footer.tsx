@@ -44,7 +44,7 @@ export default function CusFooter({ dict }: Props) {
   return (
     <footer className='pt-5 md:pt-10'>
       <div className='flex flex-wrap justify-between space-x-2 text-sm text-t2'>
-        <div className='mb-4 md:mb-5 md:w-[25rem]'>
+        <div className='mb-4 md:mb-5 md:w-[38rem]'>
           <Image
             src='/images/logo@2x.png'
             alt='AIToolGo logo'

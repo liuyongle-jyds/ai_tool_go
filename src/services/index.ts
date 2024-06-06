@@ -92,3 +92,7 @@ export const postUserAction = async (
     body: { actionModel, itemId, type },
   })
 }
+
+export const postGetComments = async (itemId: string) => {
+  return await fetchAPI('/comment/list', { body: { itemId } })
+}
