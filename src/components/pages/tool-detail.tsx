@@ -20,13 +20,16 @@ import CusExp from '../cus/cus-exp'
 import { doShare, filterImage, filterNumber, toastManager } from '@/utils'
 import CusImage from '../cus/cus-image'
 import ImageViewer from 'awesome-image-viewer'
+import { postUserAction } from '@/services'
+import { filterResp } from '@/utils/actions'
 
 function AnchorDom({ id }: { id: string }) {
   return <div className='invisible -mt-10 h-10 md:-mt-12 md:h-12' id={id}></div>
 }
 
 let isPdata = true
-let lastToolsList: Tool[] = []
+let lastRelatedTools: Tool[] = []
+let lastTool: Tool
 
 export default function ToolDetail({
   dict,
@@ -41,12 +44,14 @@ export default function ToolDetail({
   const [active, setActive] = useState('tool-information')
   const [expSort, setExpSort] = useState('popular')
   const [relatedTools, setRelatedTools] = useState(
-    isPdata ? toolsList : lastToolsList,
+    isPdata ? toolsList : lastRelatedTools,
   )
+  const [currentTool, setCurrentTool] = useState(isPdata ? tool : lastTool)
   const [expList, setExpList] = useState([] as Experience[])
 
   const lang = params.lang as Locale
-  lastToolsList = relatedTools
+  lastRelatedTools = relatedTools
+  lastTool = currentTool
 
   const tabs: Category[] = [
     {
@@ -108,17 +113,37 @@ export default function ToolDetail({
     setActive(id)
   }
 
-  const onVoteTool = (id: string) => {
-    setRelatedTools((e) =>
-      e.map((tool) =>
-        tool.id === id
-          ? {
-              ...tool,
-              voted: !tool.isVoted,
-            }
-          : tool,
-      ),
-    )
+  const onVoteRelatedTool = async (data: Tool) => {
+    try {
+      const res = await postUserAction('tool', {
+        actionModel: data.isVoted ? 'CANCEL_ACTION' : 'ACTION',
+        itemId: data.id,
+        type: 'VOTE',
+      })
+      if (res.code === 200) {
+        if (!res.result) return
+        isPdata = false
+        setRelatedTools((e) =>
+          e.map((tool) =>
+            tool.id === data.id
+              ? {
+                  ...tool,
+                  isVoted: !tool.isVoted,
+                  votesCount: Math.max(
+                    tool.votesCount + (tool.isVoted ? -1 : 1),
+                    0,
+                  ),
+                }
+              : tool,
+          ),
+        )
+        lastRelatedTools = relatedTools
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const onVoteExp = (id: string) => {
@@ -150,8 +175,8 @@ export default function ToolDetail({
         <div className='mb-2 flex flex-wrap md:mb-5'>
           <div className='flex flex-1'>
             <CusImage
-              src={tool.logoUrl}
-              alt={tool.name + ' ' + 'logo'}
+              src={currentTool.logoUrl}
+              alt={currentTool.name + ' ' + 'logo'}
               width={80}
               height={80}
               className='h-12 w-12 flex-shrink-0 rounded-full md:h-20 md:w-20'
@@ -159,12 +184,12 @@ export default function ToolDetail({
             <div className='h-1 w-1 md:w-3'></div>
             <div>
               <h1 className='text-base font-semibold md:mb-1 md:text-2xl md:leading-7'>
-                {tool.name}
+                {currentTool.name}
               </h1>
               <div className='mb-2 text-xs text-t2 md:mb-3 md:text-base'>
-                {tool.companyName}
+                {currentTool.companyName}
               </div>
-              <CusTag list={tool.tasks} />
+              <CusTag list={currentTool.tasks} />
             </div>
           </div>
           <div className='h-1 w-1'></div>
@@ -174,7 +199,7 @@ export default function ToolDetail({
                 <CusIcon name='share-2' className='w-3' />
               </Button>
               <Button variant='secondary' size='icon' className='mx-3 md:mx-5'>
-                {tool.isCollected ? (
+                {currentTool.isCollected ? (
                   <CusIcon
                     name='star'
                     fill='#EEB244'
@@ -186,21 +211,22 @@ export default function ToolDetail({
                 )}
               </Button>
               <Button
-                variant={tool.isVoted ? 'primary' : 'secondary'}
+                variant={currentTool.isVoted ? 'primary' : 'secondary'}
                 className='rounded font-normal'
               >
                 <Triangle
-                  fill={tool.isVoted ? '#fff' : '#90979D'}
+                  fill={currentTool.isVoted ? '#fff' : '#90979D'}
                   strokeWidth={0}
                   className='h-3 w-5'
                 />
                 <span className='md:translate-y-[1px]'>
-                  &nbsp;{dict.tools.UPVOTE}&nbsp;{filterNumber(tool.votesCount)}
+                  &nbsp;{dict.tools.UPVOTE}&nbsp;
+                  {filterNumber(currentTool.votesCount)}
                 </span>
               </Button>
             </div>
             <div className='flex items-center text-xs leading-none text-t2'>
-              {tool.isCollected ? (
+              {currentTool.isCollected ? (
                 <CusIcon
                   name='star'
                   fill='#EEB244'
@@ -211,17 +237,17 @@ export default function ToolDetail({
                 <CusIcon name='star' className='w-3 text-t3' />
               )}
               <span className='md:translate-y-[1px]'>
-                &nbsp;{filterNumber(tool.collectsCount)}
+                &nbsp;{filterNumber(currentTool.collectsCount)}
               </span>
               <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='message-circle' className='w-3 text-t3' />
               <span className='md:translate-y-[1px]'>
-                &nbsp;{filterNumber(tool.commentsCount)}
+                &nbsp;{filterNumber(currentTool.commentsCount)}
               </span>
               <div className='h-1 w-2 md:w-3'></div>
               <CusIcon name='lightbulb' className='w-3 text-t3' />
               <span className='md:translate-y-[1px]'>
-                &nbsp;{filterNumber(tool.experiencesCount)}
+                &nbsp;{filterNumber(currentTool.experiencesCount)}
               </span>
             </div>
           </div>
@@ -239,14 +265,14 @@ export default function ToolDetail({
             {dict.tools['Tool Information']}
           </h3>
           <div className='mb-2 whitespace-pre-wrap rounded rounded-tl-none bg-foreground p-2 text-xs text-t2 md:mb-5 md:rounded-xl md:p-5 md:text-sm'>
-            {tool.profile}
+            {currentTool.profile}
           </div>
           <div className='flex flex-wrap space-x-3'>
-            {tool.previewUrl.map((e, index) => (
+            {currentTool.previewUrl.map((e, index) => (
               <CusImage
                 key={index}
                 src={e}
-                alt={tool.name + "'s image" + (index + 1)}
+                alt={currentTool.name + "'s image" + (index + 1)}
                 width={208}
                 height={144}
                 priority
@@ -261,7 +287,7 @@ export default function ToolDetail({
           <h3 className='mb-2 text-base font-semibold md:mb-5 md:text-xl'>
             {dict.tools['Application Cases']}
           </h3>
-          <CusTag list={tool.domains} size='lg' />
+          <CusTag list={currentTool.domains} size='lg' />
         </div>
         <AnchorDom id='experience' />
         <div className='py-2 md:py-5'>
@@ -283,7 +309,7 @@ export default function ToolDetail({
           </div>
         </div>
         <AnchorDom id='comment' />
-        <CusComments dict={dict} total={tool.commentsCount} />
+        <CusComments dict={dict} total={currentTool.commentsCount} />
       </div>
       <div className='xl:w-1/3'>
         <AnchorDom id='related-tools' />
@@ -299,7 +325,7 @@ export default function ToolDetail({
                 tool={e}
                 dict={dict}
                 lang={lang}
-                onTabVote={onVoteTool}
+                onTabVote={onVoteRelatedTool}
               />
             ))}
           </ul>

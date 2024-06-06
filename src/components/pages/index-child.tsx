@@ -2,7 +2,7 @@
 
 import Dictionary from '@/types/Dictionary'
 import CusIcon from '../cus/cus-icon'
-import { KeyboardEvent, useEffect, useState } from 'react'
+import { KeyboardEvent, useCallback, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { debounce } from '@/utils'
@@ -23,10 +23,13 @@ import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import CusTabs from '../cus/cus-tabs'
 import CusSubTabs from '../cus/cus-subTabs'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { useApp } from '@/contexts/appContext'
 import { LoaderCircle, ArrowRight, X, RefreshCcw } from 'lucide-react'
 import { list3, list4 } from '@/data/test-list'
+import { postGetTools, postUserAction } from '@/services'
+import { filterResp } from '@/utils/actions'
+import filterTool from '@/services/filters/filterTool'
 
 const list5: Faq[] = [
   {
@@ -65,6 +68,7 @@ let lastToolsList: Tool[] = []
 
 export default function IndexChild({ dict, toolsList }: Props) {
   const params = useParams()
+  const pathName = usePathname()
   const { slugName1, slugName2 } = useApp()
   const [searchVal, setSearchVal] = useState('')
   const [isFocus, setIsFocus] = useState(false)
@@ -158,17 +162,37 @@ export default function IndexChild({ dict, toolsList }: Props) {
     )
   }
 
-  const onVoteTool = (id: string) => {
-    setToolRanking((e) =>
-      e.map((tool) =>
-        tool.id === id
-          ? {
-              ...tool,
-              voted: !tool.isVoted,
-            }
-          : tool,
-      ),
-    )
+  const onVoteTool = async (data: Tool) => {
+    try {
+      const res = await postUserAction('tool', {
+        actionModel: data.isVoted ? 'CANCEL_ACTION' : 'ACTION',
+        itemId: data.id,
+        type: 'VOTE',
+      })
+      if (res.code === 200) {
+        if (!res.result) return
+        isPdata = false
+        setToolRanking((e) =>
+          e.map((tool) =>
+            tool.id === data.id
+              ? {
+                  ...tool,
+                  isVoted: !tool.isVoted,
+                  votesCount: Math.max(
+                    tool.votesCount + (tool.isVoted ? -1 : 1),
+                    0,
+                  ),
+                }
+              : tool,
+          ),
+        )
+        lastToolsList = toolRanking
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const onVoteExp = (id: string) => {
@@ -184,12 +208,42 @@ export default function IndexChild({ dict, toolsList }: Props) {
     )
   }
 
+  const getToolRanking = useCallback(async () => {
+    try {
+      const res = await postGetTools({
+        pageSize: 4,
+        pageNo: 1,
+      })
+      if (res.code === 200) {
+        const list: [] = res.result.rows || []
+        const newTools = list.map((e) => filterTool(e))
+        isPdata = false
+        setToolRanking(newTools)
+        lastToolsList = toolRanking
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [toolRanking])
+
+  useEffect(() => {
+    if (pathName === `/${lang}` && !isPdata) {
+      getToolRanking()
+    }
+  }, [pathName, lang, getToolRanking])
+
   useEffect(() => {
     const init = () => {
       setExpRanking(list4)
       setFaqList(list5)
     }
     init()
+    return () => {
+      console.log(22333)
+      isPdata = false
+    }
   }, [])
 
   return (

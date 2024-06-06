@@ -67,7 +67,8 @@ export default function CusTool({
             variant={tool.isVoted ? 'primary' : 'secondary'}
             size='icon'
             className='rounded-full'
-            onClick={() => onTabVote(tool.id)}
+            delay={1000}
+            onClick={() => onTabVote(tool)}
           >
             <Triangle
               fill={tool.isVoted ? '#fff' : '#90979D'}
