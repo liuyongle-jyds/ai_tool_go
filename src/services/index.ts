@@ -4,6 +4,8 @@ import Config from '@/config'
 import User from '@/types/User'
 import { getCookie } from '@/utils/actions'
 import { ActionModel, ActionType } from '@/types/Action'
+import ItemType from '@/types/ItemType'
+import Sort from '@/types/Sort'
 
 interface Props {
   method?: string
@@ -93,6 +95,41 @@ export const postUserAction = async (
   })
 }
 
-export const postGetComments = async (itemId: string) => {
-  return await fetchAPI('/comment/list', { body: { itemId } })
+export const postGetComments = async ({
+  itemSlugName,
+  itemId,
+  sort,
+}: {
+  itemSlugName?: string
+  itemId?: string
+  sort?: Sort
+}) => {
+  return await fetchAPI('/comment/list', {
+    body: { itemSlugName, itemId, sort },
+  })
+}
+
+export const postAddComment = async (
+  itemType: ItemType,
+  content: string,
+  {
+    itemId,
+    itemSlugName,
+    replyId,
+    pId,
+  }: {
+    itemId?: string
+    itemSlugName?: string
+    replyId?: string
+    pId?: string
+  },
+) => {
+  const body = { itemType, content } as any
+  if (itemId) body.itemId = itemId
+  if (itemSlugName) body.itemSlugName = itemSlugName
+  if (pId) body.pId = pId
+  if (replyId) body.extension = { replyId }
+  return await fetchAPI('/comment', {
+    body,
+  })
 }

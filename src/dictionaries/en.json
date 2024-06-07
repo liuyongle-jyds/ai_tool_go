@@ -7,7 +7,9 @@
     "Loading": "Loading",
     "Accept": "Accept",
     "Cancel": "Cancel",
-    "Copied": "Copied"
+    "Copied": "Copied",
+    "Asc": "Asc",
+    "Desc": "Desc"
   },
   "header": {
     "Tools": "Tools",
@@ -62,7 +64,8 @@
     "Related Tools": "Related Tools",
     "Reply": "Reply",
     "Add your comment here...": "Add your comment here...",
-    "UPVOTE": "UPVOTE"
+    "UPVOTE": "UPVOTE",
+    "Comments": "Comments"
   },
   "experience": {
     "Brief introduction": "Brief introduction",

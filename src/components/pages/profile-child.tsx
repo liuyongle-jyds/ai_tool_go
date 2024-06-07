@@ -44,11 +44,11 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
   const filters: { text: string; value: ItemType }[] = [
     {
       text: dict.header.Tools,
-      value: 'tools',
+      value: 'TOOL',
     },
     {
       text: dict.header.Experience,
-      value: 'experience',
+      value: 'LEARN',
     },
   ]
 
@@ -102,6 +102,8 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
   }
 
   const onTabSave = async () => {
+    if (!form.nickname?.trim()) return
+    if (loading) return
     toastManager.showLoading(dict.common.Loading)
     setLoading(true)
     try {
@@ -181,6 +183,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
             <CusFilter
               active={filter}
               list={filters}
+              dict={dict}
               onChangeSort={onChangeFilter}
             />
           </CusTabs>
@@ -218,6 +221,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
                 id='name'
                 autoComplete='name'
                 value={form.nickname}
+                maxLength={15}
                 onChange={(e) =>
                   setForm((oldMap) => ({ ...oldMap, nickname: e.target.value }))
                 }
@@ -236,6 +240,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
                 id='email'
                 autoComplete='email'
                 value={form.email}
+                maxLength={100}
                 onChange={(e) =>
                   setForm((oldMap) => ({ ...oldMap, email: e.target.value }))
                 }
@@ -253,6 +258,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
               id='description'
               placeholder={dict.profile['Brief description']}
               value={form.profile}
+              maxLength={200}
               onChange={(e) =>
                 setForm((oldMap) => ({ ...oldMap, profile: e.target.value }))
               }

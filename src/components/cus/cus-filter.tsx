@@ -5,29 +5,26 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import CusUl from './cus-ul'
-
-const sortList: LinkA[] = [
-  {
-    text: 'Popular',
-    value: 'popular',
-  },
-  {
-    text: 'Latest',
-    value: 'latest',
-  },
-]
+import Dictionary from '@/types/Dictionary'
 
 interface Props {
   active: string
   list?: LinkA[]
+  dict: Dictionary
   onChangeSort: CallableFunction
 }
 
-export default function CusFilter({
-  active,
-  onChangeSort,
-  list = sortList,
-}: Props) {
+export default function CusFilter({ active, onChangeSort, dict, list }: Props) {
+  const current = list || [
+    {
+      text: dict.common.Asc,
+      value: 'ASC',
+    },
+    {
+      text: dict.common.Desc,
+      value: 'DESC',
+    },
+  ]
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -37,11 +34,11 @@ export default function CusFilter({
       >
         <div className='flex items-center'>
           <div className='h-1 w-2'></div>
-          <span>{list.find((e) => e.value === active)?.text ?? ''}</span>
+          <span>{current.find((e) => e.value === active)?.text ?? ''}</span>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='p-0 md:p-0'>
-        <CusUl list={list} callbackFn={onChangeSort} active={active} />
+        <CusUl list={current} callbackFn={onChangeSort} active={active} />
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -1,3 +1,3 @@
-type ItemType = 'tools' | 'experience'
+type ItemType = 'TOOL' | 'LEARN'
 
 export default ItemType

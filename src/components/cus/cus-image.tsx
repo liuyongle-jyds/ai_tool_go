@@ -37,11 +37,11 @@ export default function CusImage({ proportion = '1:1', ...props }: Props) {
 
   return (
     <Image
+      placeholder='blur'
       {...props}
       className={cn('object-cover', props.className)}
       src={filterImage(url as string)}
       alt={props.alt}
-      placeholder='blur'
       blurDataURL={loadingBg}
       onError={() => setUrl(errorBg)}
     />

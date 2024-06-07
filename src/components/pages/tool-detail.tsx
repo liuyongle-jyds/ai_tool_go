@@ -23,6 +23,7 @@ import ImageViewer from 'awesome-image-viewer'
 import { postGetTool, postGetTools, postUserAction } from '@/services'
 import { filterResp } from '@/utils/actions'
 import filterTool from '@/services/filters/filterTool'
+import Sort from '@/types/Sort'
 
 function AnchorDom({ id }: { id: string }) {
   return <div className='invisible -mt-10 h-10 md:-mt-12 md:h-12' id={id}></div>
@@ -45,7 +46,7 @@ export default function ToolDetail({
 }) {
   const params = useParams()
   const [active, setActive] = useState('tool-information')
-  const [expSort, setExpSort] = useState('popular')
+  const [expSort, setExpSort] = useState('DESC' as Sort)
   const [relatedTools, setRelatedTools] = useState(
     isPdata ? toolsList : lastRelatedTools,
   )
@@ -73,9 +74,9 @@ export default function ToolDetail({
       link: '#experience',
     },
     {
-      content: dict.index.Comment,
-      id: 'comment',
-      link: '#comment',
+      content: dict.tools.Comments,
+      id: 'comments',
+      link: '#comments',
     },
     {
       content: dict.tools['Related Tools'],
@@ -108,12 +109,21 @@ export default function ToolDetail({
     }
   }
 
-  const onChangeExpSort = (e: string) => {
+  const onChangeExpSort = (e: Sort) => {
     setExpSort(e)
   }
 
   const onChangeActive = (id: string) => {
     setActive(id)
+  }
+
+  const updateCommentsCount = (commentsCount: number) => {
+    isPdata = false
+    setCurrentTool((e) => ({
+      ...e,
+      commentsCount,
+    }))
+    lastTool = currentTool
   }
 
   const onVoteTool = async () => {
@@ -126,18 +136,14 @@ export default function ToolDetail({
       if (res.code === 200) {
         if (!res.result) return
         isPdata = false
-        setCurrentTool((e) =>
-          e.id === currentTool.id
-            ? {
-                ...e,
-                isVoted: !currentTool.isVoted,
-                votesCount: Math.max(
-                  currentTool.votesCount + (currentTool.isVoted ? -1 : 1),
-                  0,
-                ),
-              }
-            : tool,
-        )
+        setCurrentTool((e) => ({
+          ...e,
+          isVoted: !currentTool.isVoted,
+          votesCount: Math.max(
+            currentTool.votesCount + (currentTool.isVoted ? -1 : 1),
+            0,
+          ),
+        }))
         lastTool = currentTool
       } else {
         await filterResp(res)
@@ -157,19 +163,14 @@ export default function ToolDetail({
       if (res.code === 200) {
         if (!res.result) return
         isPdata = false
-        setCurrentTool((e) =>
-          e.id === currentTool.id
-            ? {
-                ...e,
-                isCollected: !currentTool.isCollected,
-                collectsCount: Math.max(
-                  currentTool.collectsCount +
-                    (currentTool.isCollected ? -1 : 1),
-                  0,
-                ),
-              }
-            : tool,
-        )
+        setCurrentTool((e) => ({
+          ...e,
+          isCollected: !currentTool.isCollected,
+          collectsCount: Math.max(
+            currentTool.collectsCount + (currentTool.isCollected ? -1 : 1),
+            0,
+          ),
+        }))
         lastTool = currentTool
       } else {
         await filterResp(res)
@@ -231,7 +232,7 @@ export default function ToolDetail({
     }, 500)
   }
 
-  const reload = useCallback(async () => {
+  const reload = async () => {
     try {
       const res = await postGetTool(slugName)
       if (res.code === 200) {
@@ -260,7 +261,7 @@ export default function ToolDetail({
         await filterResp(res)
       }
     } catch (error) {}
-  }, [slugName])
+  }
 
   useEffect(() => {
     init()
@@ -393,7 +394,11 @@ export default function ToolDetail({
             <h3 className='text-base font-semibold md:text-xl'>
               {dict.header.Experience}
             </h3>
-            <CusFilter active={expSort} onChangeSort={onChangeExpSort} />
+            <CusFilter
+              active={expSort}
+              dict={dict}
+              onChangeSort={onChangeExpSort}
+            />
           </div>
           <ul className='mb-5 space-y-5'>
             {expList.map((e) => (
@@ -406,8 +411,13 @@ export default function ToolDetail({
             </Button>
           </div>
         </div>
-        <AnchorDom id='comment' />
-        <CusComments dict={dict} total={currentTool.commentsCount} />
+        <AnchorDom id='comments' />
+        <CusComments
+          dict={dict}
+          itemSlugName={slugName}
+          itemType='TOOL'
+          updateCommentsCount={updateCommentsCount}
+        />
       </div>
       <div className='xl:w-1/3'>
         <AnchorDom id='related-tools' />

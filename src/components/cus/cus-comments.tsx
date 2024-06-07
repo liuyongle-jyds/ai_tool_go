@@ -7,82 +7,40 @@ import { Separator } from '../ui/separator'
 import Comment from '@/types/Comment'
 import { cn } from '@/lib/utils'
 import { filterNumber } from '@/utils'
+import { postGetComments } from '@/services'
+import { filterResp } from '@/utils/actions'
+import Sort from '@/types/Sort'
+import ItemType from '@/types/ItemType'
+import CusImage from './cus-image'
+import { useApp } from '@/contexts/appContext'
 
 interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   dict: Dictionary
-  total: number
+  itemId?: string
+  itemSlugName?: string
+  itemType: ItemType
+  updateCommentsCount: CallableFunction
 }
 
 export default function CusComments({
   dict,
-  total = 0,
   className,
+  itemId,
+  itemSlugName,
+  itemType,
+  updateCommentsCount,
   ...props
 }: Props) {
-  const [commentSort, setCommentSort] = useState('latest')
+  const [commentSort, setCommentSort] = useState('DESC' as Sort)
   const [active, setActive] = useState('')
+  const [list, setList] = useState([] as Comment[])
+  const [total, setTotal] = useState(0)
+  const { user } = useApp()
+  const [loading, setLoading] = useState(false)
 
-  const list: Comment[] = [
-    {
-      id: '1',
-      content:
-        'The GPT (Generative Pre Training Transformer) model of OpenAI can understand natural language and code after training, and GPT provides text output in response to its input.',
-      time: '2h',
-      liked: true,
-      like: '890',
-      itemType: 'tools',
-      itemId: '1',
-      replies: [
-        {
-          id: '6',
-          content:
-            'Our founding team has worked on productions. In fact, my co-founder used to carry around zip-lock bags full of petty cash and receipts around, back when she was a PA on set :)',
-          time: '2h',
-          liked: false,
-          like: '890',
-          itemType: 'tools',
-          itemId: '1',
-        },
-        {
-          id: '7',
-          content:
-            'Our founding team has worked on productions. In fact, my co-founder used to carry around zip-lock bags full of petty cash and receipts around, back when she was a PA on set :)',
-          time: '4h',
-          liked: false,
-          like: '890',
-          itemType: 'tools',
-          itemId: '1',
-        },
-      ],
-    },
-    {
-      id: '2',
-      content: 'Amazingly detailed illustration! I love that!',
-      time: '9 months',
-      liked: false,
-      like: '80',
-      itemType: 'tools',
-      itemId: '1',
-      replies: [],
-    },
-    {
-      id: '3',
-      content: 'Beautiful, love the texture!',
-      time: 'almost 4 years',
-      liked: false,
-      like: '1,890',
-      itemType: 'tools',
-      itemId: '1',
-      replies: [],
-    },
-  ]
-
-  const onChangeCommentSort = (e: string) => {
+  const onChangeCommentSort = (e: Sort) => {
+    if (e === active || loading) return
     setCommentSort(e)
-  }
-
-  const onSendSucess = () => {
-    console.log(111)
   }
 
   const handleClickOutside = useCallback(
@@ -100,28 +58,80 @@ export default function CusComments({
     [active],
   )
 
+  const getComments = async () => {
+    if (loading) return
+    setLoading(true)
+    try {
+      const res = await postGetComments({
+        itemSlugName,
+        itemId,
+        sort: commentSort,
+      })
+      if (res.code === 200) {
+        const listRes = res.result || []
+        setList(listRes)
+        setTotal(listRes.length)
+        updateCommentsCount(listRes.length)
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getComments()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentSort])
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [handleClickOutside])
 
   return (
-    <div {...props} className={cn('py-2 md:py-5', className)}>
+    <div
+      {...props}
+      className={cn('py-2 md:py-5', className, {
+        loading: loading,
+      })}
+    >
       <div className='mb-2 flex items-center justify-between md:mb-5'>
         <h3 className='text-base font-semibold md:text-xl'>
           {dict.index.Comment}({filterNumber(total)})
         </h3>
-        <CusFilter active={commentSort} onChangeSort={onChangeCommentSort} />
+        <CusFilter
+          active={commentSort}
+          dict={dict}
+          onChangeSort={onChangeCommentSort}
+        />
       </div>
       <div className='mb-2 flex md:mb-5'>
-        <div className='h-6 w-6 rounded-full bg-primary/75 md:h-8 md:w-8'></div>
+        <CusImage
+          src={user.avatarUrl}
+          alt='user head'
+          width={32}
+          height={32}
+          placeholder='empty'
+          className='h-6 w-6 rounded-full md:h-8 md:w-8'
+        />
         <div className='h-1 w-1 md:w-3'></div>
         <CusCommentsInp
           placeholder={dict.tools['Add your comment here...']}
-          onSendSucess={onSendSucess}
+          itemId={itemId}
+          itemType={itemType}
+          itemSlugName={itemSlugName}
+          onSendSucess={getComments}
         />
       </div>
-      <ul className='rounded-lg border p-2 md:rounded-xl md:p-5'>
+      <ul
+        className={cn('rounded-lg border p-2 md:rounded-xl md:p-5', {
+          'border-0': total === 0,
+        })}
+      >
         {list.map((comment, index) => {
           const borderVisible = index + 1 !== list.length
           return (
@@ -131,6 +141,7 @@ export default function CusComments({
                 comment={comment}
                 dict={dict}
                 setActive={setActive}
+                commentUpdate={getComments}
               />
               {borderVisible && <Separator className='my-2 md:my-5' />}
             </li>

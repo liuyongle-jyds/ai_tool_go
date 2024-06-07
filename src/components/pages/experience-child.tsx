@@ -79,7 +79,7 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
       <CusSubTabs source={routerName.tools} />
       <div className='mb-2 mt-3 flex items-center justify-between md:mb-5 md:mt-10'>
         <div className='flex items-center'></div>
-        <CusFilter active={sort} onChangeSort={onChangeSort} />
+        <CusFilter active={sort} dict={dict} onChangeSort={onChangeSort} />
       </div>
       <CusGridUl>
         {list.map((exp) => (

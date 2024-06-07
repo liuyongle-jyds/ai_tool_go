@@ -261,6 +261,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
           type='text'
           id='text'
           value={searchVal}
+          maxLength={100}
           disabled={loading}
           placeholder={dict.index.placeholder}
           className='h-full flex-1 bg-transparent text-xs placeholder-t3 outline-none md:text-base'

@@ -3,28 +3,56 @@ import { Button } from '../ui/button'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
 import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { postAddComment } from '@/services'
+import ItemType from '@/types/ItemType'
+import { filterResp } from '@/utils/actions'
 
 interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
   placeholder: string
   onSendSucess: CallableFunction
+  itemType: ItemType
+  itemId?: string
+  replyId?: string
+  pId?: string
+  itemSlugName?: string
 }
 
 export default function CusCommentsInp({
   placeholder,
   onSendSucess,
   className,
+  itemType,
+  itemId,
+  replyId,
+  pId,
+  itemSlugName,
   ...props
 }: Props) {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const onSendComment = () => {
+  const onSendComment = async () => {
+    if (!content.trim()) return
     if (loading) return
     setLoading(true)
-    setTimeout(() => {
+    try {
+      const res = await postAddComment(itemType, content, {
+        itemId,
+        replyId,
+        pId,
+        itemSlugName,
+      })
+      if (res.code === 200) {
+        setContent('')
+        onSendSucess()
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
       setLoading(false)
-      onSendSucess()
-    }, 1000)
+    }
   }
 
   return (
@@ -32,6 +60,7 @@ export default function CusCommentsInp({
       <Textarea
         name='comment'
         value={content}
+        maxLength={400}
         onChange={(e) => setContent(e.target.value)}
         placeholder={placeholder}
         className='w-full pr-10 md:pr-20'
