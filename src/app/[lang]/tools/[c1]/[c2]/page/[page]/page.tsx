@@ -33,9 +33,11 @@ export default async function Page({ params }: Props) {
       domainNames: [c1],
       taskNames: [c2],
     })
-    const list: [] = res.result.rows || []
-    total = +res.result.total
-    toolsList = list.map((e) => filterTool(e))
+    if (res.code === 200) {
+      const list: [] = res.result.rows || []
+      total = +res.result.total
+      toolsList = list.map((e) => filterTool(e))
+    }
   } catch (error) {}
 
   await filterResp(res)

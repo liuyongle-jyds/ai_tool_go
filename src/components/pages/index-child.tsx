@@ -9,7 +9,7 @@ import { debounce } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import Tool from '@/types/Tool'
-import Experience from '@/types/Experience'
+import Learning from '@/types/Learning'
 import Faq from '@/types/Faq'
 import {
   Accordion,
@@ -76,11 +76,11 @@ export default function IndexChild({ dict, toolsList }: Props) {
     isPdata ? toolsList : lastToolsList,
   )
   const [toolsLoading, setToolsLoading] = useState(false)
-  const [expRanking, setExpRanking] = useState([] as Experience[])
+  const [expRanking, setExpRanking] = useState([] as Learning[])
   const [faqList, setFaqList] = useState([] as Faq[])
   const [searchTip, setSearchTip] = useState('')
   const [searchTools, setSearchTools] = useState([] as Tool[])
-  const [searchExp, setSearchExp] = useState([] as Experience[])
+  const [searchExp, setSearchExp] = useState([] as Learning[])
 
   const lang = params.lang as Locale
   lastToolsList = toolRanking
@@ -359,7 +359,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
                 />
                 <div className='h-1 w-1 md:w-2'></div>
                 <h3 className='text-sm font-medium md:text-lg'>
-                  {dict.index['Related experience']}
+                  {dict.index['Related Learning']}
                 </h3>
               </div>
               <ul className='space-y-2 md:space-y-3'>
@@ -417,8 +417,8 @@ export default function IndexChild({ dict, toolsList }: Props) {
         <div>
           {rankingTitleDom({
             icon: '/icons/rank_exp@2x.png',
-            title: dict.index['Experience Ranking'],
-            href: `/${lang + routerName.experience}/${slugName1}/${slugName2}/page/1`,
+            title: dict.index['Learning Ranking'],
+            href: `/${lang + routerName.learning}/${slugName1}/${slugName2}/page/1`,
           })}
           <div className='min-h-36 md:min-h-96'>
             <ul className='space-y-2 md:space-y-3'>

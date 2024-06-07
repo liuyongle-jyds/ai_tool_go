@@ -11,9 +11,10 @@ import CusIcon from '../cus/cus-icon'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import CusFilter from '../cus/cus-filter'
-import Experience from '@/types/Experience'
+import Learning from '@/types/Learning'
 import { list4 } from '@/data/test-list'
 import CusExp from '../cus/cus-exp'
+import Sort from '@/types/Sort'
 
 interface Props {
   dict: Dictionary
@@ -22,21 +23,21 @@ interface Props {
   c2?: string
 }
 
-export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
+export default function LearningChild({ dict, page = 1, c1, c2 }: Props) {
   const params = useParams()
-  const [list, setList] = useState([] as Experience[])
+  const [list, setList] = useState([] as Learning[])
 
   const lang = params.lang as Locale
 
   const total = 99
-  const [sort, setSort] = useState('popular')
+  const [sort, setSort] = useState('DESC' as Sort)
 
-  const onChangeSort = (e: string) => {
+  const onChangeSort = (e: Sort) => {
     setSort(e)
   }
 
   const getBasePath = () =>
-    `/${lang + routerName.experience}` + (c1 && c2 ? `/${c1}/${c2}` : '')
+    `/${lang + routerName.learning}` + (c1 && c2 ? `/${c1}/${c2}` : '')
 
   const onVoteExp = (id: string) => {
     setList((e) =>
@@ -72,10 +73,10 @@ export default function ExperienceChild({ dict, page = 1, c1, c2 }: Props) {
         </div>
         <div className='h-1 w-1 md:w-3'></div>
         <h1 className='text-lg font-bold md:text-[1.75rem]'>
-          {dict.header.Experience}
+          {dict.header.Learning}
         </h1>
       </div>
-      <CusTabs source={routerName.experience} />
+      <CusTabs source={routerName.learning} />
       <CusSubTabs source={routerName.tools} />
       <div className='mb-2 mt-3 flex items-center justify-between md:mb-5 md:mt-10'>
         <div className='flex items-center'></div>

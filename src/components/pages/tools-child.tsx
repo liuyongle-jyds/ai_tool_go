@@ -10,16 +10,17 @@ import Locale from '@/types/Locale'
 import { routerName } from '@/router'
 import { useParams } from 'next/navigation'
 import CusTool from '../cus/cus-tool'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Tool from '@/types/Tool'
-import { postUserAction } from '@/services'
+import { postGetTools, postUserAction } from '@/services'
 import { filterResp } from '@/utils/actions'
+import filterTool from '@/services/filters/filterTool'
 
 interface Props {
   dict: Dictionary
   page: number
-  c1?: string
-  c2?: string
+  c1: string
+  c2: string
   toolsList: Tool[]
   total: number
   pageSize: number
@@ -78,6 +79,32 @@ export default function ToolsChild({
       console.log(error)
     }
   }
+
+  const getTools = async () => {
+    try {
+      const res = await postGetTools({
+        pageNo: page,
+        pageSize,
+        domainNames: [c1],
+        taskNames: [c2],
+      })
+      const listRes: [] = res.result.rows || []
+      toolsList = listRes.map((e) => filterTool(e))
+      isPdata = false
+      setList(toolsList)
+      lastToolsList = toolsList
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    if (!isPdata) {
+      getTools()
+    }
+    return () => {
+      isPdata = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>

@@ -15,7 +15,7 @@ interface Props {
 
 export function generateMetadata({ params }: Props): Metadata {
   const { lang, page, c1, c2 } = params
-  const path = `${routerName.experience}/${c1}/${c2}/page/${page}`
+  const path = `${routerName.learning}/${c1}/${c2}/page/${page}`
   return {
     alternates: {
       canonical: `/${lang + path}`,

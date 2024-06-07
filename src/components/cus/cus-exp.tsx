@@ -1,4 +1,4 @@
-import Experience from '@/types/Experience'
+import Learning from '@/types/Learning'
 import { Button } from '../ui/button'
 import { Triangle } from 'lucide-react'
 import CusRanking from './cus-ranking'
@@ -10,7 +10,7 @@ import Link from 'next/link'
 import CusTag from './cus-tag'
 
 interface Props {
-  exp: Experience
+  exp: Learning
   onTabVote: CallableFunction
   isNotFull?: boolean
   lang: Locale
@@ -31,7 +31,7 @@ export default function CusExp({
     >
       <div className='mb-1 flex items-center justify-between md:mb-3'>
         <Link
-          href={`/${lang + routerName.experience}/all-domains/all-tasks/${exp.id}`}
+          href={`/${lang + routerName.learning}/all-domains/all-tasks/${exp.id}`}
           title={exp.name}
           className='flex-1'
         >

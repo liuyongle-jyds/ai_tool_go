@@ -1,4 +1,4 @@
-import Experience from '@/types/Experience'
+import Learning from '@/types/Learning'
 import Tool from '@/types/Tool'
 
 const list3: Tool[] = [
@@ -68,7 +68,7 @@ const list3: Tool[] = [
   },
 ]
 
-const list4: Experience[] = [
+const list4: Learning[] = [
   {
     id: '1',
     ranking: 1,

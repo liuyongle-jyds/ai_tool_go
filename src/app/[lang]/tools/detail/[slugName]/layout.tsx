@@ -11,15 +11,13 @@ interface Props {
   children: React.ReactNode
   params: {
     lang: Locale
-    c1: string
-    c2: string
     slugName: string
   }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { lang, c1, c2, slugName } = params
-  const path = `${routerName.tools}/${c1}/${c2}/${slugName}`
+  const { lang, slugName } = params
+  const path = `${routerName.tools}/detail/${slugName}`
 
   let tool = {} as Tool
   try {

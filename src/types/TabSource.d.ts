@@ -1,6 +1,6 @@
 import { routerName } from '@/router'
 
-const list = [routerName.home, routerName.tools, routerName.experience] as const
+const list = [routerName.home, routerName.tools, routerName.learning] as const
 
 type TabSource = (typeof list)[number]
 

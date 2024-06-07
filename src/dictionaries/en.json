@@ -16,8 +16,7 @@
     "Learning": "Learning",
     "Sign up": "Sign up",
     "Sign Out": "Sign Out",
-    "Profile": "Profile",
-    "Experience": "Experience"
+    "Profile": "Profile"
   },
   "footer": {
     "Terms of Service": "Terms of Service",
@@ -33,15 +32,14 @@
     "subtitle": "Making AI tools and learning resources accessible and empowering for everyone!",
     "placeholder": "Enter the content you want to inquire about.",
     "Tool Ranking": "Top AI Tools",
-    "Experience Ranking": "Top AI Learning",
+    "Learning Ranking": "Top AI Learning",
     "See All": "See All",
     "Collection": "Collection",
     "Comment": "Comment",
     "Share": "Share",
     "AIToolGo’s FAQ": "AIToolGo’s FAQ",
     "Recommended tools": "Recommended tools",
-    "Related experience": "Related experience",
-    "experiences": "experiences"
+    "Related Learning": "Related Learning"
   },
   "profile": {
     "Edit Profile": "Edit Profile",
@@ -67,14 +65,14 @@
     "UPVOTE": "UPVOTE",
     "Comments": "Comments"
   },
-  "experience": {
+  "learning": {
     "Brief introduction": "Brief introduction",
     "Using tool": "Using tool",
     "Main steps": "Main steps",
     "Original link": "Original link",
     "Recommend": "Recommend",
     "Keywords": "Keywords",
-    "Similar Experience": "Similar Experience"
+    "Similar Learning": "Similar Learning"
   },
   "termsOfService": {
     "title": "AiToolGo Terms of Service",

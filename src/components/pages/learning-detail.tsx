@@ -13,13 +13,13 @@ import CusTag from '../cus/cus-tag'
 import CusExp from '../cus/cus-exp'
 import { useEffect, useState } from 'react'
 import Tool from '@/types/Tool'
-import Experience from '@/types/Experience'
+import Learning from '@/types/Learning'
 import CusTool from '../cus/cus-tool'
 
-export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
+export default function LearningDetail({ dict }: { dict: Dictionary }) {
   const params = useParams()
   const [relatedTools, setRelatedTools] = useState([] as Tool[])
-  const [expList, setExpList] = useState([] as Experience[])
+  const [expList, setExpList] = useState([] as Learning[])
 
   const lang = params.lang as Locale
   const exp = list4[0]
@@ -136,7 +136,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
         <div>
           <h3 className='mb-2 text-base font-bold md:mb-5 md:text-xl md:leading-6'>
             <span className='text-primary'>“ </span>
-            {dict.experience['Brief introduction']}
+            {dict.learning['Brief introduction']}
           </h3>
           <div className='whitespace-pre-wrap border-l-2 bg-foreground p-1 text-xs md:border-l-4 md:p-3 md:text-sm'>
             {'sss\n\n adssad'}
@@ -145,7 +145,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
         <div>
           <h3 className='mb-2 text-base font-bold md:mb-5 md:text-xl md:leading-6'>
             <span className='text-primary'>“ </span>
-            {dict.experience['Using tool']}
+            {dict.learning['Using tool']}
           </h3>
           <div className='whitespace-pre-wrap border-l-2 bg-foreground p-1 text-xs md:border-l-4 md:p-3 md:text-sm'>
             {'sss\n\n adssad'}
@@ -154,7 +154,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
         <div>
           <h3 className='mb-2 text-base font-bold md:mb-5 md:text-xl md:leading-6'>
             <span className='text-primary'>“ </span>
-            {dict.experience['Main steps']}
+            {dict.learning['Main steps']}
           </h3>
           <div className='whitespace-pre-wrap border-l-2 bg-foreground p-1 text-xs md:border-l-4 md:p-3 md:text-sm'>
             {'sss\n\n adssad'}
@@ -167,7 +167,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
           <CusIcon name='link' className='w-3' />
           <p className='translate-y-[1px]'>
             &nbsp;
-            {dict.experience['Original link']}
+            {dict.learning['Original link']}
             <span>: </span>
             {
               'https://www.example.com/chatgpt-optimize-ecommerce-product-description'
@@ -181,7 +181,7 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
             <div className='-ml-2 h-6 w-6 rounded-full bg-red-600 md:-ml-4 md:h-10 md:w-10'></div>
             <div className='h-1 w-1 md:w-3'></div>
             <div className='text-xs font-medium md:text-sm'>
-              {'13.2k' + ' ' + dict.experience.Recommend}
+              {'13.2k' + ' ' + dict.learning.Recommend}
             </div>
           </div>
           {shareAndVoteDom()}
@@ -210,14 +210,14 @@ export default function ExperienceDetail({ dict }: { dict: Dictionary }) {
           </Link>
           <div>
             <h5 className='mb-1 text-sm font-medium md:mb-3 md:text-base'>
-              {dict.experience.Keywords}
+              {dict.learning.Keywords}
             </h5>
             <CusTag list={list3[0].tasks} size='medium' />
           </div>
         </div>
         <div className='mb-5 md:mb-10'>
           <h3 className='mb-1 text-base font-bold md:mb-3 md:text-xl md:leading-6'>
-            {dict.experience['Similar Experience']}
+            {dict.learning['Similar Learning']}
           </h3>
           <ul className='space-y-2 md:space-y-3'>
             {expList.map((e) => (

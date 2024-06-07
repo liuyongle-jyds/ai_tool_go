@@ -16,8 +16,7 @@
     "Learning": "学习",
     "Sign up": "登录",
     "Sign Out": "登出",
-    "Profile": "账号",
-    "Experience": "经验"
+    "Profile": "账号"
   },
   "footer": {
     "Terms of Service": "服务条款",
@@ -33,15 +32,14 @@
     "subtitle": "让每个人都能使用和掌握人工智能工具和学习资源！",
     "placeholder": "输入您要查询的内容。",
     "Tool Ranking": "Top AI 工具",
-    "Experience Ranking": "Top AI 学习",
+    "Learning Ranking": "Top AI 学习",
     "See All": "查看全部",
     "Collection": "收藏",
     "Comment": "评论",
     "Share": "分享",
     "AIToolGo’s FAQ": "AIToolGo的问题解答",
     "Recommended tools": "推荐工具",
-    "Related experience": "相关经验",
-    "experiences": "经验"
+    "Related Learning": "相关经验"
   },
   "profile": {
     "Edit Profile": "编辑个人资料",
@@ -67,14 +65,14 @@
     "UPVOTE": "投票",
     "Comments": "评论"
   },
-  "experience": {
+  "learning": {
     "Brief introduction": "简介",
     "Using tool": "工具使用",
     "Main steps": "主要步骤",
     "Original link": "源链接",
     "Recommend": "推荐",
     "Keywords": "关键词",
-    "Similar Experience": "相似经验"
+    "Similar Learning": "相似经验"
   },
   "termsOfService": {
     "title": "AiToolGo服务条款",

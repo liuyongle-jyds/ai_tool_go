@@ -7,11 +7,11 @@ import { Button } from '../ui/button'
 import CusIcon from '../cus/cus-icon'
 import { Triangle, Star } from 'lucide-react'
 import Category from '@/types/Category'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import CusTabs from '../cus/cus-tabs'
 import CusFilter from '../cus/cus-filter'
 import CusComments from '../cus/cus-comments'
-import Experience from '@/types/Experience'
+import Learning from '@/types/Learning'
 import { list4 } from '@/data/test-list'
 import CusTool from '../cus/cus-tool'
 import Locale from '@/types/Locale'
@@ -38,10 +38,12 @@ export default function ToolDetail({
   tool,
   toolsList,
   slugName,
+  pageSize,
 }: {
   dict: Dictionary
   tool: Tool
   slugName: string
+  pageSize: number
   toolsList: Tool[]
 }) {
   const params = useParams()
@@ -51,7 +53,7 @@ export default function ToolDetail({
     isPdata ? toolsList : lastRelatedTools,
   )
   const [currentTool, setCurrentTool] = useState(isPdata ? tool : lastTool)
-  const [expList, setExpList] = useState([] as Experience[])
+  const [expList, setExpList] = useState([] as Learning[])
 
   const lang = params.lang as Locale
   lastRelatedTools = relatedTools
@@ -69,9 +71,9 @@ export default function ToolDetail({
       link: '#application-cases',
     },
     {
-      content: dict.header.Experience,
-      id: 'experience',
-      link: '#experience',
+      content: dict.header.Learning,
+      id: 'learning',
+      link: '#learning',
     },
     {
       content: dict.tools.Comments,
@@ -234,33 +236,40 @@ export default function ToolDetail({
 
   const reload = async () => {
     try {
-      const res = await postGetTool(slugName)
-      if (res.code === 200) {
-        if (res.result) {
-          const newTool = filterTool(res.result)
+      const res1 = await postGetTool(slugName)
+      if (res1.code === 200) {
+        if (res1.result) {
+          const newTool = filterTool(res1.result)
           isPdata = false
           setCurrentTool(newTool)
           lastTool = newTool
-        }
-      } else {
-        await filterResp(res)
-      }
-    } catch (error) {}
 
-    try {
-      const res = await postGetTools({ pageSize: 3, pageNo: 1 })
-      if (res.code === 200) {
-        if (res.result) {
-          const list: [] = res.result.rows || []
-          const newList = list.map((e) => filterTool(e))
-          isPdata = false
-          setRelatedTools(newList)
-          lastRelatedTools = newList
+          const res2 = await postGetTools({
+            pageSize,
+            domainNames: newTool.domains,
+            taskNames: newTool.tasks,
+          })
+          if (res2.code === 200) {
+            if (res2.result) {
+              const list: [] = res2.result.rows || []
+              const newList = list
+                .map((e) => filterTool(e))
+                .filter((e) => e.slugName !== newTool.slugName)
+                .slice(0, pageSize - 1)
+              isPdata = false
+              setRelatedTools(newList)
+              lastRelatedTools = newList
+            }
+          } else {
+            await filterResp(res2)
+          }
         }
       } else {
-        await filterResp(res)
+        await filterResp(res1)
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -388,11 +397,11 @@ export default function ToolDetail({
           </h3>
           <CusTag list={currentTool.domains} size='lg' />
         </div>
-        <AnchorDom id='experience' />
+        <AnchorDom id='learning' />
         <div className='py-2 md:py-5'>
           <div className='mb-2 flex items-center justify-between md:mb-5'>
             <h3 className='text-base font-semibold md:text-xl'>
-              {dict.header.Experience}
+              {dict.header.Learning}
             </h3>
             <CusFilter
               active={expSort}

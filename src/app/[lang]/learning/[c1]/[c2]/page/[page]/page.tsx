@@ -1,7 +1,7 @@
 import Locale from '@/types/Locale'
 import { getDictionary } from '@/app/[lang]/dictionaries'
-import ExperienceChild from '@/components/pages/experience-child'
 import { convertPageToNumber } from '@/utils'
+import LearningChild from '@/components/pages/learning-child'
 
 interface Props {
   params: {
@@ -17,5 +17,5 @@ export default async function Page({ params }: Props) {
   const dict = await getDictionary(lang)
   const pageNumber = convertPageToNumber(page)
 
-  return <ExperienceChild dict={dict} page={pageNumber} c1={c1} c2={c2} />
+  return <LearningChild dict={dict} page={pageNumber} c1={c1} c2={c2} />
 }

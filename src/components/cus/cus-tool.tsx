@@ -33,7 +33,7 @@ export default function CusTool({
     <li className='relative rounded-lg border p-2 md:rounded-xl md:p-5'>
       <div className='mb-1 flex flex-1 items-center justify-between md:mb-3'>
         <Link
-          href={`/${lang + routerName.tools}/all-domains/all-tasks/${tool.slugName}`}
+          href={`/${lang + routerName.tools}/detail/${tool.slugName}`}
           title={tool.name}
           className='flex-1'
         >
@@ -127,7 +127,7 @@ export default function CusTool({
       </div>
       {!hideExpNum && (
         <div className='mt-2 rounded bg-foreground py-1 text-center text-xs leading-4 text-t2'>
-          {tool.learnsCount + ' ' + dict.index.experiences}
+          {tool.learnsCount + ' ' + dict.header.Learning}
         </div>
       )}
       {!tipLimit && !!tool.rank && (

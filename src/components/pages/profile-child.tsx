@@ -47,7 +47,7 @@ export default function ProfileChild({ dict }: { dict: Dictionary }) {
       value: 'TOOL',
     },
     {
-      text: dict.header.Experience,
+      text: dict.header.Learning,
       value: 'LEARN',
     },
   ]

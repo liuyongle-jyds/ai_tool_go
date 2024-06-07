@@ -82,11 +82,11 @@ export const AppContextProvider = ({
   const getExperienceList = () => {
     setExperienceList([
       {
-        text: 'Popular Experience',
+        text: 'Popular Learning',
         link: '',
       },
       {
-        text: 'Latest Experience',
+        text: 'Latest Learning',
         link: '',
       },
       {

@@ -1,4 +1,4 @@
-export default interface Experience {
+export default interface Learning {
   id: string
   ranking: number
   name: string

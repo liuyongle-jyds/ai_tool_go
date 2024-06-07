@@ -8,12 +8,14 @@ import { filterResp } from '@/utils/actions'
 import { redirect } from 'next/navigation'
 import { routerName } from '@/router'
 
+const pageSize = 4
+
 export default async function Page({
   params,
 }: {
-  params: { lang: Locale; slugName: string; c1: string; c2: string }
+  params: { lang: Locale; slugName: string }
 }) {
-  const { lang, slugName, c1, c2 } = params
+  const { lang, slugName } = params
   const dict = await getDictionary(lang)
 
   let toolRes = {} as any
@@ -22,25 +24,21 @@ export default async function Page({
   let toolsList: Tool[] = []
 
   try {
-    const [res1, res2] = await Promise.all([
-      postGetTool(slugName),
-      postGetTools({
-        pageSize: 3,
-        pageNo: 1,
-        domainNames: [c1],
-        taskNames: [c2],
-      }),
-    ])
-    toolRes = res1
-    toolsListRes = res2
-
+    toolRes = await postGetTool(slugName)
     if (toolRes.code === 200 && toolRes.result) {
       tool = filterTool(toolRes.result)
-    }
-
-    if (toolsListRes.code === 200 && toolsListRes.result) {
-      const list: [] = toolsListRes.result.rows || []
-      toolsList = list.map((e) => filterTool(e))
+      toolsListRes = await postGetTools({
+        pageSize,
+        domainNames: tool.domains,
+        taskNames: tool.tasks,
+      })
+      if (toolsListRes.code === 200) {
+        const list: [] = toolsListRes.result.rows || []
+        toolsList = list
+          .map((e) => filterTool(e))
+          .filter((e) => e.slugName !== tool.slugName)
+          .slice(0, pageSize - 1)
+      }
     }
   } catch (error) {}
 
@@ -55,6 +53,7 @@ export default async function Page({
       slugName={slugName}
       tool={tool}
       toolsList={toolsList}
+      pageSize={pageSize}
     />
   )
 }
