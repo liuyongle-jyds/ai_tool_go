@@ -27,18 +27,17 @@ export default function CusTabs({
   className,
   ...props
 }: Props) {
-  const { categories1, active1, onTabChange, active2, slugName2 } = useApp()
+  const { categories1, slugName1, setSlugName1, slugName2 } = useApp()
   const params = useParams()
 
   const lang = params.lang as Locale
 
   const onTabItem = (e: Category) => {
-    if (!active1 || !active2) return
-
-    onChangeActive?.(e.id)
+    if (!slugName1 || !slugName2) return
+    onChangeActive?.(useSelfList ? e.id : e.slugName)
     if (useSelfList) return
 
-    onTabChange(e.id, e.slugName)
+    setSlugName1(e.slugName!)
   }
 
   const getArr = () => {
@@ -46,12 +45,14 @@ export default function CusTabs({
   }
 
   const hideLinkOrNot = () => {
-    if (!active1 || !active2 || source === routerName.home) return true
+    if (!slugName1 || !slugName2 || source === routerName.home) return true
     return false
   }
 
   const liDom = (item: Category) => {
-    const isActive = useSelfList ? active === item.id : active1 === item.id
+    const isActive = useSelfList
+      ? active === item.id
+      : slugName1 === item.slugName
     const li = (
       <li
         key={item.id}

@@ -69,8 +69,28 @@ export const postGetTags = async (type: 'DOMAIN' | 'TASK') => {
   return await fetchAPI('/meta-tag/list', { body: { type } })
 }
 
-export const postGetTools = async (body = {}) => {
-  return await fetchAPI('/tool/list', { body })
+export const postGetTools = async ({
+  pageNo,
+  pageSize,
+  domainNames,
+  taskNames,
+  sort,
+}: {
+  pageNo?: number
+  pageSize?: number
+  domainNames?: string[]
+  taskNames?: string[]
+  sort?: Sort
+}) => {
+  return await fetchAPI('/tool/list', {
+    body: {
+      pageNo,
+      pageSize,
+      domainNames,
+      taskNames,
+      sort,
+    },
+  })
 }
 
 export const postGetTool = async (slugName: string) => {

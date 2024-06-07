@@ -1,5 +1,4 @@
-import { Heart } from 'lucide-react'
-import CusIcon from './cus-icon'
+import { Heart, MessageCircle } from 'lucide-react'
 import Dictionary from '@/types/Dictionary'
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from '../ui/button'
@@ -62,7 +61,7 @@ export default function CusComment({
               className='text-xs text-t2'
               onClick={onReadyReply}
             >
-              <CusIcon name='message-circle' className='h-3 w-3 text-t3' />
+              <MessageCircle className='h-3 w-3 text-t3' />
               &nbsp;
               <span className='translate-y-[1px]'>{dict.tools.Reply}</span>
             </Button>

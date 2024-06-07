@@ -30,6 +30,8 @@ export default async function Page({ params }: Props) {
     res = await postGetTools({
       pageNo,
       pageSize,
+      domainNames: [c1],
+      taskNames: [c2],
     })
     const list: [] = res.result.rows || []
     total = +res.result.total

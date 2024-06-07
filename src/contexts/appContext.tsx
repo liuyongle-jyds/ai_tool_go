@@ -25,12 +25,10 @@ interface ContextProviderValue {
   setExperienceList: Dispatch<SetStateAction<LinkA[]>>
   categories1: Category[]
   categories2: Category[]
-  active1: string
-  active2: string
   slugName1: string
   slugName2: string
-  onTabChange: (id: string, slugName?: string) => void
-  onSubTabChange: (id: string, slugName?: string) => void
+  setSlugName1: Dispatch<SetStateAction<string>>
+  setSlugName2: Dispatch<SetStateAction<string>>
 }
 
 const AppContext = createContext({} as ContextProviderValue)
@@ -49,8 +47,6 @@ export const AppContextProvider = ({
   const [experienceList, setExperienceList] = useState([] as LinkA[])
   const [categories1, setCategories1] = useState([] as Category[])
   const [categories2, setCategories2] = useState([] as Category[])
-  const [active1, setActive1] = useState('')
-  const [active2, setActive2] = useState('')
   const [slugName1, setSlugName1] = useState('')
   const [slugName2, setSlugName2] = useState('')
 
@@ -112,22 +108,13 @@ export const AppContextProvider = ({
     ])
   }
 
-  const onTabChange = (id: string, slugName?: string) => {
-    setActive1(id)
-    setSlugName1(slugName || id)
-  }
-  const onSubTabChange = (id: string, slugName?: string) => {
-    setActive2(id)
-    setSlugName2(slugName || id)
-  }
-
   const getCategories1 = useCallback(async () => {
     try {
       const res = await postGetTags('DOMAIN')
       if (res.code === 200) {
         const list: Category[] = res.result || []
         setCategories1(list)
-        onTabChange(list[0]?.id || '', list[0]?.slugName || '')
+        setSlugName1(list[0]?.slugName || '')
       } else {
         await filterResp(res)
       }
@@ -142,7 +129,7 @@ export const AppContextProvider = ({
       if (res.code === 200) {
         const list: Category[] = res.result || []
         setCategories2(list)
-        onSubTabChange(list[0]?.id || '', list[0]?.slugName || '')
+        setSlugName2(list[0]?.slugName || '')
       } else {
         await filterResp(res)
       }
@@ -229,12 +216,10 @@ export const AppContextProvider = ({
         setExperienceList,
         categories1,
         categories2,
-        active1,
-        active2,
         slugName1,
-        onTabChange,
         slugName2,
-        onSubTabChange,
+        setSlugName1,
+        setSlugName2,
       }}
     >
       {children}

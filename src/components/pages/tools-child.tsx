@@ -12,6 +12,8 @@ import { useParams } from 'next/navigation'
 import CusTool from '../cus/cus-tool'
 import { useState } from 'react'
 import Tool from '@/types/Tool'
+import { postUserAction } from '@/services'
+import { filterResp } from '@/utils/actions'
 
 interface Props {
   dict: Dictionary
@@ -41,28 +43,40 @@ export default function ToolsChild({
   const lang = params.lang as Locale
   lastToolsList = list
 
-  const onChangeActive1 = (id: string) => {
-    console.log(id)
-  }
-
-  const onChangeActive2 = (id: string) => {
-    console.log(id)
-  }
-
   const getBasePath = () =>
     `/${lang + routerName.tools}` + (c1 && c2 ? `/${c1}/${c2}` : '')
 
-  const onVoteTool = (id: string) => {
-    setList((e) =>
-      e.map((tool) =>
-        tool.id === id
-          ? {
-              ...tool,
-              voted: !tool.isVoted,
-            }
-          : tool,
-      ),
-    )
+  const onVoteTool = async (data: Tool) => {
+    try {
+      const res = await postUserAction('tool', {
+        actionModel: data.isVoted ? 'CANCEL_ACTION' : 'ACTION',
+        itemId: data.id,
+        type: 'VOTE',
+      })
+      if (res.code === 200) {
+        if (!res.result) return
+        isPdata = false
+        setList((e) =>
+          e.map((tool) =>
+            tool.id === data.id
+              ? {
+                  ...tool,
+                  isVoted: !tool.isVoted,
+                  votesCount: Math.max(
+                    tool.votesCount + (tool.isVoted ? -1 : 1),
+                    0,
+                  ),
+                }
+              : tool,
+          ),
+        )
+        lastToolsList = list
+      } else {
+        await filterResp(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -80,11 +94,8 @@ export default function ToolsChild({
           {dict.tools['All Tools']}
         </h1>
       </div>
-      <CusTabs
-        onChangeActive={onChangeActive1}
-        source={routerName.experience}
-      />
-      <CusSubTabs onChangeActive={onChangeActive2} source={routerName.tools} />
+      <CusTabs source={routerName.tools} />
+      <CusSubTabs source={routerName.tools} />
       <div className='h-3 md:h-5'></div>
       <CusGridUl>
         {list.map((tool) => (

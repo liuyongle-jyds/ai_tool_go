@@ -14,22 +14,22 @@ interface Props {
 }
 
 export default function CusSubTabs({ onChangeActive, source }: Props) {
-  const { categories2, active2, onSubTabChange, active1, slugName1 } = useApp()
+  const { categories2, slugName2, setSlugName2, slugName1 } = useApp()
   const params = useParams()
 
   const lang = params.lang as Locale
 
-  const onTabItem = (e: Category) => {
-    if (!active1 || !active2) return
-    onSubTabChange(e.id, e.slugName)
-    onChangeActive?.(e.id)
+  const onTabItem = (slugName: string) => {
+    if (!slugName1 || !slugName2) return
+    setSlugName2(slugName)
+    onChangeActive?.(slugName)
   }
 
   const getLink = (slugName?: string) =>
-    `/${lang + routerName.experience}/${slugName1}/${slugName || 'all-tasks'}/page/1`
+    `/${lang + source}/${slugName1}/${slugName || 'all-tasks'}/page/1`
 
   const hideLinkOrNot = () => {
-    if (!active1 || !active2 || source === routerName.home) return true
+    if (!slugName1 || !slugName2 || source === routerName.home) return true
     return false
   }
 
@@ -59,11 +59,11 @@ export default function CusSubTabs({ onChangeActive, source }: Props) {
         {categories2.map((item) => (
           <li
             key={item.id}
-            onClick={() => onTabItem(item)}
+            onClick={() => onTabItem(item.slugName!)}
             className={cn(
               'relative h-full shrink-0 cursor-pointer rounded bg-foreground hover:opacity-85 md:rounded-lg',
               {
-                'text-primary': active2 === item.id,
+                'text-primary': slugName2 === item.slugName,
               },
             )}
           >

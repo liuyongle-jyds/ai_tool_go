@@ -1,9 +1,8 @@
 import Tool from '@/types/Tool'
-import CusIcon from './cus-icon'
 import Dictionary from '@/types/Dictionary'
 import { Separator } from '../ui/separator'
 import { Button } from '../ui/button'
-import { Triangle } from 'lucide-react'
+import { Lightbulb, MessageCircle, Share2, Star, Triangle } from 'lucide-react'
 import CusRanking from './cus-ranking'
 import Link from 'next/link'
 import Locale from '@/types/Locale'
@@ -85,33 +84,26 @@ export default function CusTool({
         <CusTag list={tool.tasks} />
         <div className='flex h-4 items-center pt-1 text-[0.625rem] font-medium leading-3 md:pt-2 md:text-xs md:leading-none'>
           {tool.isCollected ? (
-            <CusIcon
-              name='star'
+            <Star
               fill='#EEB244'
               strokeWidth={0}
               className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
             />
           ) : (
-            <CusIcon
-              name='star'
-              className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
-            />
+            <Star className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3' />
           )}
           <span className='mx-[1px] text-t3 md:mx-1'>
             {dict.index.Collection}
           </span>
           <span>{filterNumber(tool.collectsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>
-          <CusIcon
-            name='message-circle'
-            className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
-          />
+          <MessageCircle className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3' />
           <span className='mx-[1px] text-t3 md:mx-1 '>
             {dict.index.Comment}
           </span>
           <span>{filterNumber(tool.commentsCount)}</span>
           <div className='h-1 w-2 md:w-5'></div>
-          <CusIcon
+          <Share2
             name='share-2'
             className='h-[0.625rem] w-[0.625rem] text-t3 md:h-3 md:w-3'
           />
@@ -120,7 +112,7 @@ export default function CusTool({
       </div>
       <Separator className='my-2 md:my-5' />
       <div className='flex'>
-        <CusIcon name='lightbulb' className='w-3 md:w-6' />
+        <Lightbulb className='w-3 md:w-6' />
         <div className='h-1 w-1 md:w-3'></div>
         <div
           className={cn(

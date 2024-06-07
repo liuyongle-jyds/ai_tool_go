@@ -75,6 +75,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
   const [toolRanking, setToolRanking] = useState(
     isPdata ? toolsList : lastToolsList,
   )
+  const [toolsLoading, setToolsLoading] = useState(false)
   const [expRanking, setExpRanking] = useState([] as Experience[])
   const [faqList, setFaqList] = useState([] as Faq[])
   const [searchTip, setSearchTip] = useState('')
@@ -85,6 +86,7 @@ export default function IndexChild({ dict, toolsList }: Props) {
   lastToolsList = toolRanking
 
   const onSearch = () => {
+    return
     if (loading) return
     setLoading(true)
     setTimeout(() => {
@@ -111,11 +113,11 @@ export default function IndexChild({ dict, toolsList }: Props) {
   }
 
   const onChangeActive1 = (id: string) => {
-    console.log(id)
+    getToolRanking(id, slugName2)
   }
 
   const onChangeActive2 = (id: string) => {
-    console.log(id)
+    getToolRanking(slugName1, id)
   }
 
   const rankingTitleDom = ({
@@ -207,11 +209,14 @@ export default function IndexChild({ dict, toolsList }: Props) {
     )
   }
 
-  const getToolRanking = async () => {
+  const getToolRanking = async (c1?: string, c2?: string) => {
     try {
+      setToolsLoading(true)
       const res = await postGetTools({
         pageSize: 4,
         pageNo: 1,
+        domainNames: c1 ? [c1] : undefined,
+        taskNames: c2 ? [c2] : undefined,
       })
       if (res.code === 200) {
         const list: [] = res.result.rows || []
@@ -224,6 +229,8 @@ export default function IndexChild({ dict, toolsList }: Props) {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setToolsLoading(false)
     }
   }
 
@@ -388,18 +395,24 @@ export default function IndexChild({ dict, toolsList }: Props) {
             title: dict.index['Tool Ranking'],
             href: `/${lang + routerName.tools}/${slugName1}/${slugName2}/page/1`,
           })}
-          <ul className='space-y-2 pl-2 md:space-y-3 md:pl-4'>
-            {toolRanking.map((tool) => (
-              <CusTool
-                key={tool.id}
-                tool={tool}
-                dict={dict}
-                lang={lang}
-                onTabVote={onVoteTool}
-                hideExpNum
-              />
-            ))}
-          </ul>
+          <div
+            className={cn('min-h-36 md:min-h-96', {
+              loading: toolsLoading,
+            })}
+          >
+            <ul className='space-y-2 pl-2 md:space-y-3 md:pl-4'>
+              {toolRanking.map((tool) => (
+                <CusTool
+                  key={tool.id}
+                  tool={tool}
+                  dict={dict}
+                  lang={lang}
+                  onTabVote={onVoteTool}
+                  hideExpNum
+                />
+              ))}
+            </ul>
+          </div>
         </div>
         <div>
           {rankingTitleDom({
@@ -407,17 +420,19 @@ export default function IndexChild({ dict, toolsList }: Props) {
             title: dict.index['Experience Ranking'],
             href: `/${lang + routerName.experience}/${slugName1}/${slugName2}/page/1`,
           })}
-          <ul className='space-y-2 md:space-y-3'>
-            {expRanking.map((exp) => (
-              <CusExp
-                key={exp.id}
-                lang={lang}
-                exp={exp}
-                onTabVote={onVoteExp}
-                isNotFull
-              />
-            ))}
-          </ul>
+          <div className='min-h-36 md:min-h-96'>
+            <ul className='space-y-2 md:space-y-3'>
+              {expRanking.map((exp) => (
+                <CusExp
+                  key={exp.id}
+                  lang={lang}
+                  exp={exp}
+                  onTabVote={onVoteExp}
+                  isNotFull
+                />
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <div className='py-5 md:py-10'>

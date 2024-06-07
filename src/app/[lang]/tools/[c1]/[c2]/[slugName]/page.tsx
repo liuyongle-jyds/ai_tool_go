@@ -11,9 +11,9 @@ import { routerName } from '@/router'
 export default async function Page({
   params,
 }: {
-  params: { lang: Locale; slugName: string }
+  params: { lang: Locale; slugName: string; c1: string; c2: string }
 }) {
-  const { lang, slugName } = params
+  const { lang, slugName, c1, c2 } = params
   const dict = await getDictionary(lang)
 
   let toolRes = {} as any
@@ -24,7 +24,12 @@ export default async function Page({
   try {
     const [res1, res2] = await Promise.all([
       postGetTool(slugName),
-      postGetTools({ pageSize: 3, pageNo: 1 }),
+      postGetTools({
+        pageSize: 3,
+        pageNo: 1,
+        domainNames: [c1],
+        taskNames: [c2],
+      }),
     ])
     toolRes = res1
     toolsListRes = res2
